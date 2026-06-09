@@ -1,6 +1,6 @@
-# Local project context (not committed)
-project_context.md
-project_context.html
+# Local project context (not committed at root level)
+/project_context.md
+/project_context.html
 
 # Dependencies
 node_modules/

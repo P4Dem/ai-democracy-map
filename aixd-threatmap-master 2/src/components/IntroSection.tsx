@@ -266,6 +266,10 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
 
   return (
     <div className="mb-8">
+      <h1 className="mb-6 text-2xl font-bold leading-tight text-foreground lg:text-3xl">
+        Threats, Solutions and Opportunities for Democracy in the Face of AI
+      </h1>
+
       {/* ── Top: paragraph (left, grows) + stat quadrant (right, auto width) ── */}
       {/* grid-cols-[1fr_auto]: left takes remaining space, right sizes to content */}
       <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
