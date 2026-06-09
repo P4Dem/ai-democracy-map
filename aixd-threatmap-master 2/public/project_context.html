@@ -431,7 +431,7 @@
       <button data-tab="overview">Overview <span class="tab-count">4</span></button>
       <button data-tab="setup">Setup <span class="tab-count">4</span></button>
       <button data-tab="tasks">Tasks <span class="tab-count">3</span></button>
-      <button data-tab="devlog">Dev Log <span class="tab-count">1</span></button>
+      <button data-tab="devlog">Dev Log <span class="tab-count">3</span></button>
     </div>
   </aside>
 
@@ -637,7 +637,7 @@ bun run preprocess</code></pre>
         <h3>Data &amp; Content</h3>
         <ul>
           <li><input type="checkbox" disabled> <strong>Update data to V10.0</strong> — replace <code>mapping.csv</code></li>
-          <li><input type="checkbox" disabled> <strong>Rename "solution" → "mitigation strategy"</strong> — everywhere</li>
+          <li><input type="checkbox" disabled checked> <strong>Rename "solution" → "mitigation strategy"</strong> — everywhere</li>
           <li><input type="checkbox" disabled> <strong>Update Introduction text</strong> — rewrite intro</li>
           <li><input type="checkbox" disabled> <strong>Add codebook link</strong> — to P4Democracy aspects</li>
           <li><input type="checkbox" disabled> <strong>Move decentralisation</strong> — pillar 3 → pillar 2</li>
@@ -645,9 +645,9 @@ bun run preprocess</code></pre>
 
         <h3>Filter Buttons</h3>
         <ul>
-          <li><input type="checkbox" disabled> <strong>Extend search bar</strong></li>
-          <li><input type="checkbox" disabled> <strong>Rename:</strong> Type → Impact type, Threat+Solution → Threat+mitigation pairing, Opportunity → Independent opportunity, Aspects → Democracy aspects</li>
-          <li><input type="checkbox" disabled> <strong>Fix threat+solution filter</strong> — only show pairings</li>
+          <li><input type="checkbox" disabled checked> <strong>Extend search bar</strong> — <code>w-64</code> → <code>w-72</code></li>
+          <li><input type="checkbox" disabled checked> <strong>Rename:</strong> Type → Impact type, Threat+Solution → Threat+mitigation pairing, Opportunity → Independent opportunity, Aspects → Democracy aspects</li>
+          <li><input type="checkbox" disabled checked> <strong>Fix threat+solution filter</strong> — pills show friendly labels</li>
         </ul>
 
         <h3>Table Headers</h3>
@@ -739,6 +739,52 @@ bun run preprocess</code></pre>
       <section data-tab="devlog" id="dev-log">
         <h2>Development Log</h2>
         <p>Chronological record of setup, fixes, and decisions. Newest entries first.</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Day 3: Updated filter buttons (search bar, labels, pill fixes)</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Extend search bar, rename filter labels, fix type pill display.</p>
+            <p><strong>What was done:</strong></p>
+            <ol>
+              <li><strong>Extended search bar</strong> — width from <code>w-64</code> (256px) to <code>w-72</code> (288px)</li>
+              <li><strong>Renamed filter labels:</strong>
+                <ul>
+                  <li><code>Type</code> → <code>Impact type</code></li>
+                  <li><code>Opportunity</code> → <code>Independent opportunity</code></li>
+                  <li><code>Aspects</code> → <code>Democracy aspects</code></li>
+                </ul>
+              </li>
+              <li><strong>Fixed type pill labels</strong> — pills now show friendly names (<code>Threat + Mitigation pairing</code>, etc.) instead of raw type values. Pill prefix updated from <code>Type:</code> to <code>Impact type:</code>.</li>
+            </ol>
+            <p><strong>Files changed:</strong> <code>FilterBar.tsx</code></p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Day 2: Renamed "Solution" → "Mitigation Strategy" everywhere</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Update all user-facing references from "solution" to "mitigation strategy".</p>
+            <p><strong>What was done:</strong></p>
+            <ol>
+              <li><strong>Table column header</strong> — "Solution" → "Mitigation Strategy"</li>
+              <li><strong>Fallback text</strong> — "No solution mapped" → "No mitigation mapped"</li>
+              <li><strong>Group label</strong> — "same threat — different solution" → "same threat — different mitigation"</li>
+              <li><strong>Filter bar</strong> — search placeholder "solutions" → "mitigations", type filter "Threat + Solution" → "Threat + Mitigation pairing"</li>
+              <li><strong>Type badge</strong> — "Threat + Solution" → "Threat + Mitigation"</li>
+              <li><strong>Intro section</strong> — stat "Solutions mapped" → "Mitigations mapped", intro text updated</li>
+              <li><strong>Page title &amp; meta</strong> — <code>&lt;title&gt;</code>, description, og tags all updated</li>
+              <li><strong>CSV export</strong> — column header in exported CSV</li>
+            </ol>
+            <p><strong>Files changed:</strong> <code>DataTable.tsx</code>, <code>FilterBar.tsx</code>, <code>TypeBadge.tsx</code>, <code>IntroSection.tsx</code>, <code>index.astro</code>, <code>utils.ts</code></p>
+            <p><strong>Key decisions:</strong> Internal code identifiers (property names, type strings) left unchanged — they're data pipeline internals, not user-facing text.</p>
+          </div>
+        </div>
 
         <div class="entry">
           <div class="entry-header">

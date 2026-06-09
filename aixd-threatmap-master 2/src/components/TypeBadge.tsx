@@ -14,7 +14,7 @@ type TypeConfig = {
 
 const TYPE_CONFIG: Record<string, TypeConfig> = {
   "threat-solution": {
-    label: "Threat +\nSolution",
+    label: "Threat +\nMitigation",
     className: "bg-p4d-brick/10 text-p4d-brick border-p4d-brick/20",
     twoLine: true,
   },

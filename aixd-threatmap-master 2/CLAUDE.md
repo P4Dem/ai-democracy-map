@@ -64,14 +64,14 @@ DELETE /api/admin/preview → clear pending preview
 **Colors (semantic):**
 - `--color-p4d-ecru: #F4F4EA` — page background
 - `--color-p4d-brick: #963735` — threats, danger, destructive actions, Pillar 1
-- `--color-p4d-grassroot: #00B140` — solutions, opportunities, publish actions, Pillar 2
+- `--color-p4d-grassroot: #00B140` — mitigation strategies, opportunities, publish actions, Pillar 2
 - `--color-p4d-blue: #92C2FF` — Pillar 3, accent
 - `--color-p4d-lime: #D9E021` — Pillar 4, warnings
 - `--color-p4d-orange: #FF8E32`, `--color-p4d-pink: #FFB3E6` — supplementary
 
 **Principles:**
 1. Data density over decoration — the table is the product
-2. Brand colors carry meaning — brick = threat/danger, grassroot = solution/opportunity
+2. Brand colors carry meaning — brick = threat/danger, grassroot = mitigation strategy/opportunity
 3. Hierarchy through typography, not chrome — weight and size, not borders or fills
 4. Ecru base is intentional — preserve it across all surfaces
 5. Restraint is the aesthetic — considered, not stripped
@@ -83,20 +83,20 @@ DELETE /api/admin/preview → clear pending preview
 | `ThreatMap.tsx` | Root island — loads data, owns filter state, URL sync, sticky filterbar |
 | `DataTable.tsx` | TanStack table, infinite scroll, row grouping, skeleton |
 | `FilterBar.tsx` | Search, type/aspects/source/mapped filters, filter pills, CSV export, sticky state |
-| `IntroSection.tsx` | Count-up stats (threats, solutions, opportunities, aspects) |
+| `IntroSection.tsx` | Count-up stats (threats, mitigation strategies, opportunities, aspects) |
 | `SkeletonIntroSection.tsx` | Skeleton for IntroSection during load |
 | `SkeletonTable.tsx` | `SkeletonTable` (initial) + `SkeletonRow` (infinite scroll, `noAnimation` prop) |
 | `ExpandedRow.tsx` | Verbatim quotes, metadata, aspect chips (all visible) |
 | `AspectChips.tsx` | Pillar-colored badge chips with `+N` overflow; `maxVisible` prop |
 | `AspectDialog.tsx` | Pillar-accented dialog with aspect definition + description |
-| `TypeBadge.tsx` | Threat/Opportunity/ThreatSolution badge, `min-w-[5.5rem]` uniform width |
+| `TypeBadge.tsx` | Threat/Opportunity/Threat+Mitigation badge, `min-w-[5.5rem]` uniform width |
 | `MultiSelect.tsx` | Dropdown via `createPortal` (escapes Card `overflow-hidden`) |
 | `AdminPanel.tsx` | React island for admin — upload, preview, publish, restore |
 
 ## Table layout
 
 ```
-Type: 160px | Description: auto | Solution: auto | Aspects: 280px | Source: 140px
+Type: 160px | Description: auto | Mitigation Strategy: auto | Aspects: 280px | Source: 140px
 ```
 
 - `table-fixed`, `min-w-[900px]` — scrolls horizontally below 900px
@@ -134,12 +134,12 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 
 ## Features built
 
-- Filterable table: type, democracy aspects, source, mapped (has solution)
-- Global text search across description + solution + verbatim
+- Filterable table: type, democracy aspects, source, mapped (has mitigation)
+- Global text search across description + mitigation + verbatim
 - Active filter pills (individually removable)
 - Default sort: threats first, then by description
 - Row expand/collapse with animation
-- Visual grouping: `↳ same threat — different solution` label for grouped rows
+- Visual grouping: `↳ same threat — different mitigation` label for grouped rows
 - ExpandedRow: verbatim quotes, metadata, all aspect chips
 - AspectDialog: pillar-colored header, definition + description
 - Infinite scroll with skeleton resistance
@@ -157,7 +157,7 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Coverage heatmap (aspects × source matrix)
 - Dashboard summary panel (counts, percentages, top aspects)
 - Row permalinks (`?id=X`)
-- Search highlight (matched terms in description/solution)
+- Search highlight (matched terms in description/mitigation strategy)
 - Aspect examples in `aspects.json`
 
 ## Data files

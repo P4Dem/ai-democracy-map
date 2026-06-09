@@ -40,7 +40,7 @@ Two files drive the entire dataset:
 
 **`data/raw/mapping.csv`** — the source data. Each row is one entry with:
 - A `Stable ID` (permanent identifier)
-- Up to 3 text fields: threat (paraphrased + verbatim), solution (paraphrased + verbatim), independent opportunity (paraphrased + verbatim) — `///` marks an absent field
+- Up to 3 text fields: threat (paraphrased + verbatim), mitigation strategy (paraphrased + verbatim), independent opportunity (paraphrased + verbatim) — `///` marks an absent field
 - A `Source` field containing a full citation and URL
 - Up to 6 `P4Dem Category` columns referencing aspect codes
 

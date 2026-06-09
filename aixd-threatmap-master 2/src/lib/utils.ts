@@ -14,7 +14,7 @@ const escapeCsvField = (value: string): string => {
 };
 
 export const exportToCsv = (items: Item[], aspects: AspectMap, filename = "threatmap-export.csv") => {
-  const headers = ["Type", "Description", "Solution", "Aspects", "Source"];
+  const headers = ["Type", "Description", "Mitigation Strategy", "Aspects", "Source"];
   const rows = items.map((item) => [
     item.type,
     item.description,

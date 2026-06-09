@@ -66,7 +66,7 @@ const STAT_DEFS: StatDef[] = [
     color: "text-p4d-brick",
   },
   {
-    label: "Solutions mapped",
+    label: "Mitigations mapped",
     getValue: (items) =>
       items.filter((i) => i.type === "threat-solution").length,
     color: "text-p4d-grassroot",
@@ -266,8 +266,8 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
 
   return (
     <div className="mb-8">
-      <h1 className="mb-6 text-2xl font-bold leading-tight text-foreground lg:text-3xl">
-        Threats, Solutions and Opportunities for Democracy in the Face of AI
+      <h1 className="mb-6 pt-8 text-2xl font-bold leading-tight text-foreground lg:pt-12 lg:text-3xl">
+        Threats, Mitigation Strategies and Opportunities for Democracy in the Face of AI
       </h1>
 
       {/* ── Top: paragraph (left, grows) + stat quadrant (right, auto width) ── */}
@@ -276,7 +276,7 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
         {/* Two-column grid — text anchored in left column, right column open */}
         <div className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
           <p className="text-base leading-relaxed text-foreground/70">
-            This map synthesises threats, proposed solutions, and, independently,
+            This map synthesises threats, proposed mitigation strategies, and, independently,
             opportunities for AI to improve democracy drawn from a diverse set of
             existing maps and overview literature.
           </p>

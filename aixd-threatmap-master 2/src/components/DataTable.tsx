@@ -178,7 +178,7 @@ export const DataTable = ({
           if (group?.isGrouped && !group.isFirstInGroup) {
             return (
               <span className="italic text-muted-foreground">
-                ↳ same threat — different solution
+                ↳ same threat — different mitigation
               </span>
             );
           }
@@ -191,7 +191,7 @@ export const DataTable = ({
       },
       {
         accessorKey: "solution",
-        header: "Solution",
+        header: "Mitigation Strategy",
         cell: ({ row }) => {
           // independent-opportunity: the opportunity description renders here
           if (row.original.type === "independent-opportunity") {
@@ -214,7 +214,7 @@ export const DataTable = ({
                   {row.original.solution}
                 </span>
               ) : (
-                <span className="italic text-muted-foreground">No solution mapped</span>
+                <span className="italic text-muted-foreground">No mitigation mapped</span>
               )}
             </div>
           );

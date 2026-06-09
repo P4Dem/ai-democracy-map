@@ -6,7 +6,13 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MultiSelect } from "@/components/MultiSelect";
-import type { FilterState, Item, AspectMap } from "@/lib/types";
+import type { FilterState, Item, AspectMap, ItemType } from "@/lib/types";
+
+const TYPE_LABELS: Record<ItemType, string> = {
+  "threat-solution": "Threat + Mitigation pairing",
+  threat: "Threat",
+  "independent-opportunity": "Independent opportunity",
+};
 
 type FilterBarProps = {
   items: Item[];
@@ -68,7 +74,7 @@ export const FilterBar = ({
     for (const t of filters.type) {
       result.push({
         key: `type:${t}`,
-        label: `Type: ${t}`,
+        label: `Impact type: ${TYPE_LABELS[t] ?? t}`,
         onRemove: () => setFilter("type", filters.type.filter((v) => v !== t) as FilterState["type"]),
       });
     }
@@ -99,11 +105,11 @@ export const FilterBar = ({
       ].join(" ")}
     >
       <div className="flex flex-wrap items-center gap-2.5">
-        {/* Search is the primary control — first, slightly wider than default */}
-        <div className="relative w-64">
+        {/* Search is the primary control — first, wider than default */}
+        <div className="relative w-72">
           <Search className="pointer-events-none absolute left-2.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
           <Input
-            placeholder="Search threats, solutions..."
+            placeholder="Search threats, mitigations..."
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
             className="h-9 pl-9"
@@ -111,18 +117,18 @@ export const FilterBar = ({
         </div>
 
         <MultiSelect
-          label="Type"
+          label="Impact type"
           options={[
-            { value: "threat-solution", label: "Threat + Solution" },
+            { value: "threat-solution", label: "Threat + Mitigation pairing" },
             { value: "threat", label: "Threat" },
-            { value: "independent-opportunity", label: "Opportunity" },
+            { value: "independent-opportunity", label: "Independent opportunity" },
           ]}
           selected={filters.type}
           onChange={(v) => setFilter("type", v as FilterState["type"])}
         />
 
         <MultiSelect
-          label="Aspects"
+          label="Democracy aspects"
           options={aspectOptions}
           selected={filters.aspect}
           onChange={(v) => setFilter("aspect", v)}
