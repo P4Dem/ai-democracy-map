@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AIxD Threat Map — Project Context</title>
+<style>
+  :root {
+    --ecru: #F4F4EA;
+    --brick: #963735;
+    --grassroot: #00B140;
+    --blue: #92C2FF;
+    --lime: #D9E021;
+    --orange: #FF8E32;
+    --pink: #FFB3E6;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --card: #ffffff;
+    --border: #ddd;
+    --font: "Beatrice", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    --sidebar-w: 220px;
+  }
+
+  @font-face {
+    font-family: "Beatrice";
+    src: url("aixd-threatmap-master 2/public/fonts/Beatrice-Regular.otf") format("opentype");
+    font-weight: 400;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Beatrice";
+    src: url("aixd-threatmap-master 2/public/fonts/Beatrice-Bold.otf") format("opentype");
+    font-weight: 700;
+    font-style: normal;
+  }
+  @font-face {
+    font-family: "Beatrice";
+    src: url("aixd-threatmap-master 2/public/fonts/Beatrice-RegularItalic.otf") format("opentype");
+    font-weight: 400;
+    font-style: italic;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font);
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--ecru);
+  }
+
+  /* ── layout ── */
+  .layout {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  /* ── sidebar ── */
+  .sidebar {
+    position: sticky;
+    top: 0;
+    width: var(--sidebar-w);
+    height: 100vh;
+    padding: 1.5rem 0;
+    border-right: 1px solid var(--border);
+    background: var(--card);
+    flex-shrink: 0;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar-brand {
+    padding: 0 1rem 1rem;
+    border-bottom: 2px solid var(--ecru);
+    margin-bottom: 0.75rem;
+  }
+  .sidebar-brand h1 {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--brick);
+    line-height: 1.3;
+  }
+  .sidebar-brand .badge {
+    display: inline-block;
+    margin-top: 0.35rem;
+    padding: 0.15rem 0.6rem;
+    border-radius: 999px;
+    font-size: 0.65rem;
+    background: var(--brick);
+    color: #fff;
+  }
+
+  .sidebar-nav { flex: 1; padding: 0 0.25rem; }
+  .sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: all 120ms;
+    border-left: 2px solid transparent;
+  }
+  .sidebar-nav a:hover {
+    color: var(--text);
+    background: var(--ecru);
+  }
+  .sidebar-nav a.active {
+    color: var(--brick);
+    font-weight: 700;
+    border-left-color: var(--brick);
+    background: rgba(150,55,53,0.06);
+  }
+  .sidebar-nav .nav-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .sidebar-tabs {
+    padding: 0.75rem 0.75rem 0;
+    border-top: 1px solid var(--ecru);
+    margin-top: auto;
+  }
+  .sidebar-tabs button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.3rem 0.5rem;
+    border: none;
+    border-radius: 4px;
+    background: none;
+    font-family: var(--font);
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 120ms;
+  }
+  .sidebar-tabs button:hover { background: var(--ecru); color: var(--text); }
+  .sidebar-tabs button.active { color: var(--brick); background: rgba(150,55,53,0.06); }
+  .sidebar-tabs .tab-count {
+    float: right;
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 400;
+  }
+
+  /* ── sidebar toggle (mobile) ── */
+  .sidebar-toggle {
+    display: none;
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 100;
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--card);
+    font-size: 0.85rem;
+    cursor: pointer;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+  }
+
+  /* ── tabs bar ── */
+  .tabs-bar {
+    display: flex;
+    gap: 0;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--ecru);
+    border-bottom: 1px solid var(--border);
+    padding: 0 6rem;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .tabs-bar button {
+    flex-shrink: 0;
+    padding: 0.7rem 1.25rem;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    font-family: var(--font);
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 150ms;
+    white-space: nowrap;
+  }
+  .tabs-bar button:hover { color: var(--text); background: rgba(0,0,0,0.02); }
+  .tabs-bar button.active {
+    color: var(--brick);
+    border-bottom-color: var(--brick);
+  }
+
+  /* ── main ── */
+  .main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 2rem 6rem 3rem;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 1.5rem;
+    border-bottom: 3px solid var(--brick);
+    margin-bottom: 2rem;
+  }
+  header h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--brick);
+  }
+  header p {
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    font-size: 0.9rem;
+  }
+
+  section {
+    background: var(--card);
+    border-radius: 8px;
+    padding: 1.5rem 2rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    scroll-margin-top: 4rem;
+  }
+  section.hidden-tab { display: none; }
+
+  h2 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    padding-bottom: 0.35rem;
+    border-bottom: 2px solid var(--ecru);
+    color: var(--brick);
+  }
+  h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin: 1rem 0 0.5rem;
+  }
+
+  p { margin-bottom: 0.75rem; }
+  p:last-child { margin-bottom: 0; }
+
+  ul, ol { padding-left: 1.5rem; margin-bottom: 0.75rem; }
+  li { margin-bottom: 0.35rem; }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th, td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--ecru);
+  }
+  th {
+    font-weight: 700;
+    color: var(--brick);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  tr:last-child td { border-bottom: none; }
+
+  code {
+    font-family: "SF Mono", "Fira Code", "Fira Mono", Menlo, monospace;
+    font-size: 0.85em;
+    background: var(--ecru);
+    padding: 0.15em 0.4em;
+    border-radius: 3px;
+  }
+
+  pre {
+    background: #1a1a1a;
+    color: #e0e0e0;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    margin: 0.75rem 0;
+  }
+  pre code { background: none; padding: 0; color: inherit; }
+
+  .color-swatch {
+    display: inline-block;
+    width: 14px; height: 14px;
+    border-radius: 3px;
+    vertical-align: middle;
+    margin-right: 6px;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .color-list { list-style: none; padding: 0; }
+  .color-list li { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.4rem; }
+
+  .note {
+    background: #fff9e6;
+    border-left: 3px solid var(--lime);
+    padding: 0.75rem 1rem;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    margin: 1rem 0;
+  }
+
+  .tags { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0; }
+  .tag {
+    padding: 0.2rem 0.7rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    background: var(--ecru);
+    color: var(--text-muted);
+  }
+  .tag.green { background: var(--grassroot); color: #fff; }
+  .tag.brick { background: var(--brick); color: #fff; }
+
+  .entry {
+    padding: 0.6rem 0.75rem;
+    margin-bottom: 0.5rem;
+    border-left: 3px solid var(--blue);
+    background: var(--ecru);
+    border-radius: 0 4px 4px 0;
+    font-size: 0.9rem;
+  }
+  .entry-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+  .entry-date {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--brick);
+    white-space: nowrap;
+  }
+  .entry-title { font-weight: 700; }
+  .entry-body { margin-top: 0.4rem; color: var(--text); }
+  .entry-body ul { margin-top: 0.3rem; margin-bottom: 0.3rem; }
+  .entry-body table { font-size: 0.82rem; margin: 0.5rem 0; }
+  .entry-body table th { font-size: 0.7rem; }
+  .entry .tag {
+    font-size: 0.65rem;
+    padding: 0.1rem 0.5rem;
+  }
+
+  .checklist-grid {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 0.75rem;
+    font-size: 0.9rem;
+    margin: 0.5rem 0;
+  }
+  .checklist-grid .status {
+    font-weight: 700;
+  }
+  .checklist-grid .status.ok { color: var(--grassroot); }
+  .checklist-grid .status.fail { color: var(--brick); }
+
+  footer {
+    text-align: center;
+    padding: 2rem 0;
+    color: var(--text-muted);
+    font-size: 0.85rem;
+  }
+
+  /* ── responsive ── */
+  @media (max-width: 900px) {
+    .sidebar { display: none; }
+    .sidebar.open { display: flex; position: fixed; z-index: 99; box-shadow: 2px 0 12px rgba(0,0,0,0.12); }
+    .sidebar-toggle { display: block; }
+    .tabs-bar { padding: 0 1rem; }
+    .container { padding: 1.5rem 1rem 2rem; }
+    header { padding: 2rem 0.5rem 1rem; }
+    header h1 { font-size: 1.35rem; }
+    section { padding: 1rem; }
+    table { font-size: 0.8rem; }
+    .entry-header { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+
+<button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle navigation">&#9776; Nav</button>
+
+<div class="layout">
+
+  <!-- ─── SIDEBAR ─── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <h1>AIxD Threat Map</h1>
+      <span class="badge">Local Only</span>
+    </div>
+
+    <nav class="sidebar-nav" id="sidebarNav">
+      <a href="#purpose"><span class="nav-dot" style="background:var(--brick)"></span>Purpose</a>
+      <a href="#quick-start"><span class="nav-dot" style="background:var(--grassroot)"></span>Quick Start</a>
+      <a href="#stack"><span class="nav-dot" style="background:var(--blue)"></span>Stack</a>
+      <a href="#project-structure"><span class="nav-dot" style="background:var(--orange)"></span>Project Structure</a>
+      <a href="#data-pipeline"><span class="nav-dot" style="background:var(--lime)"></span>Data Pipeline</a>
+      <a href="#deployment"><span class="nav-dot" style="background:var(--pink)"></span>Deployment</a>
+      <a href="#architecture"><span class="nav-dot" style="background:var(--brick)"></span>Architecture</a>
+      <a href="#design-system"><span class="nav-dot" style="background:var(--blue)"></span>Design System</a>
+      <a href="#todo"><span class="nav-dot" style="background:var(--orange)"></span>Pre-Publish Todo</a>
+      <a href="#contribution"><span class="nav-dot" style="background:var(--grassroot)"></span>Contribution Guide</a>
+      <a href="#key-files"><span class="nav-dot" style="background:var(--text-muted)"></span>Key Files</a>
+      <a href="#dev-log"><span class="nav-dot" style="background:var(--brick)"></span>Development Log</a>
+    </nav>
+
+    <div class="sidebar-tabs">
+      <button data-tab="all" class="active">All <span class="tab-count">12</span></button>
+      <button data-tab="overview">Overview <span class="tab-count">4</span></button>
+      <button data-tab="setup">Setup <span class="tab-count">4</span></button>
+      <button data-tab="tasks">Tasks <span class="tab-count">3</span></button>
+      <button data-tab="devlog">Dev Log <span class="tab-count">1</span></button>
+    </div>
+  </aside>
+
+  <!-- ─── MAIN ─── -->
+  <div class="main">
+
+    <!-- tabs bar -->
+    <div class="tabs-bar" id="tabsBar">
+      <button data-tab="all" class="active">All</button>
+      <button data-tab="overview">Overview</button>
+      <button data-tab="setup">Setup</button>
+      <button data-tab="tasks">Tasks</button>
+      <button data-tab="devlog">Dev Log</button>
+    </div>
+
+    <div class="container">
+
+      <header>
+        <h1>AIxD Threat Map</h1>
+        <p>Project Context &amp; Developer Guide</p>
+      </header>
+
+      <!-- PURPOSE -->
+      <section data-tab="overview" id="purpose">
+        <h2>Purpose</h2>
+        <p>
+          Filterable, searchable database of ~190 AI threats and opportunities to democracy,
+          mapped to the <strong>IDEA Democracy Assessment Framework</strong> (P4Democracy aspect codes).
+          Built for P4D researchers to share with policymakers. The map is an <strong>embeddable
+          static component</strong> — no server, no database, no backend. All interactivity is
+          client-side React. Data is compiled from CSV at build time.
+        </p>
+      </section>
+
+      <!-- QUICK START -->
+      <section data-tab="setup" id="quick-start">
+        <h2>Quick Start</h2>
+
+        <h3>Prerequisites</h3>
+        <table>
+          <tr><th>Tool</th><th>Version</th><th>Why</th></tr>
+          <tr><td>Node.js</td><td>&gt;= 22.12.0</td><td>Required by Astro 6 (v20 won't work)</td></tr>
+          <tr><td>Bun</td><td>latest</td><td>Package manager + dev server</td></tr>
+          <tr><td>Python 3</td><td>any 3.x</td><td>Data preprocessing pipeline</td></tr>
+          <tr><td>Git</td><td>any</td><td>Version control</td></tr>
+        </table>
+
+        <h3>Setup</h3>
+        <pre><code># 1. Navigate to the source directory
+cd "aixd-threatmap-master 2"
+
+# 2. Install JavaScript dependencies
+bun install
+
+# 3. (One-time) Set up Python preprocessing
+cd preprocessing
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+cd ..
+
+# 4. Run dev server (http://localhost:4321)
+bun run dev</code></pre>
+
+        <h3>Commands</h3>
+        <table>
+          <tr><th>Command</th><th>What it does</th></tr>
+          <tr><td><code>bun run dev</code></td><td>Start dev server at localhost:4321</td></tr>
+          <tr><td><code>bun run build</code></td><td>Production build → <code>dist/</code></td></tr>
+          <tr><td><code>bun run preprocess</code></td><td>Regenerate <code>data.json</code> from CSV</td></tr>
+          <tr><td><code>bun test</code></td><td>TypeScript unit tests</td></tr>
+          <tr><td><code>pytest preprocessing/tests/</code></td><td>Python tests</td></tr>
+          <tr><td><code>bun run preview</code></td><td>Preview production build locally</td></tr>
+        </table>
+
+        <div class="note">
+          <strong>Node.js too old?</strong> Install v22 via nvm: <code>nvm install 22 && nvm use 22</code>
+        </div>
+      </section>
+
+      <!-- STACK -->
+      <section data-tab="overview" id="stack">
+        <h2>Stack</h2>
+        <table>
+          <tr><th>Layer</th><th>What we use</th></tr>
+          <tr><td>Framework</td><td>Astro 6 (static output)</td></tr>
+          <tr><td>UI</td><td>React 19 (single island)</td></tr>
+          <tr><td>Table</td><td>TanStack Table v8</td></tr>
+          <tr><td>Components</td><td>shadcn/ui (Base UI)</td></tr>
+          <tr><td>Styling</td><td>Tailwind CSS v4</td></tr>
+          <tr><td>Font</td><td>Beatrice (P4D brand grotesque)</td></tr>
+          <tr><td>Hosting</td><td>GitHub Pages (or any static host)</td></tr>
+          <tr><td>Package mgr</td><td>Bun</td></tr>
+          <tr><td>Testing</td><td>bun:test (TS) + pytest (Python)</td></tr>
+        </table>
+      </section>
+
+      <!-- PROJECT STRUCTURE -->
+      <section data-tab="setup" id="project-structure">
+        <h2>Project Structure</h2>
+        <pre><code>git root/
+&#x251C;&#x2500;&#x2500; .github/workflows/deploy.yml   &#x2190; GitHub Actions &#x2192; GitHub Pages
+&#x251C;&#x2500;&#x2500; project_context.md             &#x2190; you are here (gitignored)
+&#x251C;&#x2500;&#x2500; project_context.html           &#x2190; rendered HTML (gitignored)
+&#x251C;&#x2500;&#x2500; .gitignore
+&#x2502;
+&#x2514;&#x2500;&#x2500; aixd-threatmap-master 2/       &#x2190; ALL source code here
+    &#x251C;&#x2500;&#x2500; src/
+    &#x2502;   &#x251C;&#x2500;&#x2500; components/   React (ThreatMap, DataTable, etc.)
+    &#x2502;   &#x251C;&#x2500;&#x2500; hooks/        useDataLoader, useFilters
+    &#x2502;   &#x251C;&#x2500;&#x2500; lib/          types.ts, utils.ts
+    &#x2502;   &#x251C;&#x2500;&#x2500; pages/        index.astro (single page)
+    &#x2502;   &#x2514;&#x2500;&#x2500; styles/       globals.css (Tailwind + P4D theme)
+    &#x251C;&#x2500;&#x2500; public/
+    &#x2502;   &#x251C;&#x2500;&#x2500; data/         data.json, aspects.json
+    &#x2502;   &#x2514;&#x2500;&#x2500; fonts/        Beatrice OTF files
+    &#x251C;&#x2500;&#x2500; data/raw/      mapping.csv (source data)
+    &#x251C;&#x2500;&#x2500; preprocessing/ Python pipeline + tests
+    &#x251C;&#x2500;&#x2500; astro.config.mjs
+    &#x251C;&#x2500;&#x2500; package.json
+    &#x2514;&#x2500;&#x2500; CLAUDE.md       (architecture, design system, conventions)</code></pre>
+        <div class="note">
+          <strong>Always</strong> run commands from inside <code>aixd-threatmap-master 2/</code>.
+          The git root is one level above.
+        </div>
+      </section>
+
+      <!-- DATA PIPELINE -->
+      <section data-tab="setup" id="data-pipeline">
+        <h2>Data Pipeline</h2>
+        <pre><code>data/raw/mapping.csv + public/data/aspects.json
+  &#x2192; preprocessing/preprocess.py
+  &#x2192; public/data/data.json  (committed &#x2014; static data source)</code></pre>
+        <p>To regenerate after updating the CSV:</p>
+        <pre><code>source preprocessing/.venv/bin/activate
+bun run preprocess</code></pre>
+      </section>
+
+      <!-- DEPLOYMENT -->
+      <section data-tab="setup" id="deployment">
+        <h2>Deployment</h2>
+
+        <h3>GitHub Pages</h3>
+        <p>Push to <code>dev</code> or <code>main</code> triggers the GitHub Action, which:</p>
+        <ol>
+          <li>Installs Bun + dependencies</li>
+          <li>Runs <code>bun run build</code></li>
+          <li>Uploads <code>dist/</code> as artifact</li>
+          <li>Deploys to GitHub Pages</li>
+        </ol>
+
+        <h3>Embedding in P4D website</h3>
+        <p>The map is fully static and can be embedded anywhere:</p>
+        <ul>
+          <li><strong>Iframe:</strong> <code>&lt;iframe src="https://org.github.io/ai-democracy-map/"&gt;</code></li>
+          <li><strong>Static files:</strong> Copy <code>dist/</code> contents to any server</li>
+        </ul>
+
+        <h3>Custom paths</h3>
+        <p>If deployed under a subdirectory, set these env vars at build time:</p>
+        <table>
+          <tr><th>Env Var</th><th>Default</th><th>Example</th></tr>
+          <tr><td><code>PUBLIC_DATA_URL</code></td><td><code>/data/data.json</code></td><td><code>/tools/ai-map/data/data.json</code></td></tr>
+          <tr><td><code>PUBLIC_ASPECTS_URL</code></td><td><code>/data/aspects.json</code></td><td><code>/tools/ai-map/data/aspects.json</code></td></tr>
+        </table>
+      </section>
+
+      <!-- ARCHITECTURE -->
+      <section data-tab="overview" id="architecture">
+        <h2>Architecture</h2>
+        <ul>
+          <li><strong>Single page:</strong> One Astro page renders <code>&lt;ThreatMap client:load /&gt;</code></li>
+          <li><strong>All client-side:</strong> React handles filtering, searching, sorting, infinite scroll</li>
+          <li><strong>Runtime data:</strong> <code>useDataLoader</code> fetches <code>data.json</code> + <code>aspects.json</code> via HTTP</li>
+          <li><strong>No server:</strong> No SSR, no API routes, no database, no auth</li>
+          <li><strong>Git workflow:</strong> CSV changes → commit → auto-rebuild → deploy</li>
+        </ul>
+        <p>For the <strong>full architecture</strong> (component map, design system, conventions, infinite scroll, sticky filterbar, URL state), see <code>CLAUDE.md</code>.</p>
+      </section>
+
+      <!-- DESIGN SYSTEM -->
+      <section data-tab="overview" id="design-system">
+        <h2>Design System</h2>
+        <p><strong>Font:</strong> Beatrice grotesque at 17px | <strong>Theme:</strong> Light only</p>
+        <p><strong>Philosophy:</strong> Data density over decoration. Restraint is the aesthetic.</p>
+
+        <h3>Semantic Colors</h3>
+        <ul class="color-list">
+          <li><span class="color-swatch" style="background:#F4F4EA;border-color:#ccc"></span> <strong>Ecru</strong> <code>#F4F4EA</code> — Page background</li>
+          <li><span class="color-swatch" style="background:#963735"></span> <strong>Brick</strong> <code>#963735</code> — Threats, danger, Pillar 1</li>
+          <li><span class="color-swatch" style="background:#00B140"></span> <strong>Grassroot</strong> <code>#00B140</code> — Solutions, opportunities, Pillar 2</li>
+          <li><span class="color-swatch" style="background:#92C2FF"></span> <strong>Blue</strong> <code>#92C2FF</code> — Pillar 3, accent</li>
+          <li><span class="color-swatch" style="background:#D9E021"></span> <strong>Lime</strong> <code>#D9E021</code> — Pillar 4, warnings</li>
+          <li><span class="color-swatch" style="background:#FF8E32"></span> <strong>Orange</strong> <code>#FF8E32</code> — Supplementary</li>
+          <li><span class="color-swatch" style="background:#FFB3E6"></span> <strong>Pink</strong> <code>#FFB3E6</code> — Supplementary</li>
+        </ul>
+      </section>
+
+      <!-- TODO -->
+      <section data-tab="tasks" id="todo">
+        <h2>Pre-Publish Todo <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">(from Karoline, 04.06.2026)</span></h2>
+
+        <h3>Data &amp; Content</h3>
+        <ul>
+          <li><input type="checkbox" disabled> <strong>Update data to V10.0</strong> — replace <code>mapping.csv</code></li>
+          <li><input type="checkbox" disabled> <strong>Rename "solution" → "mitigation strategy"</strong> — everywhere</li>
+          <li><input type="checkbox" disabled> <strong>Update Introduction text</strong> — rewrite intro</li>
+          <li><input type="checkbox" disabled> <strong>Add codebook link</strong> — to P4Democracy aspects</li>
+          <li><input type="checkbox" disabled> <strong>Move decentralisation</strong> — pillar 3 → pillar 2</li>
+        </ul>
+
+        <h3>Filter Buttons</h3>
+        <ul>
+          <li><input type="checkbox" disabled> <strong>Extend search bar</strong></li>
+          <li><input type="checkbox" disabled> <strong>Rename:</strong> Type → Impact type, Threat+Solution → Threat+mitigation pairing, Opportunity → Independent opportunity, Aspects → Democracy aspects</li>
+          <li><input type="checkbox" disabled> <strong>Fix threat+solution filter</strong> — only show pairings</li>
+        </ul>
+
+        <h3>Table Headers</h3>
+        <ul>
+          <li><input type="checkbox" disabled> <strong>Freeze header row</strong> — sticky on scroll</li>
+          <li><input type="checkbox" disabled> <strong>Info icons</strong> — clickable pop-ups</li>
+          <li><input type="checkbox" disabled> <strong>Codebook link</strong> on aspects header</li>
+          <li><input type="checkbox" disabled> <strong>Rename column:</strong> Solution → Mitigation strategy</li>
+        </ul>
+
+        <h3>Table Entries</h3>
+        <ul>
+          <li><input type="checkbox" disabled> <strong>Update type labels</strong></li>
+          <li><input type="checkbox" disabled> <strong>Threat paraphrase in every row</strong></li>
+          <li><input type="checkbox" disabled> <strong>Aspects pop-up</strong> — larger codebook entry + pillar</li>
+          <li><input type="checkbox" disabled> <strong>Primary aspects first</strong></li>
+          <li><input type="checkbox" disabled> <strong>Inline extension styling</strong></li>
+        </ul>
+
+        <h3>Infrastructure <span class="tag green">done ✓</span></h3>
+        <ul>
+          <li><input type="checkbox" disabled checked> Remove Cloudflare → static output</li>
+          <li><input type="checkbox" disabled checked> Remove SSR routes (admin, API, middleware)</li>
+          <li><input type="checkbox" disabled checked> Remove P4D logo (embeddable component)</li>
+          <li><input type="checkbox" disabled checked> GitHub Actions → GitHub Pages</li>
+          <li><input type="checkbox" disabled> Push to GitHub org repo</li>
+          <li><input type="checkbox" disabled> Enable GitHub Pages in repo settings</li>
+          <li><input type="checkbox" disabled> Embed in P4D website</li>
+        </ul>
+
+        <h3>Future Features</h3>
+        <ul style="color:var(--text-muted)">
+          <li>Coverage heatmap (aspects × source)</li>
+          <li>Dashboard summary panel</li>
+          <li>Row permalinks (<code>?id=X</code>)</li>
+          <li>Search highlight</li>
+          <li>Add <code>Mechanisms</code> column</li>
+          <li>Aspect examples in <code>aspects.json</code></li>
+        </ul>
+      </section>
+
+      <!-- CONTRIBUTION -->
+      <section data-tab="tasks" id="contribution">
+        <h2>Contribution Guide</h2>
+
+        <h3>For developers</h3>
+        <ol>
+          <li>Fork or clone from P4D org</li>
+          <li>Follow <strong>Quick Start</strong> to get running locally</li>
+          <li>Edit components in <code>src/components/</code></li>
+          <li>Test: <code>bun run dev</code> (hot reload at localhost:4321)</li>
+          <li>Build check: <code>bun run build</code> (must pass)</li>
+          <li>Commit: imperative, granular, no co-author tags</li>
+          <li>Push to <code>dev</code> → GitHub Action deploys preview</li>
+        </ol>
+
+        <h3>For researchers (data updates)</h3>
+        <ol>
+          <li>Edit <code>data/raw/mapping.csv</code></li>
+          <li>Run <code>bun run preprocess</code> to regenerate <code>data.json</code></li>
+          <li>Commit both files, push → auto-deploy</li>
+        </ol>
+
+        <h3>Code conventions</h3>
+        <ul>
+          <li>Single React island — all interactivity inside <code>ThreatMap</code></li>
+          <li><code>sourceShort</code> in table, full <code>source</code> in expanded row</li>
+          <li>No <code>overflow-hidden</code> on table cells</li>
+          <li>Brand colors carry semantic meaning</li>
+        </ul>
+      </section>
+
+      <!-- KEY FILES -->
+      <section data-tab="tasks" id="key-files">
+        <h2>Key Files</h2>
+        <table>
+          <tr><th>File</th><th>Purpose</th></tr>
+          <tr><td><code>CLAUDE.md</code></td><td>Full architecture, design system, component map, conventions</td></tr>
+          <tr><td><code>astro.config.mjs</code></td><td>Build config — static output, no adapter</td></tr>
+          <tr><td><code>src/hooks/useDataLoader.ts</code></td><td>Fetches data at runtime — env-configurable URLs</td></tr>
+          <tr><td><code>src/lib/types.ts</code></td><td>Shared TypeScript types</td></tr>
+          <tr><td><code>src/styles/globals.css</code></td><td>Tailwind + P4D theme variables</td></tr>
+          <tr><td><code>data/raw/mapping.csv</code></td><td>Source data (single source of truth)</td></tr>
+          <tr><td><code>public/data/data.json</code></td><td>Built seed data (committed for static builds)</td></tr>
+        </table>
+      </section>
+
+      <!-- DEVELOPMENT LOG -->
+      <section data-tab="devlog" id="dev-log">
+        <h2>Development Log</h2>
+        <p>Chronological record of setup, fixes, and decisions. Newest entries first.</p>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Day 1: Stripped Cloudflare, pushed to GitHub Pages</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Strip Cloudflare infra, switch to static output, deploy to GitHub Pages.</p>
+            <p><strong>What was done:</strong></p>
+            <ol>
+              <li><strong>Removed Cloudflare stack</strong> — deleted <code>wrangler.toml</code>, <code>AdminPanel.tsx</code>, <code>middleware.ts</code>, <code>storage.ts</code>, all API routes, <code>public/_headers</code>, <code>public/logo.png</code>. CLAUDE.md/README still reference these (outdated).</li>
+              <li><strong>Switched to static output</strong> — <code>astro.config.mjs</code> set to <code>output: "static"</code>, no adapter.</li>
+              <li><strong>Set up GitHub Actions</strong> — created <code>.github/workflows/deploy.yml</code> for Pages deployment on push to <code>dev</code>/<code>main</code>.</li>
+              <li><strong>Created project docs</strong> — <code>CLAUDE.md</code>, <code>project_context.md/html</code>, <code>BUILD_LOG.md</code>.</li>
+              <li><strong>Pushed to P4Dem org</strong> but no Pages access.</li>
+              <li><strong>Created fresh public repo</strong> under personal GitHub (<code>nashthecoder/ai-democracy-map-dev</code>) with orphan commit to break fork link.</li>
+              <li><strong>Fixed asset paths</strong> — added <code>site</code> and <code>base</code> to <code>astro.config.mjs</code> for GitHub Pages subdirectory (<code>/ai-democracy-map-dev/</code>).</li>
+              <li><strong>Live at:</strong> <a href="https://nashthecoder.github.io/ai-democracy-map-dev/">https://nashthecoder.github.io/ai-democracy-map-dev/</a></li>
+            </ol>
+            <p><strong>Key decisions:</strong></p>
+            <ul>
+              <li>Going static (no Cloudflare) for now — data updates via CSV commit.</li>
+              <li><code>dev</code> branch is working branch for all fixes. <code>main</code> for production.</li>
+              <li>Repo at <code>nashthecoder/ai-democracy-map-dev</code>; can push to P4Dem org later via <code>upstream</code> remote.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Initial Setup &amp; Verification</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Get the project running locally from a fresh clone.</p>
+
+            <p><strong>Environment:</strong> macOS 12, Node.js v20.16.0 → upgraded to v22.22.3, Bun 1.3.14, Python 3.14.4</p>
+
+            <p><strong>Issues:</strong></p>
+            <ul>
+              <li>
+                <strong>Node.js too old (v20).</strong> Astro 6 requires &gt;= 22.12.0.
+                <em>Fix:</em> nvm was installed but not in default shell PATH. Sourced it and ran <code>nvm use 22</code>.
+                Node v22.22.3 was already installed under nvm.
+              </li>
+              <li>
+                <strong>Python venv broken by <code>$</code> in path.</strong> The repo path
+                <code>Billion$Connections/</code> contains a literal dollar sign. When <code>python3 -m venv</code>
+                creates scripts, <code>$Connections</code> is interpreted as shell variable expansion at runtime,
+                breaking <code>pip</code>, <code>pytest</code>, etc.
+                <em>Fix:</em> Created venv at <code>/tmp/aixd-venv</code>, copied to <code>preprocessing/.venv</code>,
+                then patched all scripts in <code>.venv/bin/</code> to escape <code>$Connections</code> as <code>\$Connections</code>.
+              </li>
+            </ul>
+
+            <p><strong>Verification:</strong></p>
+            <div class="checklist-grid">
+              <span class="status ok">&#10003;</span><span><code>bun install --frozen-lockfile</code> — 625 installs, 711 packages</span>
+              <span class="status ok">&#10003;</span><span><code>bun run build</code> — 1 page, 28s, static output</span>
+              <span class="status ok">&#10003;</span><span><code>bun run dev</code> — HTTP 200 at localhost:4321</span>
+              <span class="status ok">&#10003;</span><span><code>bun test</code> — 39 TS tests pass</span>
+              <span class="status ok">&#10003;</span><span><code>pytest preprocessing/tests/</code> — 32 Python tests pass</span>
+              <span class="status ok">&#10003;</span><span><code>bun run preprocess</code> — data.json regenerated from CSV</span>
+            </div>
+
+            <p style="margin-top:0.5rem"><strong>Key commands for future sessions:</strong></p>
+            <pre><code># Start dev
+nvm use 22 && cd "aixd-threatmap-master 2" && bun run dev
+
+# Run all tests
+cd "aixd-threatmap-master 2" && bun test
+source preprocessing/.venv/bin/activate && pytest preprocessing/tests/
+
+# Update data from CSV
+source preprocessing/.venv/bin/activate && bun run preprocess</code></pre>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        AIxD Threat Map &mdash; AI threats and opportunities to democracy &middot; Built for P4D
+      </footer>
+
+    </div><!-- /container -->
+  </div><!-- /main -->
+</div><!-- /layout -->
+
+<script>
+(function() {
+  // ── tab switching ──
+  const tabs = document.querySelectorAll('[data-tab]');
+  const sections = document.querySelectorAll('section[data-tab]');
+
+  function setActiveTab(tabName) {
+    // update tab buttons
+    tabs.forEach(btn => {
+      const isActive = btn.getAttribute('data-tab') === tabName;
+      btn.classList.toggle('active', isActive);
+    });
+
+    // toggle sections
+    if (tabName === 'all') {
+      sections.forEach(s => s.classList.remove('hidden-tab'));
+    } else {
+      sections.forEach(s => {
+        const matches = s.getAttribute('data-tab') === tabName;
+        s.classList.toggle('hidden-tab', !matches);
+      });
+    }
+  }
+
+  tabs.forEach(btn => {
+    btn.addEventListener('click', () => {
+      setActiveTab(btn.getAttribute('data-tab'));
+    });
+  });
+
+  // ── sidebar active link tracking ──
+  const navLinks = document.querySelectorAll('#sidebarNav a');
+  const allSections = document.querySelectorAll('section[id]');
+
+  function updateActiveLink() {
+    const scrollPos = window.scrollY + 120;
+    let currentId = '';
+    allSections.forEach(s => {
+      if (s.offsetTop <= scrollPos) currentId = s.id;
+    });
+    navLinks.forEach(link => {
+      const isActive = link.getAttribute('href') === '#' + currentId;
+      link.classList.toggle('active', isActive);
+    });
+  }
+
+  // throttle scroll handler
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      window.requestAnimationFrame(() => { updateActiveLink(); ticking = false; });
+      ticking = true;
+    }
+  });
+  updateActiveLink();
+
+  // ── sidebar toggle (mobile) ──
+  const sidebar = document.getElementById('sidebar');
+  const toggle = document.getElementById('sidebarToggle');
+
+  toggle.addEventListener('click', () => {
+    sidebar.classList.toggle('open');
+  });
+
+  // close sidebar on nav click (mobile)
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 900) sidebar.classList.remove('open');
+    });
+  });
+
+  // close sidebar on outside click (mobile)
+  document.addEventListener('click', (e) => {
+    if (window.innerWidth <= 900 &&
+        sidebar.classList.contains('open') &&
+        !sidebar.contains(e.target) &&
+        e.target !== toggle &&
+        !toggle.contains(e.target)) {
+      sidebar.classList.remove('open');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
