@@ -1,0 +1,130 @@
+{
+  "1.1": {
+    "code": "1.1",
+    "name": "Nationhood and Citizenship",
+    "definition": "Effects on inclusion, equal recognition, or protection of minorities and marginalised groups.",
+    "description": "Effects on the inclusivity of citizenship and the equal recognition and protection of minorities, vulnerable groups, and those at the margins of political life — including whether all people are equally seen, served, and protected by the state, or whether existing patterns of exclusion and discrimination are entrenched or deepened.",
+    "pillar": "Citizenship, Law and Rights",
+    "pillarCode": "1"
+  },
+  "1.2": {
+    "code": "1.2",
+    "name": "Rule of Law and Access to Justice",
+    "definition": "Effects on legal processes, due process, and citizens' ability to obtain fair treatment and redress.",
+    "description": "Effects on the integrity of legal processes, judicial independence, and citizens' ability to obtain fair treatment and redress; on whether public officials and institutions are subject to transparent and consistently applied rules; and on whether accountability for harms is clear and enforceable.",
+    "pillar": "Citizenship, Law and Rights",
+    "pillarCode": "1"
+  },
+  "1.3": {
+    "code": "1.3",
+    "name": "Civil and Political Rights",
+    "definition": "Effects on freedoms of expression, assembly, or association, including through surveillance or censorship.",
+    "description": "Effects on the freedoms of expression, movement, association, and assembly; on freedom from physical violation or fear; on freedom from surveillance, profiling, and censorship; and on the protection of those who defend human rights and democratic values.",
+    "pillar": "Citizenship, Law and Rights",
+    "pillarCode": "1"
+  },
+  "1.4": {
+    "code": "1.4",
+    "name": "Economic and Social Rights",
+    "definition": "Effects on access to work, material conditions, or distribution of economic power.",
+    "description": "Effects on access to work, social security, and basic necessities; on health and education; and on the broad and equitable distribution of economic gains across society.",
+    "pillar": "Citizenship, Law and Rights",
+    "pillarCode": "1"
+  },
+  "2.1": {
+    "code": "2.1",
+    "name": "Free and Fair Elections",
+    "definition": "Effects on electoral integrity, voter access, campaign fairness, or trust in election outcomes.",
+    "description": "Effects on the integrity of electoral processes, the inclusivity and accessibility of voting, the fairness of political competition, and public trust in elections as genuinely open contests.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.2": {
+    "code": "2.2",
+    "name": "Democratic Role of Political Parties",
+    "definition": "Effects on political competition, party financing, or the balance between parties.",
+    "description": "Effects on the freedom of parties to form, recruit and campaign; and on whether political competition between parties remains fair and free from undue external influence or structural advantage.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.3": {
+    "code": "2.3",
+    "name": "Effective and Accountable Government",
+    "definition": "Effects on transparency, accountability, or fairness of government services and policymaking.",
+    "description": "Effects on the capacity of government to deliver public services fairly and implement policy faithfully; on the competence, transparency, and integrity of public administration; and on whether the systems and technologies governments use to exercise state power remain open to democratic scrutiny — including where dependencies on private or foreign providers shift effective control over state functions beyond democratic reach.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.4": {
+    "code": "2.4",
+    "name": "Democratic Effectiveness of Legislature",
+    "definition": "Effects on legislative scrutiny, oversight capacity, or executive-legislature power balance.",
+    "description": "Effects on the capacity of parliament and other democratic institutions to scrutinise legislation and hold the executive to account; on the independence of the legislature from the executive; and on their capacity to receive and process genuine input.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.5": {
+    "code": "2.5",
+    "name": "Democratic Role of the Judiciary",
+    "definition": "Effects on judicial independence, constitutional oversight of government, and citizens' ability to challenge the exercise of public power through legal means (strategic litigation).",
+    "description": "Effects on the capacity of courts to provide independent oversight of the executive and legislature; on judicial review of laws and government decisions; and on the ability of citizens to challenge the exercise of public power through legal means.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.6": {
+    "code": "2.6",
+    "name": "Civilian Control of Military and Police",
+    "definition": "Effects on oversight and accountability of security and enforcement agencies.",
+    "description": "Effective civilian control over armed forces and security services; public accountability of police; absence of unaccountable private security actors.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "2.7": {
+    "code": "2.7",
+    "name": "Illegitimate Influence over Policy-Making",
+    "definition": "Effects on corruption, regulatory capture, or undue private influence over public policy and the policy process.",
+    "description": "Effects on the extent to which powerful actors shape policy through back channels — such as hidden lobbying, capturing regulators, or flooding consultations with artificial responses — rather than through open and accountable processes, and on how far policy outputs and outcomes reflect what the public actually wants.",
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
+  },
+  "3.1": {
+    "code": "3.1",
+    "name": "The Media in a Democratic Society",
+    "definition": "Effects on the independence, viability, and reach of regulated, professionally produced journalism.",
+    "description": "Effects on the independence and pluralism of regulated, professional journalism; on the representativeness of opinion and the investigative capacity of journalism; on journalists' ability to operate freely; and on the accountability of platforms for the information flows they shape and amplify.",
+    "pillar": "Civil Society and Popular Participation",
+    "pillarCode": "3"
+  },
+  "3.2": {
+    "code": "3.2",
+    "name": "Opinion Formation and Political Participation",
+    "definition": "Effects on how citizens form and exchange political views, participate in public life, or organise through civil society.",
+    "description": "Effects on the conditions under which citizens form, exchange, and revise political views — including through social media and other non-journalistic channels; on the depth, breadth, and authenticity of citizen participation in public life; on equal access to public voice across social groups; and on the range and independence of civil society and social movements.",
+    "pillar": "Civil Society and Popular Participation",
+    "pillarCode": "3"
+  },
+  "3.3": {
+    "code": "3.3",
+    "name": "Decentralisation",
+    "definition": "Effects on the distribution of power between central and local government.",
+    "description": "Effects on the independence and capacity of sub-central tiers of government; on local accountability and responsiveness to citizens; and on the distribution of power and resources between central and local government.",
+    "pillar": "Civil Society and Popular Participation",
+    "pillarCode": "3"
+  },
+  "4.1": {
+    "code": "4.1",
+    "name": "External Influences on Democracy",
+    "definition": "Effects on foreign interference or the democratic-autocratic geopolitical balance.",
+    "description": "Effects on a country's freedom from external interference in its democratic processes; on the geopolitical balance between democratic and autocratic models of governance; and on the ability of democratic states to maintain autonomous control over their political institutions and infrastructure.",
+    "pillar": "Democracy Beyond the State",
+    "pillarCode": "4"
+  },
+  "4.2": {
+    "code": "4.2",
+    "name": "Democratic Impact Abroad",
+    "definition": "Effects of a country's AI policies or exports on democracy in other countries.",
+    "description": "Effects on a country's support for human rights and democracy in other countries; on respect for international rule of law; and on whether a country's policies, exports, and international conduct strengthen or undermine democratic governance elsewhere.",
+    "pillar": "Democracy Beyond the State",
+    "pillarCode": "4"
+  }
+}

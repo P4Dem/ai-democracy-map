@@ -1,0 +1,29 @@
+# Local project context (not committed)
+project_context.md
+project_context.html
+
+# Dependencies
+node_modules/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Build output
+dist/
+.aixd-threatmap-master 2/dist/
+.astro/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+preprocessing/.venv/
+
+# Local KV store (filesystem fallback)
+data/kv-store/
