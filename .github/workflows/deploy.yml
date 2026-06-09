@@ -15,8 +15,8 @@ concurrency:
   cancel-in-progress: false
 
 env:
-  PUBLIC_DATA_URL: /ai-democracy-map/data/data.json
-  PUBLIC_ASPECTS_URL: /ai-democracy-map/data/aspects.json
+  PUBLIC_DATA_URL: /ai-democracy-map-dev/data/data.json
+  PUBLIC_ASPECTS_URL: /ai-democracy-map-dev/data/aspects.json
 
 jobs:
   build:
