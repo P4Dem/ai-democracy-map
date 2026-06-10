@@ -513,7 +513,7 @@ export const DataTable = ({
                           <TableCell key={cell.id}>
                             {cellIndex === 0 ? (
                               // Type + chevron: fixed height, chevron rotates on expand
-                              <div className="flex h-19 items-center gap-1.5 overflow-hidden">
+                              <div className="flex h-19 items-center gap-1.5">
                                 <ChevronRight
                                   className={`size-3.5 shrink-0 text-muted-foreground transition-transform duration-200 ${
                                     row.getIsExpanded() ? "rotate-90" : ""
