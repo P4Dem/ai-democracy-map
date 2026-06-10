@@ -277,7 +277,7 @@ export const DataTable = ({
           <div className="flex items-center gap-1.5">
             <ColumnHeader columnId="aspects" />
             <a
-              href="https://github.com/nashthecoder/ai-democracy-map-dev/blob/main/aixd-threatmap-master%202/docs/code_descriptions.md"
+              href={`${import.meta.env.BASE_URL}codebook.html`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex size-3.5 items-center justify-center text-muted-foreground/50 hover:text-p4d-grassroot"

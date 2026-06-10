@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>P4Dem Codebook — AIxD Threat Map</title>
+<style>
+  :root {
+    --ecru: #F4F4EA;
+    --brick: #963735;
+    --grassroot: #00B140;
+    --blue: #92C2FF;
+    --lime: #D9E021;
+    --orange: #FF8E32;
+    --pink: #FFB3E6;
+    --text: #1a1a1a;
+    --text-muted: #555;
+    --card: #ffffff;
+    --border: #ddd;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.6;
+    color: var(--text);
+    background: var(--ecru);
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 820px; margin: 0 auto; padding: 48px 24px; }
+
+  /* Header */
+  header { margin-bottom: 48px; }
+  h1 { font-size: 28px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+  .subtitle { color: var(--text-muted); font-size: 15px; }
+  .meta { color: var(--text-muted); font-size: 13px; margin-top: 12px; }
+
+  /* Pillar */
+  .pillar { margin-bottom: 40px; }
+  .pillar-header {
+    display: flex; align-items: baseline; gap: 12px;
+    padding-bottom: 8px; margin-bottom: 16px;
+    border-bottom: 2px solid var(--border);
+  }
+  .pillar-code { font-size: 15px; font-weight: 600; color: var(--text-muted); }
+  .pillar-name { font-size: 20px; font-weight: 700; }
+  .pillar-abstract { font-size: 15px; color: var(--text-muted); margin-bottom: 20px; line-height: 1.5; }
+
+  .pillar-1 .pillar-code { color: var(--brick); }
+  .pillar-1 .pillar-header { border-bottom-color: var(--brick); }
+  .pillar-2 .pillar-code { color: var(--grassroot); }
+  .pillar-2 .pillar-header { border-bottom-color: var(--grassroot); }
+  .pillar-3 .pillar-code { color: var(--blue); }
+  .pillar-3 .pillar-header { border-bottom-color: var(--blue); }
+  .pillar-4 .pillar-code { color: var(--lime); }
+  .pillar-4 .pillar-header { border-bottom-color: var(--lime); }
+
+  /* Aspect cards */
+  .aspect { background: var(--card); border-radius: 8px; padding: 16px 20px; margin-bottom: 12px; }
+  .aspect-header { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+  .aspect-code { font-size: 14px; font-weight: 600; color: var(--text-muted); }
+  .aspect-name { font-size: 18px; font-weight: 600; }
+  .aspect-def { font-size: 14px; color: var(--text-muted); margin-bottom: 8px; font-style: italic; }
+  .aspect-desc { font-size: 15px; line-height: 1.5; }
+
+  /* Nav */
+  nav { margin-bottom: 40px; }
+  nav h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 8px; }
+  nav a {
+    display: inline-block; font-size: 14px; color: var(--brick);
+    margin-right: 12px; margin-bottom: 4px; text-decoration: none;
+  }
+  nav a:hover { text-decoration: underline; }
+
+  /* Coding rules */
+  .rules { background: var(--card); border-radius: 8px; padding: 20px; margin-bottom: 40px; }
+  .rules h2 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
+  .rules ol { padding-left: 20px; font-size: 14px; line-height: 1.6; }
+  .rules li { margin-bottom: 4px; }
+
+  /* Discrepancy */
+  .note {
+    background: #fff8e1; border: 1px solid #ffe082; border-radius: 6px;
+    padding: 12px 16px; font-size: 13px; margin-bottom: 32px;
+  }
+  .note strong { color: var(--brick); }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <header>
+    <h1>P4Dem Democracy Assessment Framework</h1>
+    <div class="subtitle">Codebook for the AI &amp; Democracy Threat Map</div>
+    <div class="meta">
+      Author: Karoline Helbig &middot; Version 0.4 &mdash; 22 April 2026<br>
+      Source data: <code>public/data/aspects.json</code> &middot;
+      <a href="https://github.com/nashthecoder/ai-democracy-map-dev/blob/main/aixd-threatmap-master%202/docs/code_descriptions.md" style="color:var(--brick)">Full descriptions (Markdown)</a>
+    </div>
+  </header>
+
+  <nav>
+    <h2>Jump to pillar</h2>
+    <a href="#pillar-1">1. Citizenship, Law and Rights</a>
+    <a href="#pillar-2">2. Representative and Accountable Government</a>
+    <a href="#pillar-3">3. Civil Society and Popular Participation</a>
+    <a href="#pillar-4">4. Democracy Beyond the State</a>
+    <a href="#rules">Coding rules</a>
+  </nav>
+
+  <div class="note">
+    <strong>Note on pillar assignments:</strong> In the current deployed data (<code>aspects.json</code>),
+    Decentralisation is coded as <strong>3.3</strong> under Pillar&nbsp;3. The intended framework
+    moves it to <strong>2.6</strong> under Pillar&nbsp;2. The table below reflects the <em>target</em>
+    structure. This will be resolved once the V10.0 CSV is received.
+  </div>
+
+  <!-- Pillar 1 -->
+  <div class="pillar pillar-1" id="pillar-1">
+    <div class="pillar-header">
+      <span class="pillar-code">Pillar 1</span>
+      <span class="pillar-name">Citizenship, Law and Rights</span>
+    </div>
+    <div class="pillar-abstract">
+      Concerns the rights of citizens and the state's ability to guarantee equal rights through
+      constitutional and legal processes — including civil, political, economic and social rights.
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">1.1</span>
+        <span class="aspect-name">Nationhood and Citizenship</span>
+      </div>
+      <div class="aspect-def">Effects on inclusion, equal recognition, or protection of minorities and marginalised groups.</div>
+      <div class="aspect-desc">Effects on the inclusivity of citizenship and the equal recognition and protection of minorities, vulnerable groups, and those at the margins of political life — including whether all people are equally seen, served, and protected by the state, or whether existing patterns of exclusion and discrimination are entrenched or deepened.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">1.2</span>
+        <span class="aspect-name">Rule of Law and Access to Justice</span>
+      </div>
+      <div class="aspect-def">Effects on legal processes, due process, and citizens' ability to obtain fair treatment and redress.</div>
+      <div class="aspect-desc">Effects on the integrity of legal processes, judicial independence, and citizens' ability to obtain fair treatment and redress; on whether public officials and institutions are subject to transparent and consistently applied rules; and on whether accountability for harms is clear and enforceable.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">1.3</span>
+        <span class="aspect-name">Civil and Political Rights</span>
+      </div>
+      <div class="aspect-def">Effects on freedoms of expression, assembly, or association, including through surveillance or censorship.</div>
+      <div class="aspect-desc">Effects on the freedoms of expression, movement, association, and assembly; on freedom from physical violation or fear; on freedom from surveillance, profiling, and censorship; and on the protection of those who defend human rights and democratic values.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">1.4</span>
+        <span class="aspect-name">Economic and Social Rights</span>
+      </div>
+      <div class="aspect-def">Effects on access to work, material conditions, or distribution of economic power.</div>
+      <div class="aspect-desc">Effects on access to work, social security, and basic necessities; on health and education; and on the broad and equitable distribution of economic gains across society.</div>
+    </div>
+  </div>
+
+  <!-- Pillar 2 -->
+  <div class="pillar pillar-2" id="pillar-2">
+    <div class="pillar-header">
+      <span class="pillar-code">Pillar 2</span>
+      <span class="pillar-name">Representative and Accountable Government</span>
+    </div>
+    <div class="pillar-abstract">
+      Concerns the institutions and processes of representative and accountable government:
+      electoral processes and political parties; the effectiveness, transparency, and integrity of
+      public administration, legislature and judiciary; civilian control of security forces; and
+      the absence of illegitimate influence on policy-making.
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.1</span>
+        <span class="aspect-name">Free and Fair Elections</span>
+      </div>
+      <div class="aspect-def">Effects on electoral integrity, voter access, campaign fairness, or trust in election outcomes.</div>
+      <div class="aspect-desc">Effects on the integrity of electoral processes, the inclusivity and accessibility of voting, the fairness of political competition, and public trust in elections as genuinely open contests.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.2</span>
+        <span class="aspect-name">Democratic Role of Political Parties</span>
+      </div>
+      <div class="aspect-def">Effects on political competition, party financing, or the balance between parties.</div>
+      <div class="aspect-desc">Effects on the freedom of parties to form, recruit and campaign; and on whether political competition between parties remains fair and free from undue external influence or structural advantage.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.3</span>
+        <span class="aspect-name">Effective and Accountable Government</span>
+      </div>
+      <div class="aspect-def">Effects on transparency, accountability, or fairness of government services and policymaking.</div>
+      <div class="aspect-desc">Effects on the capacity of government to deliver public services fairly and implement policy faithfully; on the competence, transparency, and integrity of public administration; and on whether the systems and technologies governments use to exercise state power remain open to democratic scrutiny — including where dependencies on private or foreign providers shift effective control over state functions beyond democratic reach.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.4</span>
+        <span class="aspect-name">Democratic Effectiveness of Legislature</span>
+      </div>
+      <div class="aspect-def">Effects on legislative scrutiny, oversight capacity, or executive-legislature power balance.</div>
+      <div class="aspect-desc">Effects on the capacity of parliament and other democratic institutions to scrutinise legislation and hold the executive to account; on the independence of the legislature from the executive; and on their capacity to receive and process genuine input.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.5</span>
+        <span class="aspect-name">Democratic Role of the Judiciary</span>
+      </div>
+      <div class="aspect-def">Effects on judicial independence, constitutional oversight of government, and citizens' ability to challenge the exercise of public power through legal means (strategic litigation).</div>
+      <div class="aspect-desc">Effects on the capacity of courts to provide independent oversight of the executive and legislature; on judicial review of laws and government decisions; and on the ability of citizens to challenge the exercise of public power through legal means.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.6</span>
+        <span class="aspect-name">Decentralisation</span>
+      </div>
+      <div class="aspect-def">Effects on the distribution of power between central and local government.</div>
+      <div class="aspect-desc">Effects on the independence and capacity of sub-central tiers of government; on local accountability and responsiveness to citizens; and on the distribution of power and resources between central and local government.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.7</span>
+        <span class="aspect-name">Civilian Control of Military and Police</span>
+      </div>
+      <div class="aspect-def">Effects on oversight and accountability of security and enforcement agencies.</div>
+      <div class="aspect-desc">Effective civilian control over armed forces and security services; public accountability of police; absence of unaccountable private security actors.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">2.8</span>
+        <span class="aspect-name">Illegitimate Influence over Policy-Making</span>
+      </div>
+      <div class="aspect-def">Effects on corruption, regulatory capture, or undue private influence over public policy and the policy process.</div>
+      <div class="aspect-desc">Effects on the extent to which powerful actors shape policy through back channels — such as hidden lobbying, capturing regulators, or flooding consultations with artificial responses — rather than through open and accountable processes, and on how far policy outputs and outcomes reflect what the public actually wants.</div>
+    </div>
+  </div>
+
+  <!-- Pillar 3 -->
+  <div class="pillar pillar-3" id="pillar-3">
+    <div class="pillar-header">
+      <span class="pillar-code">Pillar 3</span>
+      <span class="pillar-name">Civil Society and Popular Participation</span>
+    </div>
+    <div class="pillar-abstract">
+      Concerns the conditions for an alert and active citizen body: the independence and viability
+      of professional journalism; and the formation, exchange, and contestation of political opinion.
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">3.1</span>
+        <span class="aspect-name">Independent and Fact-Based Journalistic Media</span>
+      </div>
+      <div class="aspect-def">Effects on the independence, viability, and reach of regulated, professionally produced journalism.</div>
+      <div class="aspect-desc">Effects on the independence and pluralism of regulated, professional journalism; on the representativeness of opinion and the investigative capacity of journalism; on journalists' ability to operate freely; and on the accountability of platforms for the information flows they shape and amplify.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">3.2</span>
+        <span class="aspect-name">Opinion Formation and Political Participation</span>
+      </div>
+      <div class="aspect-def">Effects on how citizens form and exchange political views, participate in public life, or organise through civil society.</div>
+      <div class="aspect-desc">Effects on the conditions under which citizens form, exchange, and revise political views — including through social media and other non-journalistic channels; on the depth, breadth, and authenticity of citizen participation in public life; on equal access to public voice across social groups; and on the range and independence of civil society and social movements.</div>
+    </div>
+  </div>
+
+  <!-- Pillar 4 -->
+  <div class="pillar pillar-4" id="pillar-4">
+    <div class="pillar-header">
+      <span class="pillar-code">Pillar 4</span>
+      <span class="pillar-name">Democracy Beyond the State</span>
+    </div>
+    <div class="pillar-abstract">
+      Concerns the international dimensions of democracy: external influences on a country's
+      democracy, and the country's democratic impact abroad.
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">4.1</span>
+        <span class="aspect-name">External Influences on Democracy</span>
+      </div>
+      <div class="aspect-def">Effects on foreign interference or the democratic-autocratic geopolitical balance.</div>
+      <div class="aspect-desc">Effects on a country's freedom from external interference in its democratic processes; on the geopolitical balance between democratic and autocratic models of governance; and on the ability of democratic states to maintain autonomous control over their political institutions and infrastructure.</div>
+    </div>
+
+    <div class="aspect">
+      <div class="aspect-header">
+        <span class="aspect-code">4.2</span>
+        <span class="aspect-name">Democratic Impact Abroad</span>
+      </div>
+      <div class="aspect-def">Effects of a country's AI policies or exports on democracy in other countries.</div>
+      <div class="aspect-desc">Effects on a country's support for human rights and democracy in other countries; on respect for international rule of law; and on whether a country's policies, exports, and international conduct strengthen or undermine democratic governance elsewhere.</div>
+    </div>
+  </div>
+
+  <!-- Coding Rules -->
+  <div class="rules" id="rules">
+    <h2>How to Code</h2>
+    <p style="font-size:14px;margin-bottom:12px;color:var(--text-muted)">
+      These rules apply to every coding decision and are intended to keep coding consistent
+      across items and coders.
+    </p>
+    <ol>
+      <li><strong>Code all applicable categories.</strong> Include both direct and secondary or trickle-down effects. There is no limit on the number of codes per item, but each must be justifiable.</li>
+      <li><strong>Ground code in the source where possible.</strong> If the democratic impact in a given category cannot be derived from the original text, flag as P4Dem inference.</li>
+      <li><strong>Primary vs. secondary codes.</strong> The most direct effect is primary; weaker effects are secondary. For threats and opportunities, coders may mark one code as primary and others as secondary where it is useful to distinguish, but this is optional — the priority is completeness. For solutions, the primary code is inherited from the connected threat; secondary codes may be added where the solution has broader democratic reach beyond that threat's primary impact area.</li>
+      <li><strong>Government vs. civil society.</strong> Pillar 2 covers what governments do; Pillar 3 covers what citizens and civil society can do. When an item touches both, code in both pillars.</li>
+      <li><strong>Cross-cutting items</strong> (e.g. AI literacy, interdisciplinary research, public interest technologists) are coded to every category their mechanism of democratic effect touches.</li>
+    </ol>
+  </div>
+
+  <div class="note">
+    <strong>Where this data lives in the codebase:</strong><br>
+    • <code>public/data/aspects.json</code> — machine-readable aspect definitions (code, name, pillar, description) used by the table at runtime<br>
+    • <code>docs/code_descriptions.md</code> — canonical text reference with full pillar abstracts and detailed coding guidance<br>
+    • <code>aixd-threatmap-master 2/src/lib/preprocessing.ts</code> — TypeScript data pipeline: parses (primary)/(secondary) markers, sorts aspects by pillar then code<br>
+    • <code>aixd-threatmap-master 2/preprocessing/preprocess.py</code> — Python data pipeline: same sorting logic (called by <code>bun run preprocess</code>)<br>
+    • <code>aixd-threatmap-master 2/data/raw/mapping.csv</code> — source CSV where aspect codes are assigned per row<br>
+    • The column <strong>Democracy Aspects</strong> in the table renders aspect chips from <code>aspects.json</code>, with tooltips showing code + pillar + full description
+  </div>
+
+</div>
+
+</body>
+</html>
