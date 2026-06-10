@@ -84,23 +84,50 @@ export const extractAspectCode = (raw: string): string | null => {
   return match[1];
 };
 
+type AspectEntry = { code: string; rank: number };
+
+const extractAspectEntry = (raw: string): AspectEntry | null => {
+  const stripped = raw.trim();
+  if (!stripped) return null;
+
+  const isSecondary = /\s*\(secondary\)\s*$/i.test(stripped);
+  const cleaned = stripped
+    .replace(/\s*\(primary\)\s*$/i, "")
+    .replace(/\s*\(secondary\)\s*$/i, "")
+    .trim();
+
+  const match = ASPECT_CODE_RE.exec(cleaned);
+  if (!match) return null;
+
+  return { code: match[1], rank: isSecondary ? 1 : 0 };
+};
+
 export const extractAspects = (row: Record<string, string>): string[] => {
-  const seen = new Set<string>();
-  const result: string[] = [];
+  const seen = new Map<string, AspectEntry>();
 
   for (const col of P4DEM_COLUMNS) {
     const value = row[col] ?? "";
     if (isEmpty(value)) continue;
 
-    const code = extractAspectCode(value);
-    if (code === null) continue;
-    if (seen.has(code)) continue;
+    const entry = extractAspectEntry(value);
+    if (entry === null) continue;
+    if (seen.has(entry.code)) continue;
 
-    seen.add(code);
-    result.push(code);
+    seen.set(entry.code, entry);
   }
 
-  return result;
+  const result = [...seen.values()];
+  result.sort((a, b) => {
+    // Primary first, secondary second
+    if (a.rank !== b.rank) return a.rank - b.rank;
+    // Within same rank, sort by pillar number then code
+    const pillarA = parseInt(a.code.split(".")[0], 10);
+    const pillarB = parseInt(b.code.split(".")[0], 10);
+    if (pillarA !== pillarB) return pillarA - pillarB;
+    return a.code.localeCompare(b.code);
+  });
+
+  return result.map((e) => e.code);
 };
 
 export const extractSourceUrl = (citation: string): string | null => {

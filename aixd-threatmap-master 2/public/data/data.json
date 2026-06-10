@@ -11,9 +11,9 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
+      "2.1",
       "3.2",
-      "4.1",
-      "2.1"
+      "4.1"
     ]
   },
   {
@@ -28,8 +28,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -44,8 +44,8 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "2.3",
-      "1.3"
+      "1.3",
+      "2.3"
     ]
   },
   {
@@ -60,8 +60,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.1"
+      "2.1",
+      "3.2"
     ]
   },
   {
@@ -152,8 +152,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/10",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.1"
+      "1.1",
+      "3.2"
     ]
   },
   {
@@ -168,9 +168,9 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
+      "2.1",
       "3.1",
-      "3.2",
-      "2.1"
+      "3.2"
     ]
   },
   {
@@ -185,9 +185,9 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "2.1",
       "3.1",
-      "2.1"
+      "3.2"
     ]
   },
   {
@@ -283,8 +283,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "4.1",
-      "2.1"
+      "2.1",
+      "4.1"
     ]
   },
   {
@@ -299,9 +299,9 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "1.3",
-      "2.1",
-      "1.1"
+      "2.1"
     ]
   },
   {
@@ -316,8 +316,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "2.1",
-      "1.1"
+      "1.1",
+      "2.1"
     ]
   },
   {
@@ -347,9 +347,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "2.3",
       "3.1",
-      "2.3"
+      "3.2"
     ]
   },
   {
@@ -365,8 +365,8 @@
     "originalCategory": "",
     "aspects": [
       "2.1",
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -381,8 +381,8 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09229",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -397,8 +397,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/4",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -413,9 +413,9 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "1.3",
       "2.3",
-      "1.3"
+      "3.2"
     ]
   },
   {
@@ -491,8 +491,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/14",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -522,8 +522,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/2",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -538,9 +538,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "2.3",
-      "3.2",
-      "1.4"
+      "3.2"
     ]
   },
   {
@@ -555,9 +555,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "2.3",
-      "3.2",
-      "1.4"
+      "3.2"
     ]
   },
   {
@@ -588,9 +588,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.2",
       "1.1",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -605,8 +605,8 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09231",
     "originalCategory": "",
     "aspects": [
-      "4.1",
       "2.3",
+      "4.1",
       "4.2"
     ]
   },
@@ -622,8 +622,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.7",
       "2.4",
+      "2.7",
       "3.2"
     ]
   },
@@ -655,8 +655,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/1",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -686,9 +686,9 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/8",
     "originalCategory": "",
     "aspects": [
-      "3.2",
       "1.1",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -703,10 +703,10 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/9",
     "originalCategory": "",
     "aspects": [
-      "3.2",
       "1.1",
       "1.3",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -722,8 +722,8 @@
     "originalCategory": "",
     "aspects": [
       "2.3",
-      "4.1",
-      "2.6"
+      "2.6",
+      "4.1"
     ]
   },
   {
@@ -781,8 +781,8 @@
     "originalCategory": "",
     "aspects": [
       "2.1",
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -847,10 +847,10 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "1.3",
       "2.1",
-      "4.1",
-      "1.3"
+      "3.2",
+      "4.1"
     ]
   },
   {
@@ -865,8 +865,8 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "2.3",
-      "1.4"
+      "1.4",
+      "2.3"
     ]
   },
   {
@@ -881,10 +881,10 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "4.1",
-      "3.2",
+      "1.3",
       "2.1",
-      "1.3"
+      "3.2",
+      "4.1"
     ]
   },
   {
@@ -899,8 +899,8 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "1.3",
       "1.2",
+      "1.3",
       "2.3"
     ]
   },
@@ -999,8 +999,8 @@
     "originalCategory": "",
     "aspects": [
       "2.3",
-      "2.7",
-      "2.4"
+      "2.4",
+      "2.7"
     ]
   },
   {
@@ -1015,10 +1015,10 @@
     "sourceUrl": "https://www.europarl.europa.eu/topics/en/article/20200918STO87404/artificial-intelligence-threats-and-opportunities",
     "originalCategory": "",
     "aspects": [
-      "3.2",
       "1.3",
       "1.4",
-      "2.1"
+      "2.1",
+      "3.2"
     ]
   },
   {
@@ -1033,11 +1033,11 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
+      "1.2",
       "1.3",
-      "4.1",
-      "4.2",
       "2.5",
-      "1.2"
+      "4.1",
+      "4.2"
     ]
   },
   {
@@ -1052,8 +1052,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "2.7",
       "2.3",
+      "2.7",
       "3.2"
     ]
   },
@@ -1069,9 +1069,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
       "2.3",
-      "2.7"
+      "2.7",
+      "3.2"
     ]
   },
   {
@@ -1086,8 +1086,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -1102,10 +1102,10 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "2.3",
       "1.2",
-      "3.2",
-      "2.7"
+      "2.3",
+      "2.7",
+      "3.2"
     ]
   },
   {
@@ -1122,8 +1122,8 @@
     "aspects": [
       "2.3",
       "2.4",
-      "3.2",
-      "2.7"
+      "2.7",
+      "3.2"
     ]
   },
   {
@@ -1138,12 +1138,12 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "1.4",
-      "2.7",
-      "2.6",
       "1.3",
-      "4.2",
-      "2.3"
+      "1.4",
+      "2.3",
+      "2.6",
+      "2.7",
+      "4.2"
     ]
   },
   {
@@ -1158,10 +1158,10 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "2.7",
       "2.3",
-      "4.1",
-      "2.4"
+      "2.4",
+      "2.7",
+      "4.1"
     ]
   },
   {
@@ -1177,9 +1177,9 @@
     "originalCategory": "",
     "aspects": [
       "1.3",
+      "2.2",
       "3.1",
-      "3.2",
-      "2.2"
+      "3.2"
     ]
   },
   {
@@ -1194,9 +1194,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "1.3",
       "3.1",
-      "1.3"
+      "3.2"
     ]
   },
   {
@@ -1211,8 +1211,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.7",
       "2.4",
+      "2.7",
       "3.2"
     ]
   },
@@ -1229,8 +1229,8 @@
     "originalCategory": "",
     "aspects": [
       "1.2",
-      "2.3",
-      "2.1"
+      "2.1",
+      "2.3"
     ]
   },
   {
@@ -1246,8 +1246,8 @@
     "originalCategory": "",
     "aspects": [
       "1.2",
-      "2.3",
-      "2.1"
+      "2.1",
+      "2.3"
     ]
   },
   {
@@ -1296,9 +1296,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "4.1",
       "2.1",
-      "3.1"
+      "3.1",
+      "4.1"
     ]
   },
   {
@@ -1313,10 +1313,10 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "3.1",
       "2.1",
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -1331,9 +1331,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
       "1.1",
-      "1.2"
+      "1.2",
+      "2.1"
     ]
   },
   {
@@ -1348,9 +1348,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
       "1.1",
       "1.2",
+      "2.1",
       "2.3"
     ]
   },
@@ -1366,9 +1366,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "1.2",
       "2.3",
-      "1.1",
       "3.2"
     ]
   },
@@ -1432,9 +1432,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "2.1",
       "2.2",
-      "2.1"
+      "3.2"
     ]
   },
   {
@@ -1449,8 +1449,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
-      "1.1"
+      "1.1",
+      "2.1"
     ]
   },
   {
@@ -1465,8 +1465,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
-      "1.1"
+      "1.1",
+      "2.1"
     ]
   },
   {
@@ -1481,8 +1481,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
       "1.1",
+      "2.1",
       "3.2"
     ]
   },
@@ -1498,8 +1498,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
       "1.1",
+      "2.1",
       "3.2"
     ]
   },
@@ -1613,10 +1613,10 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "2.3",
       "2.7",
-      "3.2",
-      "1.1"
+      "3.2"
     ]
   },
   {
@@ -1631,9 +1631,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "2.3",
-      "3.2",
-      "1.1"
+      "3.2"
     ]
   },
   {
@@ -1664,8 +1664,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "1.2",
       "1.1",
+      "1.2",
       "2.6"
     ]
   },
@@ -1699,8 +1699,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "2.1",
-      "1.1"
+      "1.1",
+      "2.1"
     ]
   },
   {
@@ -1854,9 +1854,9 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.1",
       "1.1",
       "1.2",
+      "2.1",
       "2.3"
     ]
   },
@@ -1872,9 +1872,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "2.3",
-      "3.2",
-      "1.4"
+      "3.2"
     ]
   },
   {
@@ -1921,8 +1921,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "2.3",
-      "2.1"
+      "2.1",
+      "2.3"
     ]
   },
   {
@@ -1953,10 +1953,10 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3",
       "1.1",
-      "2.6"
+      "2.3",
+      "2.6",
+      "3.2"
     ]
   },
   {
@@ -1971,9 +1971,9 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "2.6",
       "1.4",
-      "2.3"
+      "2.3",
+      "2.6"
     ]
   },
   {
@@ -1988,8 +1988,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.4"
+      "2.4",
+      "3.2"
     ]
   },
   {
@@ -2004,8 +2004,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.4"
+      "2.4",
+      "3.2"
     ]
   },
   {
@@ -2021,9 +2021,9 @@
     "originalCategory": "",
     "aspects": [
       "2.3",
-      "3.2",
+      "2.4",
       "2.7",
-      "2.4"
+      "3.2"
     ]
   },
   {
@@ -2038,12 +2038,12 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "2.6",
       "1.4",
       "2.3",
+      "2.6",
       "3.2",
-      "4.2",
-      "4.1"
+      "4.1",
+      "4.2"
     ]
   },
   {
@@ -2058,9 +2058,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.2",
+      "1.3",
       "2.3",
-      "1.3"
+      "3.2"
     ]
   },
   {
@@ -2075,9 +2075,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "2.3",
-      "2.6",
-      "1.4"
+      "2.6"
     ]
   },
   {
@@ -2108,10 +2108,10 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09233",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "1.4",
-      "2.7",
       "2.3",
-      "1.1"
+      "2.7"
     ]
   },
   {
@@ -2126,9 +2126,9 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09227",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "2.3",
       "2.7",
-      "1.4",
       "3.2"
     ]
   },
@@ -2144,9 +2144,9 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09228",
     "originalCategory": "",
     "aspects": [
-      "2.7",
+      "1.4",
       "2.3",
-      "1.4"
+      "2.7"
     ]
   },
   {
@@ -2178,8 +2178,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.1"
+      "2.1",
+      "3.2"
     ]
   },
   {
@@ -2194,8 +2194,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -2210,8 +2210,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -2226,8 +2226,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "2.6",
       "1.2",
+      "2.6",
       "4.1"
     ]
   },
@@ -2243,8 +2243,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -2292,8 +2292,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -2308,8 +2308,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -2324,8 +2324,8 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2342,8 +2342,8 @@
     "aspects": [
       "2.3",
       "2.4",
-      "3.2",
-      "2.7"
+      "2.7",
+      "3.2"
     ]
   },
   {
@@ -2358,9 +2358,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
+      "1.2",
       "2.3",
-      "2.5",
-      "1.2"
+      "2.5"
     ]
   },
   {
@@ -2423,8 +2423,8 @@
     "sourceUrl": "https://www.brennancenter.org/our-work/policy-solutions/agenda-strengthen-us-democracy-age-ai",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2455,8 +2455,8 @@
     "sourceUrl": null,
     "originalCategory": "",
     "aspects": [
-      "1.3",
       "1.2",
+      "1.3",
       "3.1"
     ]
   },
@@ -2488,8 +2488,8 @@
     "sourceUrl": "https://www.europarl.europa.eu/topics/en/article/20200918STO87404/artificial-intelligence-threats-and-opportunities",
     "originalCategory": "",
     "aspects": [
-      "2.3",
       "1.4",
+      "2.3",
       "4.1"
     ]
   },
@@ -2521,8 +2521,8 @@
     "sourceUrl": "https://www.europarl.europa.eu/topics/en/article/20200918STO87404/artificial-intelligence-threats-and-opportunities",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2585,8 +2585,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.3"
+      "1.3",
+      "3.2"
     ]
   },
   {
@@ -2601,8 +2601,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2617,8 +2617,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2633,8 +2633,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "2.1",
-      "1.1"
+      "1.1",
+      "2.1"
     ]
   },
   {
@@ -2649,8 +2649,8 @@
     "sourceUrl": "https://carnegieendowment.org/research/2026/01/ai-and-democracy-mapping-the-intersections?lang=en",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.6"
+      "2.6",
+      "3.2"
     ]
   },
   {
@@ -2697,8 +2697,8 @@
     "originalCategory": "",
     "aspects": [
       "1.3",
-      "2.6",
-      "2.3"
+      "2.3",
+      "2.6"
     ]
   },
   {
@@ -2713,9 +2713,9 @@
     "sourceUrl": "https://eurosafe.ai.toronto.edu/2026-ai-risk.pdf",
     "originalCategory": "",
     "aspects": [
-      "2.7",
       "1.4",
-      "2.3"
+      "2.3",
+      "2.7"
     ]
   },
   {
@@ -2746,10 +2746,10 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.1",
       "1.3",
-      "3.2",
-      "2.6"
+      "2.6",
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -2764,9 +2764,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
+      "1.4",
       "3.1",
-      "3.2",
-      "1.4"
+      "3.2"
     ]
   },
   {
@@ -2781,8 +2781,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.1",
       "1.4",
+      "3.1",
       "3.2"
     ]
   },
@@ -2798,8 +2798,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "3.1",
       "1.4",
+      "3.1",
       "3.2"
     ]
   },
@@ -2815,11 +2815,11 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "2.6",
       "2.3",
-      "3.2",
+      "2.4",
+      "2.6",
       "3.1",
-      "2.4"
+      "3.2"
     ]
   },
   {
@@ -2834,8 +2834,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "2.6",
       "2.3",
+      "2.6",
       "3.2"
     ]
   },
@@ -2851,8 +2851,8 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
-      "2.6",
-      "2.3"
+      "2.3",
+      "2.6"
     ]
   },
   {
@@ -2883,9 +2883,9 @@
     "sourceUrl": "https://fis.uni-bamberg.de/server/api/core/bitstreams/1c38477b-52ed-46f9-a2f7-6392b76036f6/content",
     "originalCategory": "",
     "aspects": [
+      "3.2",
       "4.1",
-      "4.2",
-      "3.2"
+      "4.2"
     ]
   },
   {
@@ -2916,8 +2916,8 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "2.3",
-      "1.3"
+      "1.3",
+      "2.3"
     ]
   },
   {
@@ -2932,8 +2932,8 @@
     "sourceUrl": "https://info.ke-la.com/hubfs/Reports/KELA",
     "originalCategory": "",
     "aspects": [
-      "2.3",
-      "1.2"
+      "1.2",
+      "2.3"
     ]
   },
   {
@@ -2964,9 +2964,9 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09221",
     "originalCategory": "",
     "aspects": [
-      "4.1",
+      "1.3",
       "2.3",
-      "1.3"
+      "4.1"
     ]
   },
   {
@@ -2981,9 +2981,9 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09222",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "1.4",
-      "2.7",
-      "1.1"
+      "2.7"
     ]
   },
   {
@@ -2998,9 +2998,9 @@
     "sourceUrl": "https://arxiv.org/abs/2411.09226",
     "originalCategory": "",
     "aspects": [
-      "2.7",
+      "1.1",
       "1.4",
-      "1.1"
+      "2.7"
     ]
   },
   {
@@ -3015,8 +3015,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/11",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "1.1"
+      "1.1",
+      "3.2"
     ]
   },
   {
@@ -3046,8 +3046,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/3",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "3.1"
+      "3.1",
+      "3.2"
     ]
   },
   {
@@ -3062,8 +3062,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/5",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.3"
+      "2.3",
+      "3.2"
     ]
   },
   {
@@ -3078,8 +3078,8 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/6",
     "originalCategory": "",
     "aspects": [
-      "3.2",
-      "2.7"
+      "2.7",
+      "3.2"
     ]
   },
   {
@@ -3094,9 +3094,9 @@
     "sourceUrl": "https://mit-genai.pubpub.org/pub/mn45hexw/release/7",
     "originalCategory": "",
     "aspects": [
+      "1.1",
       "1.3",
-      "3.2",
-      "1.1"
+      "3.2"
     ]
   }
 ]

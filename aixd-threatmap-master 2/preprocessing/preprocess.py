@@ -97,26 +97,52 @@ def extract_aspect_code(raw: str) -> Optional[str]:
     return match.group(1)
 
 
+def _extract_aspect_entry(raw: str) -> Optional[tuple[str, int]]:
+    """Return (code, rank) where rank=0 for primary, 1 for secondary."""
+    stripped = raw.strip()
+    if not stripped:
+        return None
+
+    is_secondary = bool(re.search(r"\s*\(secondary\)\s*$", stripped, re.IGNORECASE))
+    stripped = re.sub(r"\s*\(primary\)\s*$", "", stripped, flags=re.IGNORECASE)
+    stripped = re.sub(r"\s*\(secondary\)\s*$", "", stripped, flags=re.IGNORECASE)
+    stripped = stripped.strip()
+
+    match = ASPECT_CODE_RE.match(stripped)
+    if not match:
+        return None
+    return (match.group(1), 1 if is_secondary else 0)
+
+
 def extract_aspects(row: dict) -> list[str]:
-    """Collect deduplicated aspect codes from P4Dem Category 1-6 columns."""
-    seen: set[str] = set()
-    result: list[str] = []
+    """Collect deduplicated aspect codes from P4Dem Category 1-6 columns.
+
+    Primary aspects first (ordered by pillar then code), then secondary.
+    """
+    seen: dict[str, int] = {}
 
     for col in P4DEM_COLUMNS:
         value = row.get(col, "")
         if is_empty(value):
             continue
 
-        code = extract_aspect_code(value)
-        if code is None:
+        entry = _extract_aspect_entry(value)
+        if entry is None:
             continue
+        code, rank = entry
         if code in seen:
             continue
 
-        seen.add(code)
-        result.append(code)
+        seen[code] = rank
 
-    return result
+    # Sort: primary first (rank=0) then secondary (rank=1); within same rank by pillar then code
+    def sort_key(item: tuple[str, int]) -> tuple:
+        code, rank = item
+        pillar = int(code.split(".")[0]) if "." in code else 0
+        return (rank, pillar, code)
+
+    sorted_entries = sorted(seen.items(), key=sort_key)
+    return [code for code, _ in sorted_entries]
 
 
 def extract_source_url(citation: str) -> Optional[str]:

@@ -21,6 +21,37 @@
     --sidebar-w: 220px;
   }
 
+  input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 16px;
+    height: 16px;
+    border: 1.5px solid #999;
+    border-radius: 3px;
+    background: #fff;
+    vertical-align: middle;
+    position: relative;
+    flex-shrink: 0;
+    margin: 0;
+  }
+
+  input[type="checkbox"]:checked {
+    background: #00B140;
+    border-color: #00B140;
+  }
+
+  input[type="checkbox"]:checked::after {
+    content: "✓";
+    color: #fff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 1;
+  }
+
   @font-face {
     font-family: "Beatrice";
     src: url("aixd-threatmap-master 2/public/fonts/Beatrice-Regular.otf") format("opentype");
@@ -123,34 +154,15 @@
     border-radius: 50%;
     flex-shrink: 0;
   }
-
-  .sidebar-tabs {
-    padding: 0.75rem 0.75rem 0;
-    border-top: 1px solid var(--ecru);
-    margin-top: auto;
-  }
-  .sidebar-tabs button {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 0.3rem 0.5rem;
-    border: none;
-    border-radius: 4px;
-    background: none;
-    font-family: var(--font);
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 120ms;
-  }
-  .sidebar-tabs button:hover { background: var(--ecru); color: var(--text); }
-  .sidebar-tabs button.active { color: var(--brick); background: rgba(150,55,53,0.06); }
-  .sidebar-tabs .tab-count {
-    float: right;
+  .sidebar-nav .nav-group-label {
+    padding: 0.5rem 0.75rem 0.2rem;
     font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
     color: var(--text-muted);
-    font-weight: 400;
+    opacity: 0.6;
+    pointer-events: none;
   }
 
   /* ── sidebar toggle (mobile) ── */
@@ -167,39 +179,6 @@
     font-size: 0.85rem;
     cursor: pointer;
     box-shadow: 0 1px 3px rgba(0,0,0,0.08);
-  }
-
-  /* ── tabs bar ── */
-  .tabs-bar {
-    display: flex;
-    gap: 0;
-    position: sticky;
-    top: 0;
-    z-index: 50;
-    background: var(--ecru);
-    border-bottom: 1px solid var(--border);
-    padding: 0 6rem;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .tabs-bar button {
-    flex-shrink: 0;
-    padding: 0.7rem 1.25rem;
-    border: none;
-    border-bottom: 2px solid transparent;
-    background: none;
-    font-family: var(--font);
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: var(--text-muted);
-    cursor: pointer;
-    transition: all 150ms;
-    white-space: nowrap;
-  }
-  .tabs-bar button:hover { color: var(--text); background: rgba(0,0,0,0.02); }
-  .tabs-bar button.active {
-    color: var(--brick);
-    border-bottom-color: var(--brick);
   }
 
   /* ── main ── */
@@ -239,7 +218,6 @@
     box-shadow: 0 1px 3px rgba(0,0,0,0.04);
     scroll-margin-top: 4rem;
   }
-  section.hidden-tab { display: none; }
 
   h2 {
     font-size: 1.25rem;
@@ -388,7 +366,6 @@
     .sidebar { display: none; }
     .sidebar.open { display: flex; position: fixed; z-index: 99; box-shadow: 2px 0 12px rgba(0,0,0,0.12); }
     .sidebar-toggle { display: block; }
-    .tabs-bar { padding: 0 1rem; }
     .container { padding: 1.5rem 1rem 2rem; }
     header { padding: 2rem 0.5rem 1rem; }
     header h1 { font-size: 1.35rem; }
@@ -412,40 +389,29 @@
     </div>
 
     <nav class="sidebar-nav" id="sidebarNav">
+      <div class="nav-group-label">For Everyone</div>
       <a href="#purpose"><span class="nav-dot" style="background:var(--brick)"></span>Purpose</a>
+
+      <div class="nav-group-label">P4D Team</div>
       <a href="#quick-start"><span class="nav-dot" style="background:var(--grassroot)"></span>Quick Start</a>
       <a href="#stack"><span class="nav-dot" style="background:var(--blue)"></span>Stack</a>
       <a href="#project-structure"><span class="nav-dot" style="background:var(--orange)"></span>Project Structure</a>
       <a href="#data-pipeline"><span class="nav-dot" style="background:var(--lime)"></span>Data Pipeline</a>
       <a href="#deployment"><span class="nav-dot" style="background:var(--pink)"></span>Deployment</a>
+      <a href="#contribution"><span class="nav-dot" style="background:var(--grassroot)"></span>Contribution Guide</a>
+
+      <div class="nav-group-label">Dev</div>
       <a href="#architecture"><span class="nav-dot" style="background:var(--brick)"></span>Architecture</a>
       <a href="#design-system"><span class="nav-dot" style="background:var(--blue)"></span>Design System</a>
       <a href="#todo"><span class="nav-dot" style="background:var(--orange)"></span>Pre-Publish Todo</a>
-      <a href="#contribution"><span class="nav-dot" style="background:var(--grassroot)"></span>Contribution Guide</a>
       <a href="#key-files"><span class="nav-dot" style="background:var(--text-muted)"></span>Key Files</a>
       <a href="#dev-log"><span class="nav-dot" style="background:var(--brick)"></span>Development Log</a>
     </nav>
 
-    <div class="sidebar-tabs">
-      <button data-tab="all" class="active">All <span class="tab-count">12</span></button>
-      <button data-tab="overview">Overview <span class="tab-count">4</span></button>
-      <button data-tab="setup">Setup <span class="tab-count">4</span></button>
-      <button data-tab="tasks">Tasks <span class="tab-count">3</span></button>
-      <button data-tab="devlog">Dev Log <span class="tab-count">3</span></button>
-    </div>
   </aside>
 
   <!-- ─── MAIN ─── -->
   <div class="main">
-
-    <!-- tabs bar -->
-    <div class="tabs-bar" id="tabsBar">
-      <button data-tab="all" class="active">All</button>
-      <button data-tab="overview">Overview</button>
-      <button data-tab="setup">Setup</button>
-      <button data-tab="tasks">Tasks</button>
-      <button data-tab="devlog">Dev Log</button>
-    </div>
 
     <div class="container">
 
@@ -455,7 +421,7 @@
       </header>
 
       <!-- PURPOSE -->
-      <section data-tab="overview" id="purpose">
+      <section id="purpose">
         <h2>Purpose</h2>
         <p>
           Filterable, searchable database of ~190 AI threats and opportunities to democracy,
@@ -467,7 +433,7 @@
       </section>
 
       <!-- QUICK START -->
-      <section data-tab="setup" id="quick-start">
+      <section id="quick-start">
         <h2>Quick Start</h2>
 
         <h3>Prerequisites</h3>
@@ -513,7 +479,7 @@ bun run dev</code></pre>
       </section>
 
       <!-- STACK -->
-      <section data-tab="overview" id="stack">
+      <section id="stack">
         <h2>Stack</h2>
         <table>
           <tr><th>Layer</th><th>What we use</th></tr>
@@ -530,7 +496,7 @@ bun run dev</code></pre>
       </section>
 
       <!-- PROJECT STRUCTURE -->
-      <section data-tab="setup" id="project-structure">
+      <section id="project-structure">
         <h2>Project Structure</h2>
         <pre><code>git root/
 &#x251C;&#x2500;&#x2500; .github/workflows/deploy.yml   &#x2190; GitHub Actions &#x2192; GitHub Pages
@@ -560,7 +526,7 @@ bun run dev</code></pre>
       </section>
 
       <!-- DATA PIPELINE -->
-      <section data-tab="setup" id="data-pipeline">
+      <section id="data-pipeline">
         <h2>Data Pipeline</h2>
         <pre><code>data/raw/mapping.csv + public/data/aspects.json
   &#x2192; preprocessing/preprocess.py
@@ -571,7 +537,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- DEPLOYMENT -->
-      <section data-tab="setup" id="deployment">
+      <section id="deployment">
         <h2>Deployment</h2>
 
         <h3>GitHub Pages</h3>
@@ -600,7 +566,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- ARCHITECTURE -->
-      <section data-tab="overview" id="architecture">
+      <section id="architecture">
         <h2>Architecture</h2>
         <ul>
           <li><strong>Single page:</strong> One Astro page renders <code>&lt;ThreatMap client:load /&gt;</code></li>
@@ -613,7 +579,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- DESIGN SYSTEM -->
-      <section data-tab="overview" id="design-system">
+      <section id="design-system">
         <h2>Design System</h2>
         <p><strong>Font:</strong> Beatrice grotesque at 17px | <strong>Theme:</strong> Light only</p>
         <p><strong>Philosophy:</strong> Data density over decoration. Restraint is the aesthetic.</p>
@@ -631,7 +597,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- TODO -->
-      <section data-tab="tasks" id="todo">
+      <section id="todo">
         <h2>Pre-Publish Todo <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">(from Karoline, 04.06.2026)</span></h2>
 
         <h3>Data &amp; Content</h3>
@@ -652,22 +618,22 @@ bun run preprocess</code></pre>
 
         <h3>Table Headers</h3>
         <ul>
-          <li><input type="checkbox" disabled> <strong>Freeze header row</strong> — sticky on scroll</li>
-          <li><input type="checkbox" disabled> <strong>Info icons</strong> — clickable pop-ups</li>
-          <li><input type="checkbox" disabled> <strong>Codebook link</strong> on aspects header</li>
-          <li><input type="checkbox" disabled> <strong>Rename column:</strong> Solution → Mitigation strategy</li>
+          <li><input type="checkbox" disabled checked> <strong>Freeze header row</strong> — sticky below filter bar</li>
+          <li><input type="checkbox" disabled checked> <strong>Info icons</strong> — clickable pop-ups on each column</li>
+          <li><input type="checkbox" disabled checked> <strong>Codebook link</strong> on aspects header</li>
+          <li><input type="checkbox" disabled checked> <strong>Rename column:</strong> Solution → Mitigation strategy</li>
         </ul>
 
         <h3>Table Entries</h3>
         <ul>
-          <li><input type="checkbox" disabled> <strong>Update type labels</strong></li>
-          <li><input type="checkbox" disabled> <strong>Threat paraphrase in every row</strong></li>
-          <li><input type="checkbox" disabled> <strong>Aspects pop-up</strong> — larger codebook entry + pillar</li>
-          <li><input type="checkbox" disabled> <strong>Primary aspects first</strong></li>
-          <li><input type="checkbox" disabled> <strong>Inline extension styling</strong></li>
+          <li><input type="checkbox" disabled checked> <strong>Update type labels</strong></li>
+          <li><input type="checkbox" disabled checked> <strong>Threat paraphrase in every row</strong></li>
+          <li><input type="checkbox" disabled checked> <strong>Aspects pop-up</strong> — larger codebook entry + pillar</li>
+          <li><input type="checkbox" disabled checked> <strong>Primary aspects first</strong></li>
+          <li><input type="checkbox" disabled checked> <strong>Inline extension styling</strong></li>
         </ul>
 
-        <h3>Infrastructure <span class="tag green">done ✓</span></h3>
+        <h3>Infrastructure</h3>
         <ul>
           <li><input type="checkbox" disabled checked> Remove Cloudflare → static output</li>
           <li><input type="checkbox" disabled checked> Remove SSR routes (admin, API, middleware)</li>
@@ -690,7 +656,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- CONTRIBUTION -->
-      <section data-tab="tasks" id="contribution">
+      <section id="contribution">
         <h2>Contribution Guide</h2>
 
         <h3>For developers</h3>
@@ -721,7 +687,7 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- KEY FILES -->
-      <section data-tab="tasks" id="key-files">
+      <section id="key-files">
         <h2>Key Files</h2>
         <table>
           <tr><th>File</th><th>Purpose</th></tr>
@@ -736,13 +702,49 @@ bun run preprocess</code></pre>
       </section>
 
       <!-- DEVELOPMENT LOG -->
-      <section data-tab="devlog" id="dev-log">
+      <section id="dev-log">
         <h2>Development Log</h2>
         <p>Chronological record of setup, fixes, and decisions. Newest entries first.</p>
 
         <div class="entry">
           <div class="entry-header">
-            <span class="entry-title">Day 3: Updated filter buttons (search bar, labels, pill fixes)</span>
+            <span class="entry-title">Table entries: type labels, paraphrase, aspects pop-up, ordering, extension styling</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Fix the five Table Entry todo items.</p>
+            <p><strong>What was done:</strong></p>
+            <ol>
+              <li><strong>Type badge labels</strong> — "Opportunity" → "Independent opportunity" (two-line), "Threat + Mitigation" → "Threat + Mitigation pairing"</li>
+              <li><strong>Threat paraphrase in every grouped row</strong> — removed <code>↳ same threat — different mitigation</code> shortcut. All rows show the full description</li>
+              <li><strong>Aspects pop-up shows full entry + pillar</strong> — tooltip now shows aspect code, pillar name, and full description</li>
+              <li><strong>Primary aspects first by pillar order</strong> — preprocessing parses primary/secondary markers, sorts primary first by pillar then code</li>
+              <li><strong>Inline extension styling</strong> — grouped row border uses brick for threats, grassroot for opportunities</li>
+            </ol>
+            <p><strong>Files changed:</strong> <code>TypeBadge.tsx</code>, <code>DataTable.tsx</code>, <code>AspectChips.tsx</code>, <code>preprocessing.ts</code></p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Table header sticky, info popovers, codebook link</span>
+            <span class="entry-date">2026-06-10</span>
+          </div>
+          <div class="entry-body">
+            <p><strong>Objective:</strong> Freeze table header on scroll, add column info popovers, link to democracy codebook.</p>
+            <p><strong>What was done:</strong></p>
+            <ol>
+              <li><strong>Sticky table header</strong> — <code>&lt;TableHeader&gt;</code> now sticks below the filter bar with a card background so body rows scroll underneath</li>
+              <li><strong>Info popovers</strong> — small <code>(i)</code> icon on each column header, click to see a description of what the column contains</li>
+              <li><strong>Codebook link</strong> — external link icon next to "Democracy Aspects" header linking to the P4Dem code descriptions on GitHub</li>
+            </ol>
+            <p><strong>Files changed:</strong> <code>DataTable.tsx</code></p>
+          </div>
+        </div>
+
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Updated filter buttons (search bar, labels, pill fixes)</span>
             <span class="entry-date">2026-06-10</span>
           </div>
           <div class="entry-body">
@@ -765,7 +767,7 @@ bun run preprocess</code></pre>
 
         <div class="entry">
           <div class="entry-header">
-            <span class="entry-title">Day 2: Renamed "Solution" → "Mitigation Strategy" everywhere</span>
+            <span class="entry-title">Renamed "Solution" → "Mitigation Strategy" everywhere</span>
             <span class="entry-date">2026-06-10</span>
           </div>
           <div class="entry-body">
@@ -788,7 +790,7 @@ bun run preprocess</code></pre>
 
         <div class="entry">
           <div class="entry-header">
-            <span class="entry-title">Day 1: Stripped Cloudflare, pushed to GitHub Pages</span>
+            <span class="entry-title">Stripped Cloudflare, pushed to GitHub Pages</span>
             <span class="entry-date">2026-06-10</span>
           </div>
           <div class="entry-body">
@@ -874,34 +876,6 @@ source preprocessing/.venv/bin/activate && bun run preprocess</code></pre>
 
 <script>
 (function() {
-  // ── tab switching ──
-  const tabs = document.querySelectorAll('[data-tab]');
-  const sections = document.querySelectorAll('section[data-tab]');
-
-  function setActiveTab(tabName) {
-    // update tab buttons
-    tabs.forEach(btn => {
-      const isActive = btn.getAttribute('data-tab') === tabName;
-      btn.classList.toggle('active', isActive);
-    });
-
-    // toggle sections
-    if (tabName === 'all') {
-      sections.forEach(s => s.classList.remove('hidden-tab'));
-    } else {
-      sections.forEach(s => {
-        const matches = s.getAttribute('data-tab') === tabName;
-        s.classList.toggle('hidden-tab', !matches);
-      });
-    }
-  }
-
-  tabs.forEach(btn => {
-    btn.addEventListener('click', () => {
-      setActiveTab(btn.getAttribute('data-tab'));
-    });
-  });
-
   // ── sidebar active link tracking ──
   const navLinks = document.querySelectorAll('#sidebarNav a');
   const allSections = document.querySelectorAll('section[id]');

@@ -68,7 +68,19 @@ const Chip = ({
           {aspect.name}
         </Badge>
       </TooltipTrigger>
-      <TooltipContent>{aspect.definition}</TooltipContent>
+      <TooltipContent className="max-w-xs whitespace-normal">
+        <div className="space-y-1.5">
+          <div className="flex items-center gap-2">
+            <span className="rounded bg-muted px-1 font-mono text-xs font-semibold">
+              {aspect.code}
+            </span>
+            <span className="text-xs text-muted-foreground">{aspect.pillar}</span>
+          </div>
+          {aspect.description && (
+            <p className="text-xs leading-relaxed">{aspect.description}</p>
+          )}
+        </div>
+      </TooltipContent>
     </Tooltip>
   );
 };

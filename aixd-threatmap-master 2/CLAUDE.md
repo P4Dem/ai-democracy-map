@@ -139,13 +139,17 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Active filter pills (individually removable)
 - Default sort: threats first, then by description
 - Row expand/collapse with animation
-- Visual grouping: `↳ same threat — different mitigation` label for grouped rows
+- Visual grouping: same-description rows grouped with type-aware colored border
 - ExpandedRow: verbatim quotes, metadata, all aspect chips
 - AspectDialog: pillar-colored header, definition + description
+- AspectChips: tooltip with code, pillar, full description
+- Type badges: "Threat", "Threat + Mitigation pairing", "Independent opportunity"
+- Aspect ordering: primary codes first by pillar, then secondary
 - Infinite scroll with skeleton resistance
 - CSV export with full aspect names
 - Alternating row stripe, staggered entrance animation
 - Sticky filterbar with padding/corner animation
+- Sticky table header with info popovers and codebook link
 - IntroSection with count-up stats
 - Admin panel: CSV upload → preview → publish → restore
 - HTTP Basic Auth middleware (timing-safe, malformed base64 guard)

@@ -23,11 +23,69 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ChevronRight } from "lucide-react";
+import { ChevronRight, Info, ExternalLink } from "lucide-react";
 import { TypeBadge } from "@/components/TypeBadge";
 import { AspectChips } from "@/components/AspectChips";
 import { ExpandedRow } from "@/components/ExpandedRow";
+import {
+  Popover,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger,
+} from "@/components/ui/popover";
 import type { Item, ItemType, AspectMap } from "@/lib/types";
+
+const COLUMN_INFO: Record<string, { title: string; description: string }> = {
+  type: {
+    title: "Impact type",
+    description:
+      "Categorises each entry as a threat, a threat paired with a mitigation strategy, or an independent opportunity for AI to improve democracy.",
+  },
+  description: {
+    title: "Description",
+    description:
+      "Summarises the core finding, paraphrased from the source material.",
+  },
+  solution: {
+    title: "Mitigation Strategy",
+    description:
+      "Proposed measures to address or reduce the identified threat.",
+  },
+  aspects: {
+    title: "Democracy Aspects",
+    description:
+      "Links each entry to one or more dimensions of the P4Democracy assessment framework — from citizenship and rights to civil society and democratic governance.",
+  },
+  sourceShort: {
+    title: "Source",
+    description:
+      "The publication or report from which the entry was drawn.",
+  },
+};
+
+const ColumnHeader = ({ columnId }: { columnId: string }) => {
+  const info = COLUMN_INFO[columnId];
+  return (
+    <div className="flex items-center gap-1.5">
+      <span>{info?.title ?? columnId}</span>
+      {info && (
+        <Popover>
+          <PopoverTrigger className="flex size-3.5 items-center justify-center rounded-full text-muted-foreground/50 hover:text-muted-foreground cursor-pointer">
+            <Info className="size-3" />
+          </PopoverTrigger>
+          <PopoverContent side="top" align="center" className="w-64">
+            <PopoverHeader>
+              <PopoverTitle>{info.title}</PopoverTitle>
+              <PopoverDescription>{info.description}</PopoverDescription>
+            </PopoverHeader>
+          </PopoverContent>
+        </Popover>
+      )}
+    </div>
+  );
+};
 
 const INITIAL_BATCH = 40;
 const BATCH_SIZE = 20;
@@ -150,7 +208,7 @@ export const DataTable = ({
     () => [
       {
         accessorKey: "type",
-        header: "Type",
+        header: () => <ColumnHeader columnId="type" />,
         cell: ({ row }) => <TypeBadge type={row.original.type} />,
         filterFn: (row, _columnId, filterValue: string[]) => {
           if (!filterValue || filterValue.length === 0) return true;
@@ -159,7 +217,7 @@ export const DataTable = ({
       },
       {
         accessorKey: "description",
-        header: "Description",
+        header: () => <ColumnHeader columnId="description" />,
         cell: ({ row, table }) => {
           const meta = table.options.meta as
             | { groupMap?: Map<string, GroupInfo> }
@@ -175,13 +233,6 @@ export const DataTable = ({
             );
           }
 
-          if (group?.isGrouped && !group.isFirstInGroup) {
-            return (
-              <span className="italic text-muted-foreground">
-                ↳ same threat — different mitigation
-              </span>
-            );
-          }
           return (
             <span className={row.getIsExpanded() ? "" : "line-clamp-2"}>
               {row.original.description}
@@ -191,7 +242,7 @@ export const DataTable = ({
       },
       {
         accessorKey: "solution",
-        header: "Mitigation Strategy",
+        header: () => <ColumnHeader columnId="solution" />,
         cell: ({ row }) => {
           // independent-opportunity: the opportunity description renders here
           if (row.original.type === "independent-opportunity") {
@@ -222,7 +273,20 @@ export const DataTable = ({
       },
       {
         id: "aspects",
-        header: "Democracy Aspects",
+        header: () => (
+          <div className="flex items-center gap-1.5">
+            <ColumnHeader columnId="aspects" />
+            <a
+              href="https://github.com/nashthecoder/ai-democracy-map-dev/blob/main/aixd-threatmap-master%202/docs/code_descriptions.md"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex size-3.5 items-center justify-center text-muted-foreground/50 hover:text-p4d-grassroot"
+              title="Open codebook"
+            >
+              <ExternalLink className="size-3" />
+            </a>
+          </div>
+        ),
         cell: ({ row }) => (
           <AspectChips codes={row.original.aspects} aspects={aspects} maxVisible={3} fadeWidth={48} />
         ),
@@ -233,7 +297,7 @@ export const DataTable = ({
       },
       {
         accessorKey: "sourceShort",
-        header: "Source",
+        header: () => <ColumnHeader columnId="sourceShort" />,
         cell: ({ row }) => {
           const { sourceShort, sourceUrl } = row.original;
           if (sourceUrl) {
@@ -350,7 +414,7 @@ export const DataTable = ({
             <col style={{ width: COL_WIDTHS.aspects }} />
             <col style={{ width: COL_WIDTHS.source }} />
           </colgroup>
-          <TableHeader>
+          <TableHeader className="sticky top-16 z-[5] bg-card">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
@@ -431,13 +495,14 @@ export const DataTable = ({
                       <TableRow
                         className={`cursor-pointer animate-fade-in-up transition-colors hover:bg-muted/50 ${
                           rowIndex % 2 === 1 ? "bg-muted/20" : ""
-                        } ${
-                          showGroupBorder
-                            ? "border-l-2 border-l-primary/30"
-                            : ""
                         } ${row.getIsExpanded() ? "border-b-0" : ""}`}
                         style={{
                           animationDelay: `${Math.min(rowIndex, 24) * 20}ms`,
+                          ...(showGroupBorder
+                            ? {
+                                borderLeft: `2px solid ${row.original.type === "independent-opportunity" ? "var(--color-p4d-grassroot)" : "var(--color-p4d-brick)"}`,
+                              }
+                            : {}),
                         }}
                         onClick={() => row.toggleExpanded()}
                         data-state={

@@ -14,7 +14,7 @@ type TypeConfig = {
 
 const TYPE_CONFIG: Record<string, TypeConfig> = {
   "threat-solution": {
-    label: "Threat +\nMitigation",
+    label: "Threat +\nMitigation pairing",
     className: "bg-p4d-brick/10 text-p4d-brick border-p4d-brick/20",
     twoLine: true,
   },
@@ -23,8 +23,9 @@ const TYPE_CONFIG: Record<string, TypeConfig> = {
     className: "bg-p4d-brick/10 text-p4d-brick border-p4d-brick/20",
   },
   "independent-opportunity": {
-    label: "Opportunity",
+    label: "Independent\nopportunity",
     className: "bg-p4d-grassroot/10 text-p4d-grassroot border-p4d-grassroot/20",
+    twoLine: true,
   },
 };
 
