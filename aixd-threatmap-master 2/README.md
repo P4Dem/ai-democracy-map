@@ -1,92 +1,113 @@
 # AIxD Threat Map
 
-Filterable database of AI threats and opportunities to democracy, built for P4D researchers to share with policymakers.
+Filterable, searchable database of AI threats and opportunities to democracy, mapped to the IDEA Democracy Assessment Framework. Built for P4D researchers.
 
-## Architecture
+**Staging:** https://nashthecoder.github.io/ai-democracy-map-dev/  
+**Production:** https://p4dem.github.io/ai-democracy-map/
 
-Astro 6 static site with a single React island (`<ThreatMap />`), deployed on GitHub Pages via GitHub Actions. Data is compiled from CSV at build time and served as static JSON files.
+## Quick start
+
+```sh
+git clone <repo-url>
+cd "aixd-threatmap-master 2"
+bun install
+bun run dev        # → http://localhost:4321
+```
+
+## Requirements
+
+| Tool | Version |
+|---|---|
+| Node.js | >= 22.12.0 |
+| Bun | latest |
+| Python 3 | any 3.x |
 
 ## Stack
 
-- Astro 6 (static)
-- React 19 (single island: `<ThreatMap />`)
-- TanStack Table v8, shadcn/ui (Base UI), Tailwind CSS v4, Beatrice font
-- GitHub Pages (via GitHub Actions)
-- Bun, Python 3
+- **Framework:** Astro 6 (static)
+- **UI:** React 19, TanStack Table v8, shadcn/ui (Base UI)
+- **Styling:** Tailwind CSS v4, Beatrice font
+- **Hosting:** GitHub Pages (via GitHub Actions)
+- **Data:** CSV → Python → static JSON
 
-## Local dev
+## Two-repo workflow
+
+| Repo | Branch | Role | URL |
+|---|---|---|---|
+| `nashthecoder/ai-democracy-map-dev` | `dev` | Staging — make changes, test, preview | `https://nashthecoder.github.io/ai-democracy-map-dev/` |
+| `P4Dem/ai-democracy-map` | `main` | Production — push when ready | `https://p4dem.github.io/ai-democracy-map/` |
+
+Push to staging to preview changes. When ready, push staging `dev` to production `main`:
 
 ```sh
-bun install
-bun run dev   # → http://localhost:4321
+git remote add prod https://github.com/P4Dem/ai-democracy-map.git
+git push prod dev:main
 ```
 
-The site is fully static — no server, no database, no admin panel. Data updates are done by editing `data/raw/mapping.csv` and committing.
+The GitHub Action auto-detects the repo name and sets the correct base path — no config changes needed between repos.
 
-## Data model
+## CI checks (run on every push and PR)
 
-Two files drive the entire dataset:
+1. **Type check** — `bun run typecheck` (tsc --noEmit)
+2. **Tests** — `bun test` (39 TypeScript tests)
+3. **Build** — `bun run build` (astro build)
 
-**`public/data/aspects.json`** — the P4Democracy codebook. 16 aspect codes across 4 pillars (e.g. `2.1 Free and Fair Elections`). Each entry has a code, name, short definition, full description, and pillar. This file is the authoritative reference; the preprocessing pipeline warns on any CSV row that references an unknown code.
-
-**`data/raw/mapping.csv`** — the source data. Each row is one entry with:
-- A `Stable ID` (permanent identifier)
-- Up to 3 text fields: threat (paraphrased + verbatim), mitigation strategy (paraphrased + verbatim), independent opportunity (paraphrased + verbatim) — `///` marks an absent field
-- A `Source` field containing a full citation and URL
-- Up to 6 `P4Dem Category` columns referencing aspect codes
-
-The pipeline classifies each row as `threat`, `threat-solution`, or `independent-opportunity` based on which text fields are present, extracts the aspect codes, derives a short source label, and strips the URL from the citation string.
+All three must pass before deploy. If any fail, the PR shows a red X and deploy is blocked.
 
 ## Data pipeline
 
 ```
 data/raw/mapping.csv + public/data/aspects.json
   → preprocessing/preprocess.py
-  → public/data/data.json        (committed as build-time seed)
-  → /data/data.json endpoint     (reads from KV at runtime, falls back to seed)
+  → public/data/data.json  (committed — static data source)
 ```
 
-To regenerate the seed after a CSV update:
+To regenerate after updating the CSV:
 
 ```sh
-cd preprocessing
-python -m venv .venv && source .venv/bin/activate
-pip install -r requirements.txt
-cd .. && bun run preprocess
+source preprocessing/.venv/bin/activate
+bun run preprocess
 ```
 
 Tests: `pytest preprocessing/tests/`
 
-Researchers can also publish CSV updates directly through the admin panel without touching the pipeline — the admin upload endpoint runs the same TypeScript port of the pipeline server-side.
+## Data model
 
-## GitHub Pages deployment
+- **`data/raw/mapping.csv`** — source data. Each row: stable ID, threat (paraphrased + verbatim), mitigation strategy (paraphrased + verbatim), independent opportunity (paraphrased + verbatim), source citation/URL, up to 6 aspect codes.
+- **`public/data/aspects.json`** — P4Democracy codebook. 16 aspect codes across 4 pillars. The authoritative reference; the pipeline warns on unknown codes.
+- **`public/data/data.json`** — preprocessed build artifact, committed for static deployment.
 
-The site builds as static files and deploys via GitHub Actions on push to `dev` or `main`:
+## Commands
 
-1. Installs Bun + dependencies
-2. Runs `bun run build`
-3. Uploads `dist/` as a GitHub Pages artifact
-4. Deploys to GitHub Pages
-
-To deploy manually:
-
-```sh
-bun run build
-```
+| Command | Description |
+|---|---|
+| `bun run dev` | Dev server at localhost:4321 |
+| `bun run build` | Production build → `dist/` |
+| `bun run preview` | Preview production build locally |
+| `bun run preprocess` | Regenerate data.json from CSV |
+| `bun run typecheck` | TypeScript type check |
+| `bun run lint` | TypeScript type check (alias) |
+| `bun test` | TypeScript unit tests |
+| `pytest preprocessing/tests/` | Python preprocessing tests |
 
 ## Project structure
 
 ```
 data/raw/             source CSV (committed)
 public/data/
-  aspects.json        P4Dem aspect codebook (committed)
-  data.json           build-time static data source (committed)
-preprocessing/        Python pipeline (CSV → data.json)
+  aspects.json        P4Dem codebook (committed)
+  data.json           build-time data source (committed)
+preprocessing/        Python pipeline + tests
 src/
-  components/         React components (ThreatMap, shadcn/ui)
-  lib/
-    types.ts          shared types
-    utils.ts          utility functions (cn, exportToCsv)
-  pages/
-    index.astro       single page (static)
+  components/         React components (ThreatMap, DataTable, etc.)
+  hooks/              useDataLoader, useFilters
+  lib/                types.ts, utils.ts
+  pages/              index.astro (single page)
+  styles/             globals.css (Tailwind + P4D theme)
 ```
+
+## Architecture
+
+Single page, fully static. React handles all interactivity (filtering, search, infinite scroll). Data fetches at runtime via the `useDataLoader` hook. No server, no database, no admin panel. Data updates go through the CSV → commit → auto-deploy pipeline.
+
+For full design system and component documentation, see `CLAUDE.md`.
