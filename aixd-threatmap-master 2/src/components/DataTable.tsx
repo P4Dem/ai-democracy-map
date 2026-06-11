@@ -144,7 +144,7 @@ type DataTableProps = {
   globalFilter: string;
   columnFilters: ColumnFiltersState;
   onFilteredRowsChange?: (rows: Item[]) => void;
-  scrollTargetRef?: React.RefObject<HTMLElement>;
+  scrollTargetRef?: React.RefObject<HTMLElement | null>;
 };
 
 type GroupInfo = {

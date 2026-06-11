@@ -6,7 +6,9 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "preprocess": "python preprocessing/preprocess.py"
+    "preprocess": "python preprocessing/preprocess.py",
+    "typecheck": "tsc --noEmit",
+    "lint": "tsc --noEmit"
   },
   "devDependencies": {
     "@types/papaparse": "^5.5.2",
