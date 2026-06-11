@@ -27,3 +27,9 @@ preprocessing/.venv/
 
 # Local KV store (filesystem fallback)
 data/kv-store/
+
+# Local developer files (not for main repo)
+*.docx
+*.doc
+BUILD_LOG.md
+email-draft.*

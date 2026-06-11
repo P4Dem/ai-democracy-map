@@ -89,7 +89,7 @@
   },
   "3.1": {
     "code": "3.1",
-    "name": "The Media in a Democratic Society",
+    "name": "Independent and Fact-Based Journalistic Media",
     "definition": "Effects on the independence, viability, and reach of regulated, professionally produced journalism.",
     "description": "Effects on the independence and pluralism of regulated, professional journalism; on the representativeness of opinion and the investigative capacity of journalism; on journalists' ability to operate freely; and on the accountability of platforms for the information flows they shape and amplify.",
     "pillar": "Civil Society and Popular Participation",
@@ -105,7 +105,7 @@
   },
   "3.3": {
     "code": "3.3",
-    "name": "Decentralisation",
+    "name": "National–Subnational Power Relations",
     "definition": "Effects on the distribution of power between central and local government.",
     "description": "Effects on the independence and capacity of sub-central tiers of government; on local accountability and responsiveness to citizens; and on the distribution of power and resources between central and local government.",
     "pillar": "Civil Society and Popular Participation",
@@ -116,7 +116,7 @@
     "name": "External Influences on Democracy",
     "definition": "Effects on foreign interference or the democratic-autocratic geopolitical balance.",
     "description": "Effects on a country's freedom from external interference in its democratic processes; on the geopolitical balance between democratic and autocratic models of governance; and on the ability of democratic states to maintain autonomous control over their political institutions and infrastructure.",
-    "pillar": "Democracy Beyond the State",
+    "pillar": "Transnational Dynamics",
     "pillarCode": "4"
   },
   "4.2": {
@@ -124,7 +124,7 @@
     "name": "Democratic Impact Abroad",
     "definition": "Effects of a country's AI policies or exports on democracy in other countries.",
     "description": "Effects on a country's support for human rights and democracy in other countries; on respect for international rule of law; and on whether a country's policies, exports, and international conduct strengthen or undermine democratic governance elsewhere.",
-    "pillar": "Democracy Beyond the State",
+    "pillar": "Transnational Dynamics",
     "pillarCode": "4"
   }
 }

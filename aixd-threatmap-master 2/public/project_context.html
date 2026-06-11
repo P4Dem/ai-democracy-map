@@ -585,20 +585,20 @@ bun run preprocess</code></pre>
         <p><strong>Philosophy:</strong> Data density over decoration. Restraint is the aesthetic.</p>
 
         <h3>Semantic Colors</h3>
+        <p style="font-size:0.85rem;color:var(--text-muted);margin-bottom:0.5rem">Official P4D palette per Karoline (v0.5). Orange and Rose are not design-conform — do not use.</p>
         <ul class="color-list">
-          <li><span class="color-swatch" style="background:#F4F4EA;border-color:#ccc"></span> <strong>Ecru</strong> <code>#F4F4EA</code> — Page background</li>
-          <li><span class="color-swatch" style="background:#963735"></span> <strong>Brick</strong> <code>#963735</code> — Threats, danger, Pillar 1</li>
-          <li><span class="color-swatch" style="background:#00B140"></span> <strong>Grassroot</strong> <code>#00B140</code> — Solutions, opportunities, Pillar 2</li>
-          <li><span class="color-swatch" style="background:#92C2FF"></span> <strong>Blue</strong> <code>#92C2FF</code> — Pillar 3, accent</li>
-          <li><span class="color-swatch" style="background:#D9E021"></span> <strong>Lime</strong> <code>#D9E021</code> — Pillar 4, warnings</li>
-          <li><span class="color-swatch" style="background:#FF8E32"></span> <strong>Orange</strong> <code>#FF8E32</code> — Supplementary</li>
-          <li><span class="color-swatch" style="background:#FFB3E6"></span> <strong>Pink</strong> <code>#FFB3E6</code> — Supplementary</li>
+          <li><span class="color-swatch" style="background:#F4F4EA;border-color:#ccc"></span> <strong>Ecru</strong> <code>#F4F4EA</code> (244/244/234) — Page background</li>
+          <li><span class="color-swatch" style="background:#000000"></span> <strong>Black</strong> <code>#000000</code> (0/0/0) — Text, objects</li>
+          <li><span class="color-swatch" style="background:#963737"></span> <strong>Brick</strong> <code>#963737</code> (150/55/53) — Threats, danger, Pillar 1</li>
+          <li><span class="color-swatch" style="background:#00B140"></span> <strong>Grassroot</strong> <code>#00B140</code> (0/177/64) — Solutions, opportunities, Pillar 2</li>
+          <li><span class="color-swatch" style="background:#99C2FF"></span> <strong>Blue</strong> <code>#99C2FF</code> (153/194/255) — Pillar 3, accent</li>
+          <li><span class="color-swatch" style="background:#D9EC44"></span> <strong>Lime</strong> <code>#D9EC44</code> (217/236/68) — Pillar 4, warnings</li>
         </ul>
       </section>
 
       <!-- TODO -->
       <section id="todo">
-        <h2>Pre-Publish Todo <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">(from Karoline, 04.06.2026)</span></h2>
+        <h2>Pre-Publish Todo <span style="font-size:0.8rem;font-weight:400;color:var(--text-muted)">(from Karoline — Additional Edits 04.06 + v0.5 framework 10.06)</span></h2>
         <p style="font-size:0.85rem;margin-bottom:1rem">
           <strong>Live:</strong> <a href="https://nashthecoder.github.io/ai-democracy-map-dev/" target="_blank">nashthecoder.github.io/ai-democracy-map-dev/</a> &middot;
           <strong>Docs:</strong> <a href="project_context.html">project_context.html</a>
@@ -606,11 +606,16 @@ bun run preprocess</code></pre>
 
         <h3>Data &amp; Content</h3>
         <ul>
-          <li><input type="checkbox" disabled> <strong>Update data to V10.0</strong> — replace <code>mapping.csv</code></li>
+          <li><input type="checkbox" disabled> <strong>Update data to V10.0</strong> — replace <code>mapping.csv</code> (awaiting file)</li>
           <li><input type="checkbox" disabled checked> <strong>Rename "solution" → "mitigation strategy"</strong> — everywhere</li>
-          <li><input type="checkbox" disabled> <strong>Update Introduction text</strong> — rewrite intro</li>
-          <li><input type="checkbox" disabled checked> <strong>Add codebook link</strong> — external icon on Democracy Aspects header pointing to GitHub code descriptions</li>
-          <li><input type="checkbox" disabled> <strong>Move decentralisation</strong> — pillar 3 → pillar 2 (edit specific rows in mapping.csv)</li>
+          <li><input type="checkbox" disabled> <strong>Update Introduction text</strong> — rewrite intro with CTA (needs copy)</li>
+          <li><input type="checkbox" disabled checked> <strong>Add codebook link</strong> — icon on Democracy Aspects header → <code>/codebook.html</code></li>
+          <li><input type="checkbox" disabled checked> <strong>Codebook HTML page</strong> — standalone page at <code>public/codebook.html</code> with full framework</li>
+          <li><input type="checkbox" disabled checked> <strong>Move decentralisation pillar 3 → 2</strong> — done in docs (<code>codebook.html</code>, <code>code_descriptions.md</code>), pending in <code>aspects.json</code> until V10.0 data</li>
+          <li><input type="checkbox" disabled> <strong>Rename "Decentralisation" → "National–Subnational Power Relations"</strong> (v0.5) — <code>aspects.json</code></li>
+          <li><input type="checkbox" disabled> <strong>Rename pillar "Democracy Beyond the State" → "Transnational Dynamics"</strong> (v0.5) — <code>aspects.json</code>, <code>IntroSection.tsx</code></li>
+          <li><input type="checkbox" disabled> <strong>Align colour palette to official P4D values</strong> — Brick <code>#963737</code>, Blue <code>#99C2FF</code>, Lime <code>#D9EC44</code>, drop Orange/Rose</li>
+          <li><input type="checkbox" disabled> <strong>Potentially change pillar columns to match slide deck</strong> — need clarification/slide</li>
         </ul>
 
         <h3>Filter Buttons</h3>
@@ -646,17 +651,19 @@ bun run preprocess</code></pre>
           <li><input type="checkbox" disabled> Push to GitHub org repo</li>
           <li><input type="checkbox" disabled> Enable GitHub Pages in repo settings</li>
           <li><input type="checkbox" disabled> Embed in P4D website</li>
+          <li><input type="checkbox" disabled> <strong>Rebuild admin panel</strong> for static GitHub Pages (GitHub API approach — no Cloudflare)</li>
+          <li><input type="checkbox" disabled> <strong>Write proper README</strong> for reusable template (clone, setup, data pipeline)</li>
         </ul>
 
         <h3>Future Features</h3>
-        <ul style="color:var(--text-muted)">
-          <li>Coverage heatmap (aspects × source)</li>
-          <li>Dashboard summary panel</li>
-          <li>Row permalinks (<code>?id=X</code>)</li>
-          <li>Search highlight</li>
-          <li>Add <code>Mechanisms</code> column</li>
-          <li>Aspect examples in <code>aspects.json</code></li>
-        </ul>
+        <table style="width:100%;font-size:0.85rem">
+          <tr><th style="width:130px">Category</th><th>Items</th></tr>
+          <tr><td><strong>Navigation</strong></td><td>Replace infinite scroll with load-more pagination ("Show 20 more"); Row permalinks (<code>?id=X</code>)</td></tr>
+          <tr><td><strong>Data</strong></td><td>Add <code>Mechanisms</code> column; Make source list exportable</td></tr>
+          <tr><td><strong>UI</strong></td><td>Feedback modal (inline lightbox); Share button with copy-link; Search highlight; GitHub issue templates</td></tr>
+          <tr><td><strong>Analytics</strong></td><td>Coverage heatmap (aspects × source); Dashboard summary panel</td></tr>
+          <tr><td><strong>Docs</strong></td><td>Aspect examples in <code>aspects.json</code></td></tr>
+        </table>
       </section>
 
       <!-- CONTRIBUTION -->

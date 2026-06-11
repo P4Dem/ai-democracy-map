@@ -15,12 +15,12 @@ export type PillarColorConfig = {
 export const PILLAR_COLORS: Record<string, PillarColorConfig> = {
   "1": {
     // P4D Brick — Citizenship, Law and Rights
-    chipBg:          "rgba(150,55,53,0.12)",
-    chipText:        "#963735",
-    dialogHeaderBg:  "rgba(150,55,53,0.08)",
-    dialogAccentBar: "#963735",
-    dialogBadgeBg:   "rgba(150,55,53,0.15)",
-    dialogBadgeText: "#963735",
+    chipBg:          "rgba(150,55,55,0.12)",
+    chipText:        "#963737",
+    dialogHeaderBg:  "rgba(150,55,55,0.08)",
+    dialogAccentBar: "#963737",
+    dialogBadgeBg:   "rgba(150,55,55,0.15)",
+    dialogBadgeText: "#963737",
   },
   "2": {
     // P4D Grassroot — Representative and Accountable Government
@@ -33,20 +33,20 @@ export const PILLAR_COLORS: Record<string, PillarColorConfig> = {
   },
   "3": {
     // P4D Blue — Civil Society and Popular Participation
-    chipBg:          "rgba(146,194,255,0.25)",
+    chipBg:          "rgba(153,194,255,0.25)",
     chipText:        "#1a5c9a",
-    dialogHeaderBg:  "rgba(146,194,255,0.18)",
-    dialogAccentBar: "#92C2FF",
-    dialogBadgeBg:   "rgba(146,194,255,0.35)",
+    dialogHeaderBg:  "rgba(153,194,255,0.18)",
+    dialogAccentBar: "#99C2FF",
+    dialogBadgeBg:   "rgba(153,194,255,0.35)",
     dialogBadgeText: "#1a5c9a",
   },
   "4": {
     // P4D Lime — Democratic Governance of AI
-    chipBg:          "rgba(217,224,33,0.22)",
+    chipBg:          "rgba(217,236,68,0.22)",
     chipText:        "#5a5a00",
-    dialogHeaderBg:  "rgba(217,224,33,0.15)",
+    dialogHeaderBg:  "rgba(217,236,68,0.15)",
     dialogAccentBar: "#c4cb00",
-    dialogBadgeBg:   "rgba(217,224,33,0.35)",
+    dialogBadgeBg:   "rgba(217,236,68,0.35)",
     dialogBadgeText: "#5a5a00",
   },
 };

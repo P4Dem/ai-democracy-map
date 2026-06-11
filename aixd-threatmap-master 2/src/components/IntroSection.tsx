@@ -155,7 +155,7 @@ const PILLAR_DEFS: PillarDef[] = [
     code: "1",
     label: "Citizenship, Law and Rights",
     dotClass: "bg-p4d-brick",
-    countColor: "#963735",
+    countColor: "#963737",
   },
   {
     code: "2",
@@ -171,7 +171,7 @@ const PILLAR_DEFS: PillarDef[] = [
   },
   {
     code: "4",
-    label: "Democracy Beyond the State",
+    label: "Transnational Dynamics",
     dotClass: "bg-p4d-lime",
     countColor: "#5a5a00",
   },

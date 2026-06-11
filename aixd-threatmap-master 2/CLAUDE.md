@@ -6,10 +6,10 @@ Filterable, searchable table of ~190 AI threats and opportunities mapped to the 
 
 ## Stack
 
-- **Frontend:** Astro 6 (static + selective SSR) + React 19 island + TanStack Table v8 + shadcn/ui (Base UI) + Tailwind CSS v4
-- **Hosting:** Cloudflare Workers via `@astrojs/cloudflare` adapter
-- **Storage:** Cloudflare KV (`DATA_KV` binding) with `FilesystemAdapter` fallback for local dev
-- **Preprocessing:** Python 3 (framework-free, `preprocessing/preprocess.py`) — also ported to TypeScript in `src/lib/preprocessing.ts` for the admin upload flow
+- **Frontend:** Astro 6 (static) + React 19 island + TanStack Table v8 + shadcn/ui (Base UI) + Tailwind CSS v4
+- **Hosting:** GitHub Pages (static via GitHub Actions)
+- **Data:** Static JSON files (`public/data/data.json` + `public/data/aspects.json`) fetched at runtime
+- **Preprocessing:** Python 3 (framework-free, `preprocessing/preprocess.py`)
 - **Package manager:** Bun
 - **Testing:** Bun test runner (`bun:test`) for TypeScript, pytest for Python
 
@@ -25,33 +25,17 @@ Filterable, searchable table of ~190 AI threats and opportunities mapped to the 
 
 Single React island pattern: `src/pages/index.astro` imports `globals.css` and renders `<ThreatMap client:load />`. All table interactivity lives in React; Astro owns the shell.
 
-SSR is opt-in via `export const prerender = false` on individual routes. The admin pages and API endpoints use this. Static pages prerender at build time.
-
-**Cloudflare env access (Astro 6):** `locals.runtime.env` was removed. Use:
-```ts
-const cf = await import("cloudflare:workers")
-// cf.env.DATA_KV, cf.env.ADMIN_PASSWORD, etc.
-```
-Wrap in try/catch — the import throws outside Cloudflare runtime.
-
-**StorageAdapter abstraction** (`src/lib/storage.ts`): `CloudflareKVAdapter` in production, `FilesystemAdapter` in local dev. `getStorage()` selects automatically. This is the seam for swapping hosting targets.
+All pages prerender at build time — no SSR. The site is fully static and deploys to GitHub Pages via GitHub Actions.
 
 ## Data flow
 
 ```
-data/raw/mapping.csv
+data/raw/mapping.csv + public/data/aspects.json
   → bun run preprocess (Python)
-  → public/data/data.json   (committed as build-time seed)
-  → /data/data.json endpoint reads KV at runtime, falls back to seed
+  → public/data/data.json   (committed as build-time data source)
 ```
 
-Admin upload path:
-```
-POST /api/admin/upload  → preprocess (TypeScript) → KV: data.preview + data.preview.stats
-POST /api/admin/publish → KV: data.json (live), data.backup (previous)
-POST /api/admin/restore → KV: data.json ← data.backup
-DELETE /api/admin/preview → clear pending preview
-```
+Data is fetched at runtime by the React app via the `useDataLoader` hook. No server or KV store involved — purely static.
 
 ## Design system
 
@@ -123,9 +107,6 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 ## Key conventions
 
 - Single React island — all interactivity inside `<ThreatMap client:load />`
-- `export const prerender = false` on all SSR routes (admin, API, data endpoint)
-- Cloudflare env via `import("cloudflare:workers")` + try/catch, never `locals.runtime.env`
-- `getStorage()` — always use this factory, never instantiate adapters directly
 - Brand colors carry semantic meaning — don't use brick/grassroot decoratively
 - No `overflow-hidden` on table cell wrappers (causes chip clipping; `line-clamp` owns its overflow)
 - `createPortal` for MultiSelect (Card has `overflow-hidden`)
@@ -151,10 +132,7 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Sticky filterbar with padding/corner animation
 - Sticky table header with info popovers and codebook link
 - IntroSection with count-up stats
-- Admin panel: CSV upload → preview → publish → restore
-- HTTP Basic Auth middleware (timing-safe, malformed base64 guard)
-- Dynamic `/data/data.json` endpoint (KV with build-time fallback)
-- StorageAdapter abstraction (Cloudflare KV + filesystem)
+
 
 ## Features pending
 

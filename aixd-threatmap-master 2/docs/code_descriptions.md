@@ -1,7 +1,7 @@
 # P4Dem Democracy Assessment Framework
 
 **Author:** Karoline Helbig\
-**Version:** 0.4 — 22.04.2026
+**Version:** 0.5 — 10.06.2026
 
 ---
 
@@ -20,13 +20,13 @@
 | 2.3 | Effective and Accountable Government | Effects on transparency, accountability, or fairness of government services and policymaking. |
 | 2.4 | Democratic Effectiveness of Legislature | Effects on legislative scrutiny, oversight capacity, or executive-legislature power balance. |
 | 2.5 | Democratic Role of the Judiciary | Effects on judicial independence, constitutional oversight of government, and citizens' ability to challenge the exercise of public power through legal means (strategic litigation). |
-| 2.6 | Decentralisation | Effects on the distribution of power between central and local government. |
+| 2.6 | National–Subnational Power Relations | Effects on the distribution of power between central and local government. |
 | 2.7 | Civilian Control of Military and Police | Effects on oversight and accountability of security and enforcement agencies. |
 | 2.8 | Illegitimate Influence over Policy-Making | Effects on corruption, regulatory capture, or undue private influence over public policy and the policy process. |
 | **3** | **Civil Society and Popular Participation** | |
 | 3.1 | Independent and Fact-Based Journalistic Media | Effects on the independence, viability, and reach of regulated, professionally produced journalism. |
 | 3.2 | Opinion Formation and Political Participation | Effects on how citizens form and exchange political views, participate in public life, or organise through civil society. |
-| **4** | **Democracy Beyond the State** | |
+| **4** | **Transnational Dynamics** | |
 | 4.1 | External Influences on Democracy | Effects on foreign interference or the democratic-autocratic geopolitical balance. |
 | 4.2 | Democratic Impact Abroad | Effects of a country's AI policies or exports on democracy in other countries. |
 
@@ -96,7 +96,7 @@ Effects on the capacity of courts to provide independent oversight of the execut
 
 Coded items affect judicial independence, constitutional review of AI-related legislation or government decisions, or citizens' ability to seek legal redress against automated or AI-assisted exercises of state power.
 
-#### 2.6 Decentralisation
+#### 2.6 National–Subnational Power Relations
 
 Effects on the independence and capacity of sub-central tiers of government; on local accountability and responsiveness to citizens; and on the distribution of power and resources between central and local government.
 
@@ -130,7 +130,7 @@ Effects on the conditions under which citizens form, exchange, and revise politi
 
 Coded items affect how citizens form or express political views, organise collectively, or participate in public life; when AI shapes the information environment through which public opinion is formed, including social media, persuasion, disinformation, and echo chambers; or when it affects the capacity of civil society to act independently and authentically.
 
-### 4. Democracy Beyond the State
+### 4. Transnational Dynamics
 
 Concerns the international dimensions of democracy: external influences on a country's democracy, and the country's democratic impact abroad.
 
@@ -152,12 +152,12 @@ Coded items affect how the coded country shapes democratic conditions outside it
 
 The following rules apply to every coding decision and are intended to keep coding consistent across items and coders.
 
-1. **Code all applicable categories.** Include both direct and secondary or trickle-down effects. There is no limit on the number of codes per item, but each must be justifiable.
+- **Code all applicable categories.** Include both direct and secondary or trickle-down effects. There is no limit on the number of codes per item, but each must be justifiable.
 
-2. **Ground code in the source where possible.** If the democratic impact in a given category cannot be derived from the original text, flag as P4Dem inference.
+- **Ground code in the source where possible.** If the democratic impact in a given category cannot be derived from the original text, flag as P4Dem inference.
 
-3. **Primary vs. secondary codes.** The most direct effect is primary; weaker effects are secondary. For threats and opportunities, coders may mark one code as primary and others as secondary where it is useful to distinguish, but this is optional — the priority is completeness. For solutions, the primary code is inherited from the connected threat; secondary codes may be added where the solution has broader democratic reach beyond that threat's primary impact area.
+- **The most direct effect is primary; weaker effects are secondary.** For threats and opportunities, coders may mark one code as primary and others as secondary where it is useful to distinguish, but this is optional — the priority is completeness. For solutions, the primary code is inherited from the connected threat; secondary codes may be added where the solution has broader democratic reach beyond that threat's primary impact area.
 
-4. **Government vs. civil society.** Pillar 2 covers what governments do; Pillar 3 covers what citizens and civil society can do. When an item touches both, code in both pillars.
+- **Government vs. civil society.** Pillar 2 covers what governments do; Pillar 3 covers what citizens and civil society can do. When an item touches both, code in both pillars.
 
-5. **Cross-cutting items** (e.g. AI literacy, interdisciplinary research, public interest technologists) are coded to every category their mechanism of democratic effect touches.
+- **Cross-cutting items** (e.g. AI literacy, interdisciplinary research, public interest technologists) are coded to every category their mechanism of democratic effect touches.

@@ -4,16 +4,14 @@ Filterable database of AI threats and opportunities to democracy, built for P4D 
 
 ## Architecture
 
-Astro 6 static site with a single React island (`<ThreatMap />`), deployed on Cloudflare Workers. Data lives in Cloudflare KV and is updated through a password-protected admin panel — no redeploys needed for content changes.
-
-Uses `@astrojs/cloudflare`. To target a different host, swap the adapter in `astro.config.mjs` and implement a new backend in `src/lib/storage.ts` — the `StorageAdapter` interface is the seam.
+Astro 6 static site with a single React island (`<ThreatMap />`), deployed on GitHub Pages via GitHub Actions. Data is compiled from CSV at build time and served as static JSON files.
 
 ## Stack
 
-- Astro 6 + `@astrojs/cloudflare`
+- Astro 6 (static)
 - React 19 (single island: `<ThreatMap />`)
-- TanStack Table v8, shadcn/ui, Tailwind CSS v4, Beatrice font
-- Cloudflare Workers + KV
+- TanStack Table v8, shadcn/ui (Base UI), Tailwind CSS v4, Beatrice font
+- GitHub Pages (via GitHub Actions)
 - Bun, Python 3
 
 ## Local dev
@@ -23,14 +21,7 @@ bun install
 bun run dev   # → http://localhost:4321
 ```
 
-The admin panel at `/admin` requires a password. Create `.env.local`:
-
-```sh
-ADMIN_PASSWORD=yourpassword
-# ADMIN_USERNAME=admin   # optional, defaults to "admin"
-```
-
-Without Cloudflare bindings, storage falls back to the local filesystem at `./data/kv-store/`.
+The site is fully static — no server, no database, no admin panel. Data updates are done by editing `data/raw/mapping.csv` and committing.
 
 ## Data model
 
@@ -68,35 +59,20 @@ Tests: `pytest preprocessing/tests/`
 
 Researchers can also publish CSV updates directly through the admin panel without touching the pipeline — the admin upload endpoint runs the same TypeScript port of the pipeline server-side.
 
-## Cloudflare deployment
+## GitHub Pages deployment
 
-The KV namespace is declared in `wrangler.toml` without an ID. Wrangler (v3.91+) auto-creates it on first deploy:
+The site builds as static files and deploys via GitHub Actions on push to `dev` or `main`:
 
-```toml
-[[kv_namespaces]]
-binding = "DATA_KV"
-```
+1. Installs Bun + dependencies
+2. Runs `bun run build`
+3. Uploads `dist/` as a GitHub Pages artifact
+4. Deploys to GitHub Pages
 
-Do not configure this binding only in the Cloudflare dashboard — `wrangler deploy` drops dashboard-only bindings on subsequent deploys.
-
-Build and deploy:
+To deploy manually:
 
 ```sh
-bun run build && wrangler deploy
+bun run build
 ```
-
-Set admin credentials as secrets:
-
-```sh
-wrangler secret put ADMIN_PASSWORD
-wrangler secret put ADMIN_USERNAME   # optional
-```
-
-## Admin panel
-
-`/admin` — HTTP Basic Auth using the credentials above.
-
-Upload a CSV, review the preview (item counts by type, warnings for unknown aspect codes, first 5 items), then publish. Each publish backs up the current live dataset. Restore is one click.
 
 ## Project structure
 
@@ -104,18 +80,13 @@ Upload a CSV, review the preview (item counts by type, warnings for unknown aspe
 data/raw/             source CSV (committed)
 public/data/
   aspects.json        P4Dem aspect codebook (committed)
-  data.json           build-time seed; KV takes over at runtime
+  data.json           build-time static data source (committed)
 preprocessing/        Python pipeline (CSV → data.json)
 src/
-  components/         React components (ThreatMap, AdminPanel, shadcn/ui)
+  components/         React components (ThreatMap, shadcn/ui)
   lib/
-    storage.ts        StorageAdapter — CloudflareKV or local filesystem
-    types.ts          shared types across pipeline and frontend
-    preprocessing.ts  TypeScript port of the pipeline (used by admin upload)
-  middleware.ts       Basic Auth guard on /admin and /api/admin
+    types.ts          shared types
+    utils.ts          utility functions (cn, exportToCsv)
   pages/
-    admin/            admin panel (SSR)
-    api/admin/        upload, publish, restore, preview endpoints
-    data/data.json.ts KV endpoint with build-time fallback
-wrangler.toml         Cloudflare Workers + KV config
+    index.astro       single page (static)
 ```
