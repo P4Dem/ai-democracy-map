@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { MultiSelect } from "@/components/MultiSelect";
 import type { FilterState, Item, AspectMap, ItemType } from "@/lib/types";
+import { COL_WIDTHS } from "@/components/DataTable";
 
 const TYPE_LABELS: Record<ItemType, string> = {
   "threat-solution": "Threat + Mitigation pairing",
@@ -180,6 +181,28 @@ export const FilterBar = ({
               </button>
             </span>
           ))}
+        </div>
+      )}
+
+      {isSticky && (
+        <div className="-mx-4 mt-2.5 border-t border-border/30 px-4 pt-2">
+          <div className="flex items-center text-[11px] uppercase tracking-wider font-semibold text-muted-foreground">
+            <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.type }}>
+              Impact type
+            </div>
+            <div className="min-w-0 flex-1 px-2">
+              Description
+            </div>
+            <div className="min-w-0 flex-1 px-2">
+              Mitigation Strategy
+            </div>
+            <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.aspects }}>
+              Democracy Aspects
+            </div>
+            <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.source }}>
+              Source
+            </div>
+          </div>
         </div>
       )}
     </div>

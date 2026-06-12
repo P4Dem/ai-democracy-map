@@ -92,7 +92,7 @@ const BATCH_SIZE = 20;
 
 // Fixed-width columns for chip-heavy cells; Description and Solution take the rest equally.
 // Adjust here to tune layout without touching JSX.
-const COL_WIDTHS = {
+export const COL_WIDTHS = {
   type:    "160px",
   aspects: "300px",
   source:  "140px",
@@ -414,7 +414,7 @@ export const DataTable = ({
             <col style={{ width: COL_WIDTHS.aspects }} />
             <col style={{ width: COL_WIDTHS.source }} />
           </colgroup>
-          <TableHeader className="sticky top-[60px] z-[5] bg-card">
+          <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
