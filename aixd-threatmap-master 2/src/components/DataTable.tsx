@@ -405,7 +405,7 @@ export const DataTable = ({
 
   return (
     <div className="space-y-3">
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto [overflow-y:clip]">
         <Table className="table-fixed min-w-[900px]">
           <colgroup>
             <col style={{ width: COL_WIDTHS.type }} />
