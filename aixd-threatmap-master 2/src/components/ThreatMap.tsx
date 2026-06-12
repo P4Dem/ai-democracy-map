@@ -76,8 +76,15 @@ export const ThreatMap = () => {
   // value and the inline override. Setting paddingInline to "" restores the
   // Tailwind class; the browser transitions between the two computed values.
   useEffect(() => {
+    const isEmbedded = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const url = new URL(window.location.href);
+    return url.searchParams.get("embed") === "true";
+  }, []);
+
+  useEffect(() => {
     const el = wrapperRef.current;
-    if (!el) return;
+    if (!el || isEmbedded) return;
     // Entering sticky: fast snap (120ms). Returning: slower settle (250ms).
     el.style.transition = isSticky
       ? "padding-inline 120ms cubic-bezier(0.16, 1, 0.3, 1)"
@@ -87,6 +94,105 @@ export const ThreatMap = () => {
     // frame and the transition never fires.
     void el.offsetHeight;
     el.style.paddingInline = isSticky ? "1rem" : "";
+  }, [isSticky, isEmbedded]);
+
+  if (error) {
+    return (
+      <div className="flex h-64 items-center justify-center">
+        <div className="text-center">
+          <p className="mb-2 text-sm text-destructive">{error}</p>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => window.location.reload()}
+          >
+            Try again
+          </Button>
+        </div>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div
+        ref={wrapperRef}
+        className={
+          isEmbedded
+            ? ""
+            : "mx-auto max-w-screen-2xl px-4 sm:px-8"
+        }
+      >
+        {!isEmbedded && <SkeletonIntroSection />}
+        <Card className={isEmbedded ? "mt-0 border-0 shadow-none" : "mt-8"}>
+          <CardContent className="p-0">
+            <SkeletonTable />
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  return (
+    <TooltipProvider>
+      <AspectDialog />
+      <div
+        ref={wrapperRef}
+        className={
+          isEmbedded
+            ? ""
+            : "mx-auto max-w-screen-2xl px-4 sm:px-8"
+        }
+      >
+        {!isEmbedded && (
+          <>
+            <IntroSection />
+            <div ref={sentinelRef} className="-mt-20" />
+          </>
+        )}
+
+        <AnimatePresence>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              delay: 0.2,
+              type: "spring",
+              stiffness: 100,
+              damping: 20,
+            }}
+          >
+            <Card
+              ref={cardRef}
+              className={isEmbedded ? "border-0 shadow-none" : "mt-8"}
+            >
+              <CardContent className="p-0">
+                <FilterBar
+                  aspects={aspects}
+                  filters={filters}
+                  setFilter={setFilter}
+                  resetFilters={resetFilters}
+                  activeFilterCount={activeFilterCount}
+                  onExport={handleExport}
+                  isSticky={isSticky}
+                  isEmbedded={isEmbedded}
+                />
+                <DataTable
+                  items={items}
+                  aspects={aspects}
+                  columnFilters={columnFilters}
+                  tableRef={tableRef}
+                />
+              </CardContent>
+            </Card>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+      <Toaster />
+    </TooltipProvider>
+  );
+};
   }, [isSticky]);
 
   if (error) {
