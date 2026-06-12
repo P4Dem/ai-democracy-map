@@ -19,8 +19,6 @@ import {
   Table,
   TableBody,
   TableCell,
-  TableHead,
-  TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { ChevronRight, Info, ExternalLink } from "lucide-react";
@@ -414,29 +412,7 @@ export const DataTable = ({
             <col style={{ width: COL_WIDTHS.aspects }} />
             <col style={{ width: COL_WIDTHS.source }} />
           </colgroup>
-          <TableHeader>
-            {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
-                {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className="cursor-pointer select-none whitespace-nowrap text-[11px] uppercase tracking-wider font-semibold text-muted-foreground"
-                    onClick={header.column.getToggleSortingHandler()}
-                  >
-                    <div className="flex items-center gap-1">
-                      {flexRender(
-                        header.column.columnDef.header,
-                        header.getContext()
-                      )}
-                      {{ asc: " ↑", desc: " ↓" }[
-                        header.column.getIsSorted() as string
-                      ] ?? null}
-                    </div>
-                  </TableHead>
-                ))}
-              </TableRow>
-            ))}
-          </TableHeader>
+
           <TableBody>
             {visibleRows.length === 0 ? (
               <TableRow>
