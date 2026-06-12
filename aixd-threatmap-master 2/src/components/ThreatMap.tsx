@@ -156,7 +156,7 @@ export const ThreatMap = () => {
               isSticky={isSticky}
             />
             <Card
-              className={`animate-fade-in-up${isSticky ? "" : " rounded-t-none"}`}
+              className={`animate-fade-in-up pt-0${isSticky ? "" : " rounded-t-none"}`}
               ref={cardRef}
             >
               <CardContent className="px-0">

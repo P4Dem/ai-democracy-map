@@ -414,7 +414,7 @@ export const DataTable = ({
             <col style={{ width: COL_WIDTHS.aspects }} />
             <col style={{ width: COL_WIDTHS.source }} />
           </colgroup>
-          <TableHeader className="sticky top-[76px] z-[5] bg-card">
+          <TableHeader className="sticky top-[60px] z-[5] bg-card">
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
