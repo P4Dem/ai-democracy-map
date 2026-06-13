@@ -9,7 +9,7 @@ import { SkeletonTable } from "@/components/SkeletonTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
-import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { TooltipProvider } from "@/components/ui/tooltip";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { useFilters } from "@/hooks/useFilters";
 import type { Item } from "@/lib/types";
@@ -188,22 +188,34 @@ export const ThreatMap = () => {
 
       <AnimatePresence>
         {isSticky && (
-          <Tooltip open={showBackLabel || undefined}>
-            <TooltipTrigger asChild>
-              <motion.button
-                initial={{ opacity: 0, scale: 0.85 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.85 }}
-                transition={{ duration: 0.15 }}
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-                className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
-                aria-label="Back to top"
-              >
-                ↑
-              </motion.button>
-            </TooltipTrigger>
-            <TooltipContent side="left">Back to top</TooltipContent>
-          </Tooltip>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.15 }}
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-2"
+          >
+            <AnimatePresence>
+              {showBackLabel && (
+                <motion.span
+                  initial={{ opacity: 0, x: 6 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 6 }}
+                  transition={{ duration: 0.2 }}
+                  className="rounded-md bg-foreground px-2.5 py-1.5 text-xs font-medium text-background shadow-md"
+                >
+                  Back to top
+                </motion.span>
+              )}
+            </AnimatePresence>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
+              aria-label="Back to top"
+            >
+              ↑
+            </button>
+          </motion.div>
         )}
       </AnimatePresence>
     </TooltipProvider>
