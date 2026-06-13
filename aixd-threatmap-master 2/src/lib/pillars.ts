@@ -15,12 +15,12 @@ export type PillarColorConfig = {
 export const PILLAR_COLORS: Record<string, PillarColorConfig> = {
   "1": {
     // P4D Brick — Citizenship, Law and Rights
-    chipBg:          "rgba(150,55,55,0.12)",
-    chipText:        "#963737",
-    dialogHeaderBg:  "rgba(150,55,55,0.08)",
-    dialogAccentBar: "#963737",
-    dialogBadgeBg:   "rgba(150,55,55,0.15)",
-    dialogBadgeText: "#963737",
+    chipBg:          "rgba(150,55,53,0.12)",
+    chipText:        "#963735",
+    dialogHeaderBg:  "rgba(150,55,53,0.08)",
+    dialogAccentBar: "#963735",
+    dialogBadgeBg:   "rgba(150,55,53,0.15)",
+    dialogBadgeText: "#963735",
   },
   "2": {
     // P4D Grassroot — Representative and Accountable Government

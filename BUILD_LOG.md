@@ -127,35 +127,53 @@ exist in source code (these are planned features):
 
 Remaining work before publishing (labeled by priority):
 
+**Color Palette (applied 2026-06-13):**
+
+- ~~Brick corrected~~ ✅ `#963737` → `#963735` (client RGB 150/55/53); rgba values in `pillars.ts` also fixed
+- ~~Blue corrected~~ ✅ `--accent: #92C2FF` → `#99C2FF`
+- ~~Orange and Rose added~~ ✅ `#FF7F32`, `#FFB9DC` — client palette confirms valid supplementary accents
+- ~~Brand Colors section in README~~ ✅
+
 **Data & Content:**
-- Update data to V10.0 — replace `mapping.csv`
-- Rename "solution" → "mitigation strategy" everywhere
-- Update Introduction text
-- Add codebook link
-- Move decentralisation pillar 3 → pillar 2
+
+- Update data to V10.0 — replace `mapping.csv` — CSV still says "V.8 ID" ❌
+- ~~Rename "solution" → "mitigation strategy" everywhere~~ ✅ (UI labels done; `ExpandedRow.tsx:93` still says "Solution (verbatim)" ⚠️)
+- ~~Update Introduction text~~ ✅
+- ~~Add codebook link~~ ✅
+- Move decentralisation pillar 3 → pillar 2 — 3.3 still in pillar 3 in `aspects.json` ❌
 
 **Filter Buttons:**
-- Extend search bar
-- Rename filters (Type→Impact type, etc.)
-- Fix threat+solution filter
+
+- ~~Extend search bar~~ ✅ (`w-72`)
+- ~~Rename filters (Type→Impact type, etc.)~~ ✅
+- ~~Fix threat+solution filter~~ ✅ (now "Threat + Mitigation pairing")
 
 **Table Headers:**
-- Freeze header row (sticky)
-- Info icons with pop-ups
-- Codebook link on aspects header
-- Rename Solution→Mitigation strategy
+
+- ~~Freeze header row (sticky)~~ ✅ (column titles in sticky FilterBar)
+- ~~Info icons with pop-ups~~ ✅ (`ColumnHeader` with `Popover`)
+- ~~Codebook link on aspects header~~ ✅ (`ExternalLink` → `codebook.html`)
+- ~~Rename Solution→Mitigation strategy~~ ✅ (`COLUMN_INFO` title updated)
 
 **Table Entries:**
-- Update type labels
-- Threat paraphrase in every row
-- Improved aspects pop-up
-- Primary aspects first
-- Inline extension styling
+
+- ~~Update type labels~~ ✅ ("Threat + Mitigation", "Independent opportunity")
+- ~~Threat paraphrase in every row~~ ✅
+- ~~Improved aspects pop-up~~ ✅ (tooltip: code + pillar + description; click → AspectDialog)
+- ~~Primary aspects first~~ ✅ (preprocess.py sorts rank=0 before rank=1)
+- ~~Inline extension styling~~ ✅ (animated height + elevation shadow)
 
 **Infrastructure:**
-- Push to GitHub org repo
-- Enable GitHub Pages in repo settings
-- Embed in P4D website
+
+- ~~Push to GitHub org repo~~ ✅
+- ~~Enable GitHub Pages in repo settings~~ ✅
+- ~~Embed in P4D website~~ ✅ (live at Wagtail staging)
+- ~~Auto-detect iframe embed context~~ ✅ (`window.self !== window.top`)
+- ~~Remove padding layout shift on sticky~~ ✅ (paddingInline animation removed)
+- ~~Back-to-top button~~ ✅ (floating `↑`, appears when sticky)
+- ~~Embedded sticky filterbar~~ ✅ (scroll-listener for embedded mode)
+- ~~Responsive column headers~~ ✅ (FilterBar labels hidden <900px; `<thead>` in DataTable for narrow screens)
+- Fix Wagtail iframe height — currently `height="3000"` causes nested scroll ❌ (Wagtail team action — see project_context.md)
 
 ---
 

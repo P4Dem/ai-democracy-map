@@ -5,22 +5,87 @@ Filterable, searchable database of AI threats and opportunities to democracy, ma
 **Staging:** https://nashthecoder.github.io/ai-democracy-map-dev/  
 **Production:** https://p4dem.github.io/ai-democracy-map/
 
-## Quick start
+## Prerequisites
+
+| Tool | Version | Why |
+|---|---|---|
+| **Node.js** | >= 22.12.0 | Required by Astro 6 (v20 won't work) |
+| **Bun** | latest | Package manager + dev server |
+| **Python 3** | any 3.x | Data preprocessing pipeline |
+| **Git** | any | Version control |
+
+**Node.js version:** If `node --version` shows < 22, use nvm:
 
 ```sh
-git clone <repo-url>
-cd "aixd-threatmap-master 2"
-bun install
-bun run dev        # → http://localhost:4321
+# Install Node 22 (one-time)
+nvm install 22
+nvm use 22
+
+# Optional: make 22 the default
+nvm alias default 22
 ```
 
-## Requirements
+## Quick start
 
-| Tool | Version |
-|---|---|
-| Node.js | >= 22.12.0 |
-| Bun | latest |
-| Python 3 | any 3.x |
+**Important:** The repo path contains `$Connections` — the dollar sign can break Python's virtual environment. If you need the Python preprocessing pipeline, skip ahead to the [Python venv fix](#python-venv-fix) section first.
+
+For the frontend only (no data preprocessing):
+
+```sh
+# 1. Enter the source directory
+cd "aixd-threatmap-master 2"
+
+# 2. Install JS dependencies
+bun install
+
+# 3. Start dev server
+PUBLIC_BASE_PATH=/ bun run dev
+```
+
+Open **http://localhost:4321** in your browser.
+
+> **About the base path:** The Astro config sets `base` to `/ai-democracy-map-dev` (for GitHub Pages deployment under a subdirectory). Override it with `PUBLIC_BASE_PATH=/` for local dev so the app serves at the root. Without this override, you'd need to visit `http://localhost:4321/ai-democracy-map-dev/`.
+
+### Python venv fix (if `$` is in your repo path)
+
+The repo path `Billion$Connections/` contains a literal `$` sign. Python's venv writes this into shell scripts, and at runtime `$Connections` is interpreted as a variable expansion, breaking pip, pytest, etc.
+
+Workaround — create the venv outside the repo:
+
+```sh
+python3 -m venv /tmp/aixd-venv
+cp -r /tmp/aixd-venv preprocessing/.venv
+# Patch all venv scripts to escape the dollar sign
+sed -i '' 's/Billion$Connections/Billion\\$Connections/g' preprocessing/.venv/bin/*
+source preprocessing/.venv/bin/activate
+pip install -r preprocessing/requirements.txt
+```
+
+Alternatively, symlink the repo into a path without a dollar sign:
+
+```sh
+ln -s "/full/path/to/Billion$Connections/ai-democracy-map" ~/Desktop/ai-democracy-map
+cd ~/Desktop/ai-democracy-map/"aixd-threatmap-master 2"
+# Now Python venv works normally
+```
+
+### Full setup (for data work)
+
+```sh
+# 1. Node + Bun (from above)
+nvm use 22
+cd "aixd-threatmap-master 2"
+bun install
+
+# 2. Python venv (with dollar-sign workaround)
+# See "Python venv fix" above
+
+# 3. Verify everything works
+bun run dev                  # Frontend
+bun test                     # TS tests (39)
+pytest preprocessing/tests/  # Python tests (32)
+bun run build                # Production build
+```
 
 ## Stack
 
@@ -29,6 +94,26 @@ bun run dev        # → http://localhost:4321
 - **Styling:** Tailwind CSS v4, Beatrice font
 - **Hosting:** GitHub Pages (via GitHub Actions)
 - **Data:** CSV → Python → static JSON
+
+## Brand Colors
+
+### Primary
+
+| Name | RGB | Hex | Use |
+|---|---|---|---|
+| Black | 0 / 0 / 0 | `#000000` | Text, objects, backgrounds |
+| Ecru | 244 / 244 / 234 | `#F4F4EA` | Objects and backgrounds |
+
+### Accent
+
+| Name | RGB | Hex | Use |
+|---|---|---|---|
+| Brick | 150 / 55 / 53 | `#963735` | Threats, danger, Pillar 1 |
+| Grassroot | 0 / 177 / 64 | `#00B140` | Mitigation strategies, opportunities, Pillar 2 |
+| Blue | 153 / 194 / 255 | `#99C2FF` | Pillar 3, accent |
+| Lime | 217 / 236 / 68 | `#D9EC44` | Pillar 4 |
+| Orange | 255 / 127 / 50 | `#FF7F32` | Supplementary accent |
+| Rose | 255 / 185 / 220 | `#FFB9DC` | Supplementary accent |
 
 ## Two-repo workflow
 

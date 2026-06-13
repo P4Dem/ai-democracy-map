@@ -24,6 +24,12 @@ export const ThreatMap = () => {
   const { filters, setFilter, resetFilters, activeFilterCount } = useFilters();
   const cardRef = useRef<HTMLDivElement>(null);
 
+  const isEmbedded = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    const url = new URL(window.location.href);
+    return url.searchParams.get("embed") === "true" || window.self !== window.top;
+  }, []);
+
   const columnFilters = useMemo<ColumnFiltersState>(() => {
     const cf: ColumnFiltersState = [];
     if (filters.type.length > 0) cf.push({ id: "type", value: filters.type });
@@ -47,10 +53,7 @@ export const ThreatMap = () => {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
 
-  // The sentinel div only exists in the main render path (after loading).
-  // With [] deps, this effect ran on mount during the loading state when
-  // sentinelRef.current was null — observer was never created.
-  const sentinelReady = !isLoading && !error;
+  const sentinelReady = !isLoading && !error && !isEmbedded;
 
   useEffect(() => {
     if (!sentinelReady) return;
@@ -58,9 +61,6 @@ export const ThreatMap = () => {
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        // Only go sticky when sentinel has scrolled ABOVE the viewport (top < 0).
-        // Without this check, sentinel BELOW the fold on initial load also
-        // triggers isSticky=true because isIntersecting is false for both cases.
         const above = entry.boundingClientRect.top < 0;
         setIsSticky(!entry.isIntersecting && above);
       },
@@ -70,130 +70,14 @@ export const ThreatMap = () => {
     return () => observer.disconnect();
   }, [sentinelReady]);
 
-  // Padding animation via style API — Tailwind v4 `px-8` generates
-  // `padding-inline`, NOT `padding-left`/`padding-right`. We must animate
-  // the same property so the browser can interpolate between the CSS class
-  // value and the inline override. Setting paddingInline to "" restores the
-  // Tailwind class; the browser transitions between the two computed values.
+  // Sticky for embedded mode: use scroll position since there's no sentinel
   useEffect(() => {
-    const isEmbedded = useMemo(() => {
-    if (typeof window === "undefined") return false;
-    const url = new URL(window.location.href);
-    return url.searchParams.get("embed") === "true";
-  }, []);
-
-  useEffect(() => {
-    const el = wrapperRef.current;
-    if (!el || isEmbedded) return;
-    // Entering sticky: fast snap (120ms). Returning: slower settle (250ms).
-    el.style.transition = isSticky
-      ? "padding-inline 120ms cubic-bezier(0.16, 1, 0.3, 1)"
-      : "padding-inline 250ms cubic-bezier(0.33, 1, 0.68, 1)";
-    // Force synchronous layout so the browser commits the transition property
-    // before we change the value. Without this, both changes batch into one
-    // frame and the transition never fires.
-    void el.offsetHeight;
-    el.style.paddingInline = isSticky ? "1rem" : "";
-  }, [isSticky, isEmbedded]);
-
-  if (error) {
-    return (
-      <div className="flex h-64 items-center justify-center">
-        <div className="text-center">
-          <p className="mb-2 text-sm text-destructive">{error}</p>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => window.location.reload()}
-          >
-            Try again
-          </Button>
-        </div>
-      </div>
-    );
-  }
-
-  if (isLoading) {
-    return (
-      <div
-        ref={wrapperRef}
-        className={
-          isEmbedded
-            ? ""
-            : "mx-auto max-w-screen-2xl px-4 sm:px-8"
-        }
-      >
-        {!isEmbedded && <SkeletonIntroSection />}
-        <Card className={isEmbedded ? "mt-0 border-0 shadow-none" : "mt-8"}>
-          <CardContent className="p-0">
-            <SkeletonTable />
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  return (
-    <TooltipProvider>
-      <AspectDialog />
-      <div
-        ref={wrapperRef}
-        className={
-          isEmbedded
-            ? ""
-            : "mx-auto max-w-screen-2xl px-4 sm:px-8"
-        }
-      >
-        {!isEmbedded && (
-          <>
-            <IntroSection />
-            <div ref={sentinelRef} className="-mt-20" />
-          </>
-        )}
-
-        <AnimatePresence>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{
-              duration: 0.5,
-              delay: 0.2,
-              type: "spring",
-              stiffness: 100,
-              damping: 20,
-            }}
-          >
-            <Card
-              ref={cardRef}
-              className={isEmbedded ? "border-0 shadow-none" : "mt-8"}
-            >
-              <CardContent className="p-0">
-                <FilterBar
-                  aspects={aspects}
-                  filters={filters}
-                  setFilter={setFilter}
-                  resetFilters={resetFilters}
-                  activeFilterCount={activeFilterCount}
-                  onExport={handleExport}
-                  isSticky={isSticky}
-                  isEmbedded={isEmbedded}
-                />
-                <DataTable
-                  items={items}
-                  aspects={aspects}
-                  columnFilters={columnFilters}
-                  tableRef={tableRef}
-                />
-              </CardContent>
-            </Card>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-      <Toaster />
-    </TooltipProvider>
-  );
-};
-  }, [isSticky]);
+    if (!isEmbedded) return;
+    const onScroll = () => setIsSticky(window.scrollY > 60);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener("scroll", onScroll);
+  }, [isEmbedded]);
 
   if (error) {
     return (
@@ -214,37 +98,39 @@ export const ThreatMap = () => {
 
   return (
     <TooltipProvider>
-      {/* IntroSection — constant padding, skeleton → real via AnimatePresence */}
-      <div className="px-8 lg:px-16">
-        <AnimatePresence mode="popLayout">
-          {isLoading ? (
-            <motion.div
-              key="skeleton-intro"
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.1 }}
-            >
-              <SkeletonIntroSection />
-            </motion.div>
-          ) : (
-            <motion.div
-              key="real-intro"
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <IntroSection items={items} aspects={aspects} />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
+      {!isEmbedded && (
+        <div className="px-8 lg:px-16">
+          <AnimatePresence mode="popLayout">
+            {isLoading ? (
+              <motion.div
+                key="skeleton-intro"
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.1 }}
+              >
+                <SkeletonIntroSection />
+              </motion.div>
+            ) : (
+              <motion.div
+                key="real-intro"
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
+              >
+                <IntroSection items={items} aspects={aspects} />
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
 
-      {/* Sentinel sits between intro and table — fires isSticky when scrolled past */}
-      <div ref={sentinelRef} aria-hidden className="h-px" />
+      {!isEmbedded && <div ref={sentinelRef} aria-hidden className="h-px" />}
 
-      {/* Table section — only this container's padding animates when sticky */}
-      <div ref={wrapperRef} className="px-8 lg:px-16">
+      <div
+        ref={wrapperRef}
+        className={isEmbedded ? "" : "px-8 lg:px-16"}
+      >
         {isLoading ? (
-          <Card>
+          <Card className={isEmbedded ? "border-0 shadow-none" : ""}>
             <CardContent>
               <SkeletonTable />
             </CardContent>
@@ -262,7 +148,7 @@ export const ThreatMap = () => {
               isSticky={isSticky}
             />
             <Card
-              className={`animate-fade-in-up pt-0${isSticky ? "" : " rounded-t-none"}`}
+              className={`animate-fade-in-up pt-0${isSticky ? "" : " rounded-t-none"}${isEmbedded ? " border-0 shadow-none" : ""}`}
               ref={cardRef}
             >
               <CardContent className="px-0">
@@ -284,6 +170,22 @@ export const ThreatMap = () => {
 
       <AspectDialog />
       <Toaster position="bottom-right" />
+
+      <AnimatePresence>
+        {isSticky && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.85 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.85 }}
+            transition={{ duration: 0.15 }}
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+            className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md transition-colors hover:bg-foreground/80"
+            aria-label="Back to top"
+          >
+            ↑
+          </motion.button>
+        )}
+      </AnimatePresence>
     </TooltipProvider>
   );
 };

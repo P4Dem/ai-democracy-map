@@ -69,12 +69,14 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
-    /* P4D brand palette as Tailwind theme colors (v0.5) */
+    /* P4D brand palette — primary + accent colors (v0.5) */
     --color-p4d-ecru: #F4F4EA;
-    --color-p4d-blue: #99C2FF;
-    --color-p4d-brick: #963737;
+    --color-p4d-brick: #963735;
     --color-p4d-grassroot: #00B140;
+    --color-p4d-blue: #99C2FF;
     --color-p4d-lime: #D9EC44;
+    --color-p4d-orange: #FF7F32;
+    --color-p4d-rose: #FFB9DC;
 }
 
 :root {
@@ -91,14 +93,14 @@
     --secondary-foreground: #000000;
     --muted: #EAEADE;
     --muted-foreground: #5C5C52;
-    --accent: #92C2FF;
+    --accent: #99C2FF;
     --accent-foreground: #000000;
     --destructive: #963735;
     --border: #D6D6CA;
     --input: #D6D6CA;
     --ring: #000000;
     --chart-1: #99C2FF;
-    --chart-2: #963737;
+    --chart-2: #963735;
     --chart-3: #00B140;
     --chart-4: #D9EC44;
     --chart-5: #99C2FF;
