@@ -52,6 +52,8 @@ export const ThreatMap = () => {
   const sentinelRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const [isSticky, setIsSticky] = useState(false);
+  const [showBackLabel, setShowBackLabel] = useState(false);
+  const backLabelShown = useRef(false);
 
   const sentinelReady = !isLoading && !error && !isEmbedded;
 
@@ -78,6 +80,19 @@ export const ThreatMap = () => {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, [isEmbedded]);
+
+  // Show "Back to top" label the first time the button appears, then collapse to icon only
+  useEffect(() => {
+    if (!isSticky) {
+      backLabelShown.current = false;
+      return;
+    }
+    if (backLabelShown.current) return;
+    backLabelShown.current = true;
+    setShowBackLabel(true);
+    const t = setTimeout(() => setShowBackLabel(false), 2500);
+    return () => clearTimeout(t);
+  }, [isSticky]);
 
   if (error) {
     return (
@@ -179,10 +194,22 @@ export const ThreatMap = () => {
             exit={{ opacity: 0, scale: 0.85 }}
             transition={{ duration: 0.15 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md transition-colors hover:bg-foreground/80"
+            className="fixed bottom-6 right-6 z-50 flex h-10 items-center gap-1.5 rounded-full bg-foreground px-3 text-background shadow-md hover:bg-foreground/80"
             aria-label="Back to top"
           >
-            ↑
+            <span className="shrink-0 leading-none">↑</span>
+            <motion.span
+              initial={false}
+              animate={
+                showBackLabel
+                  ? { opacity: 1, maxWidth: "6rem" }
+                  : { opacity: 0, maxWidth: 0 }
+              }
+              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+              className="overflow-hidden whitespace-nowrap text-xs font-medium"
+            >
+              Back to top
+            </motion.span>
           </motion.button>
         )}
       </AnimatePresence>
