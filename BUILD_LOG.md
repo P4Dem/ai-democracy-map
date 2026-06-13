@@ -4,6 +4,51 @@
 
 ---
 
+## 2026-06-14 — GitHub issue templates
+
+**Objective:** Set up structured issue templates so bugs, feature requests, and data corrections can be reported clearly via GitHub Issues.
+
+**What was done:**
+
+Created `.github/ISSUE_TEMPLATE/`:
+- `bug_report.md` — steps to reproduce, environment (browser/device/URL), severity checkbox
+- `feature_request.md` — problem statement, proposed solution, who benefits, priority
+- `data_correction.md` — specific to this project: flags errors in threat descriptions, mitigation strategies, verbatim quotes, source citations, or aspect codes; requires a source/evidence link
+
+These appear automatically when anyone clicks "New Issue" on the GitHub repo.
+
+**Files changed:** `.github/ISSUE_TEMPLATE/bug_report.md`, `.github/ISSUE_TEMPLATE/feature_request.md`, `.github/ISSUE_TEMPLATE/data_correction.md`
+
+---
+
+## 2026-06-14 — Label fixes + to-do corrections
+
+**Objective:** Fix remaining "solution" label miss in ExpandedRow; correct stale to-do checkboxes for aspect renames.
+
+**What was done:**
+
+- `ExpandedRow.tsx:93`: `"Solution (verbatim)"` → `"Mitigation strategy (verbatim)"` — the only label missed in the earlier bulk rename.
+- `ExpandedRow.tsx:43`: Removed unused `i` parameter from `.map()` in `formatSourceForTooltip` — leftover from a previous iteration of the function.
+- `project_context.md`: Ticked ✅ for both aspect renames ("Decentralisation → National–Subnational Power Relations" and "Democracy Beyond the State → Transnational Dynamics") — both were completed in `aspects.json` on 2026-06-11 but the checkboxes had not been updated.
+
+**Files changed:** `ExpandedRow.tsx`, `project_context.md`
+
+---
+
+## 2026-06-14 — Inline extension styling: expanded parent row as section header
+
+**Objective:** Make the parent row visually distinct when expanded so users can easily find what to click to fold the extension back.
+
+**What was done:**
+
+- `DataTable.tsx`: When `row.getIsExpanded()` is true, the parent row now receives `bg-p4d-ecru` (solid ecru, overriding the alternating stripe) + a type-aware left border (`2px solid brick` for threats, `2px solid grassroot` for opportunities). Hover is locked to `hover:bg-p4d-ecru` so it doesn't flicker on mouse-over while open.
+- The expanded content below already had `bg-p4d-ecru/60` + inset shadow — the parent row now visually connects to it, forming a clear section unit.
+- Also removed a stale `group` variable in the description cell (fetched from `meta?.groupMap` but never used — leftover from an earlier refactor).
+
+**Files changed:** `DataTable.tsx`
+
+---
+
 ## 2026-06-10 — Initial Setup & Verification
 
 ### Project Overview

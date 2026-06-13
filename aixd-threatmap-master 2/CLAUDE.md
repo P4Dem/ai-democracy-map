@@ -120,8 +120,9 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Active filter pills (individually removable)
 - Default sort: threats first, then by description
 - Row expand/collapse with animation
+- Expanded parent row styled as section header: `bg-p4d-ecru` + type-aware left border (brick/grassroot) when open — hover locked to ecru so row reads as a stable header
 - Visual grouping: same-description rows grouped with type-aware colored border
-- ExpandedRow: verbatim quotes, metadata, all aspect chips
+- ExpandedRow: verbatim quotes (description + mitigation strategy), metadata, all aspect chips
 - AspectDialog: pillar-colored header, definition + description
 - AspectChips: tooltip with code, pillar, full description
 - Type badges: "Threat", "Threat + Mitigation pairing", "Independent opportunity"
@@ -129,10 +130,10 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Infinite scroll with skeleton resistance
 - CSV export with full aspect names
 - Alternating row stripe, staggered entrance animation
-- Sticky filterbar with padding/corner animation
+- Sticky filterbar with shadow/corner transition
 - Sticky table header with info popovers and codebook link
 - IntroSection with count-up stats
-
+- GitHub issue templates: bug report, feature request, data correction (`.github/ISSUE_TEMPLATE/`)
 
 ## Features pending
 
@@ -141,10 +142,12 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Row permalinks (`?id=X`)
 - Search highlight (matched terms in description/mitigation strategy)
 - Aspect examples in `aspects.json`
+- Open source / reuse: LICENSE, CONTRIBUTING.md, CLONING.md (awaiting P4D license decision)
+- Extend README with template/reuse section
+- Update `docs/researcher-guide.md` (currently references removed admin panel)
 
 ## Data files
 
 - `data/raw/mapping.csv` — source CSV, committed
 - `public/data/aspects.json` — aspect codebook, git-tracked
-- `public/data/data.json` — committed as build-time seed; KV takes over at runtime
-- `data/kv-store/` — local filesystem KV (gitignored)
+- `public/data/data.json` — committed as build-time seed (static, no KV)

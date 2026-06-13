@@ -216,12 +216,7 @@ export const DataTable = ({
       {
         accessorKey: "description",
         header: () => <ColumnHeader columnId="description" />,
-        cell: ({ row, table }) => {
-          const meta = table.options.meta as
-            | { groupMap?: Map<string, GroupInfo> }
-            | undefined;
-          const group = meta?.groupMap?.get(row.id);
-
+        cell: ({ row }) => {
           // independent-opportunity: description lives in the solution column
           if (row.original.type === "independent-opportunity") {
             return (
@@ -469,12 +464,14 @@ export const DataTable = ({
                   return (
                     <Fragment key={row.id}>
                       <TableRow
-                        className={`cursor-pointer animate-fade-in-up transition-colors hover:bg-muted/50 ${
-                          rowIndex % 2 === 1 ? "bg-muted/20" : ""
-                        } ${row.getIsExpanded() ? "border-b-0" : ""}`}
+                        className={`cursor-pointer animate-fade-in-up transition-colors ${
+                          row.getIsExpanded()
+                            ? "bg-p4d-ecru hover:bg-p4d-ecru border-b-0"
+                            : `${rowIndex % 2 === 1 ? "bg-muted/20" : ""} hover:bg-muted/50`
+                        }`}
                         style={{
                           animationDelay: `${Math.min(rowIndex, 24) * 20}ms`,
-                          ...(showGroupBorder
+                          ...(showGroupBorder || row.getIsExpanded()
                             ? {
                                 borderLeft: `2px solid ${row.original.type === "independent-opportunity" ? "var(--color-p4d-grassroot)" : "var(--color-p4d-brick)"}`,
                               }

@@ -40,9 +40,7 @@ const CopyButton = ({ text }: { text: string }) => {
 // Replaces raw URLs in citations with nothing
 const formatSourceForTooltip = (source: string) =>
   // Matches "Available at: " (optional) followed by the URL
-  source.split(/(?:Available at:\s*)?https?:\/\/\S+/gi).map((part, i) =>
-    // If the part is an empty string or just whitespace, we can skip it
-    // or return the styled link if you still want a placeholder
+  source.split(/(?:Available at:\s*)?https?:\/\/\S+/gi).map((part) =>
     part === "" ? "" : part
   );
 
@@ -90,7 +88,7 @@ export const ExpandedRow = ({ item, aspects }: ExpandedRowProps) => {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                  Solution (verbatim)
+                  Mitigation strategy (verbatim)
                 </span>
                 <CopyButton
                   text={`${item.solutionVerbatim}\n\n— ${item.source}`}
