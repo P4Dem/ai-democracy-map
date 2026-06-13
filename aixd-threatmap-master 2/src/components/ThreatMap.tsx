@@ -9,7 +9,7 @@ import { SkeletonTable } from "@/components/SkeletonTable";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Toaster } from "@/components/ui/sonner";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 import { useDataLoader } from "@/hooks/useDataLoader";
 import { useFilters } from "@/hooks/useFilters";
 import type { Item } from "@/lib/types";
@@ -188,29 +188,22 @@ export const ThreatMap = () => {
 
       <AnimatePresence>
         {isSticky && (
-          <motion.button
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.85 }}
-            transition={{ duration: 0.15 }}
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-6 right-6 z-50 flex h-10 items-center gap-1.5 rounded-full bg-foreground px-3 text-background shadow-md hover:bg-foreground/80"
-            aria-label="Back to top"
-          >
-            <span className="shrink-0 leading-none">↑</span>
-            <motion.span
-              initial={false}
-              animate={
-                showBackLabel
-                  ? { opacity: 1, maxWidth: "6rem" }
-                  : { opacity: 0, maxWidth: 0 }
-              }
-              transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-              className="overflow-hidden whitespace-nowrap text-xs font-medium"
-            >
-              Back to top
-            </motion.span>
-          </motion.button>
+          <Tooltip open={showBackLabel || undefined}>
+            <TooltipTrigger asChild>
+              <motion.button
+                initial={{ opacity: 0, scale: 0.85 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.85 }}
+                transition={{ duration: 0.15 }}
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+                className="fixed bottom-6 right-6 z-50 flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
+                aria-label="Back to top"
+              >
+                ↑
+              </motion.button>
+            </TooltipTrigger>
+            <TooltipContent side="left">Back to top</TooltipContent>
+          </Tooltip>
         )}
       </AnimatePresence>
     </TooltipProvider>
