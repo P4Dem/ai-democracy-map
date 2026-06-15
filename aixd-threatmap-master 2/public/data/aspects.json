@@ -103,13 +103,13 @@
     "pillar": "Civil Society and Popular Participation",
     "pillarCode": "3"
   },
-  "3.3": {
-    "code": "3.3",
+  "2.6": {
+    "code": "2.6",
     "name": "National–Subnational Power Relations",
     "definition": "Effects on the distribution of power between central and local government.",
     "description": "Effects on the independence and capacity of sub-central tiers of government; on local accountability and responsiveness to citizens; and on the distribution of power and resources between central and local government.",
-    "pillar": "Civil Society and Popular Participation",
-    "pillarCode": "3"
+    "pillar": "Representative and Accountable Government",
+    "pillarCode": "2"
   },
   "4.1": {
     "code": "4.1",
