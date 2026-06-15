@@ -64,10 +64,10 @@ Data is fetched at runtime by the React app via the `useDataLoader` hook. No ser
 
 | File | Role |
 |---|---|
-| `ThreatMap.tsx` | Root island — loads data, owns filter state, URL sync, sticky filterbar |
+| `ThreatMap.tsx` | Root island — loads data, owns filter state, URL sync, sticky filterbar, TEXT 3 before filterbar |
 | `DataTable.tsx` | TanStack table, infinite scroll, row grouping, skeleton |
 | `FilterBar.tsx` | Search, type/aspects/source/mapped filters, filter pills, CSV export, sticky state |
-| `IntroSection.tsx` | Count-up stats (threats, mitigation strategies, opportunities, aspects) |
+| `IntroSection.tsx` | Title, intro paragraphs (TEXT 1), stat quadrant (single row), TEXT 2, democracy framework pillar grid (2 cols) |
 | `SkeletonIntroSection.tsx` | Skeleton for IntroSection during load |
 | `SkeletonTable.tsx` | `SkeletonTable` (initial) + `SkeletonRow` (infinite scroll, `noAnimation` prop) |
 | `ExpandedRow.tsx` | Verbatim quotes, metadata, aspect chips (all visible) |
@@ -132,7 +132,10 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Alternating row stripe, staggered entrance animation
 - Sticky filterbar with shadow/corner transition
 - Sticky table header with info popovers and codebook link
-- IntroSection with count-up stats
+- IntroSection with count-up stats (single-row stat quadrant, 4-col desktop / 2-col mobile)
+- Democracy framework pillar grid (visible, 2-column layout)
+- Intro text stacked vertically with call-to-action paragraph (TEXT 3) before filter bar
+- Tooltip contrast: code badge uses `bg-background/20 text-background` on dark tooltip bg
 - GitHub issue templates: bug report, feature request, data correction (`.github/ISSUE_TEMPLATE/`)
 
 ## Features pending

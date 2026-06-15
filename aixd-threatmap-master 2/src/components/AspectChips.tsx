@@ -71,10 +71,10 @@ const Chip = ({
       <TooltipContent className="max-w-xs whitespace-normal">
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">
-            <span className="rounded bg-muted px-1 font-mono text-xs font-semibold">
+            <span className="rounded bg-background/20 px-1 font-mono text-xs font-semibold text-background">
               {aspect.code}
             </span>
-            <span className="text-xs text-muted-foreground">{aspect.pillar}</span>
+            <span className="text-xs text-background/70">{aspect.pillar}</span>
           </div>
           {aspect.description && (
             <p className="text-xs leading-relaxed">{aspect.description}</p>

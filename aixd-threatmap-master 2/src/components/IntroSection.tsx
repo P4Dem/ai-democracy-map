@@ -85,25 +85,15 @@ const StatCell = ({
   value,
   color,
   index,
-  isLeft,
-  isTop,
 }: {
   label: string;
   value: number;
   color: string;
   index: number;
-  isLeft: boolean;
-  isTop: boolean;
 }) => {
   const count = useCountUp(value, 650, index * 80);
   return (
-    <div
-      className={[
-        "flex flex-col",
-        isLeft ? "pr-8 border-r border-border/25" : "pl-8",
-        isTop ? "pb-6 border-b border-border/25" : "pt-6",
-      ].join(" ")}
-    >
+    <div className="flex flex-col py-4">
       <div
         className={`text-5xl font-bold leading-none tabular-nums ${color} animate-fade-in-up`}
         style={{ animationDelay: `${index * 70}ms` }}
@@ -124,16 +114,14 @@ const StatQuadrant = ({
 }: {
   stats: { label: string; value: number; color: string; index: number }[];
 }) => (
-  <div className="grid grid-cols-2">
-    {stats.map((s, i) => (
+  <div className="mt-6 grid grid-cols-2 lg:grid-cols-4">
+    {stats.map((s) => (
       <StatCell
         key={s.label}
         label={s.label}
         value={s.value}
         color={s.color}
         index={s.index}
-        isLeft={i % 2 === 0}
-        isTop={i < 2}
       />
     ))}
   </div>
@@ -267,32 +255,38 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
   return (
     <div className="mb-8">
       <h1 className="mb-6 pt-8 text-2xl font-bold leading-tight text-foreground lg:pt-12 lg:text-3xl">
-        Threats, Mitigation Strategies and Opportunities for Democracy in the Face of AI
+        AI Democracy Threats and Responses Map
       </h1>
 
-      {/* ── Top: paragraph (left, grows) + stat quadrant (right, auto width) ── */}
-      {/* grid-cols-[1fr_auto]: left takes remaining space, right sizes to content */}
-      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
-        {/* Two-column grid — text anchored in left column, right column open */}
-        <div className="grid grid-cols-1 gap-x-8 sm:grid-cols-2">
-          <p className="text-base leading-relaxed text-foreground/70">
-            This map synthesises threats, proposed mitigation strategies, and, independently,
-            opportunities for AI to improve democracy drawn from a diverse set of
-            existing maps and overview literature.
-          </p>
-          {/* Right column reserved for future copy */}
-        </div>
-
-        {/* Right — 2×2 stat quadrant with hairline dividers */}
-        <StatQuadrant stats={stats} />
+      {/* ── TEXT 1: intro paragraphs stacked, stats below ── */}
+      <div className="space-y-4">
+        <p className="text-base leading-relaxed text-foreground/70">
+          The AI &amp; Democracy Threat and Response Map synthesises threats, proposed mitigation
+          strategies and opportunities for AI to improve democracy. This map is intended for
+          researchers, policymakers, private organisations, civil society and anyone interested in
+          an overview of which areas of democracy are affected by AI related threats
+        </p>
+        <p className="text-base leading-relaxed text-foreground/70">
+          Our team reviewed a diverse set of literature and selected ten leading frameworks mapping
+          AI threats. This initial selection reflects different disciplinary lenses, levels of
+          abstraction and democratic contexts.
+        </p>
       </div>
 
-      {/* ── Below: full-width 4-column pillar grid ── */}
+      <StatQuadrant stats={stats} />
+
+      {/* ── TEXT 2 ── */}
+      <p className="mt-10 text-base leading-relaxed text-foreground/70">
+        Each entry is mapped onto the aspects of democracy it affects, using a slightly modified
+        version of an International IDEA framework of democracy.
+      </p>
+
+      {/* ── Democracy Framework (pillar grid) ── */}
       <div className="mt-10 border-t border-border/30 pt-6">
         <div className="mb-5 text-[10px] font-semibold uppercase tracking-widest text-muted-foreground">
           Democracy Framework
         </div>
-        <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-4 lg:gap-x-10">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:gap-x-10">
           {pillars.map((p) => (
             <PillarColumn
               key={p.code}

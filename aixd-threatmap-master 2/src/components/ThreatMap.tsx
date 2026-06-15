@@ -152,6 +152,11 @@ export const ThreatMap = () => {
           </Card>
         ) : (
           <>
+            <p className="mb-4 text-sm leading-relaxed text-foreground/60">
+              Explore our map by filtering based on impact type, aspects of democracy
+              and source, copy individual verbatims or download the entire map for
+              better analysis.
+            </p>
             <FilterBar
               items={items}
               aspects={aspects}
