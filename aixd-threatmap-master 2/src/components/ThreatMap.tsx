@@ -27,7 +27,7 @@ export const ThreatMap = () => {
   const isEmbedded = useMemo(() => {
     if (typeof window === "undefined") return false;
     const url = new URL(window.location.href);
-    return url.searchParams.get("embed") === "true" || window.self !== window.top;
+    return url.searchParams.get("embed") === "true";
   }, []);
 
   const columnFilters = useMemo<ColumnFiltersState>(() => {
@@ -168,7 +168,12 @@ export const ThreatMap = () => {
               isSticky={isSticky}
             />
             <Card
-              className={`animate-fade-in-up pt-0${isSticky ? "" : " rounded-t-none"}${isEmbedded ? " border-0 shadow-none" : ""}`}
+              className={`animate-fade-in-up pt-0${isEmbedded ? " border-0 shadow-none" : ""}`}
+              style={{
+                borderTopLeftRadius: isSticky ? undefined : 0,
+                borderTopRightRadius: isSticky ? undefined : 0,
+                transition: "border-top-left-radius 200ms ease-out, border-top-right-radius 200ms ease-out",
+              }}
               ref={cardRef}
             >
               <CardContent className="px-0">
@@ -214,7 +219,13 @@ export const ThreatMap = () => {
               )}
             </AnimatePresence>
             <button
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+              onClick={() => {
+  const el = wrapperRef.current;
+  if (el) {
+    const top = el.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top, behavior: "smooth" });
+  }
+}}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
               aria-label="Back to top"
             >

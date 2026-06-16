@@ -123,6 +123,7 @@
     @apply font-sans;
     font-size: 17px;
     overflow-y: scroll;
+    scrollbar-gutter: stable;
     }
   body {
     @apply bg-background text-foreground;
