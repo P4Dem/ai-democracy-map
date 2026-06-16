@@ -261,7 +261,7 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
       {/* ── TEXT 1: intro paragraphs stacked, stats below ── */}
       <div className="space-y-4">
         <p className="text-base leading-relaxed text-foreground/70">
-          The AI &amp; Democracy Threat and Response Map synthesises threats, proposed mitigation
+          The AI–Democracy Map synthesises threats, proposed mitigation
           strategies and opportunities for AI to improve democracy. This map is intended for
           researchers, policymakers, private organisations, civil society and anyone interested in
           an overview of which areas of democracy are affected by AI related threats
