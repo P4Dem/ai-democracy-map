@@ -255,7 +255,7 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
   return (
     <div className="mb-8">
       <h1 className="mb-6 pt-8 text-2xl font-bold leading-tight text-foreground lg:pt-12 lg:text-3xl">
-        AI Democracy Threats and Responses Map
+        AI–Democracy Map
       </h1>
 
       {/* ── TEXT 1: intro paragraphs stacked, stats below ── */}

@@ -17,14 +17,14 @@ ASPECTS_JSON = PROJECT_ROOT / "public" / "data" / "aspects.json"
 
 EMPTY_MARKER = "///"
 
-# P4Dem column names after stripping (the raw CSV has inconsistent spacing)
-P4DEM_COLUMNS = [
-    "P4Dem Category 1",
-    "P4Dem Category 2",
-    "P4Dem Category 3",
-    "P4Dem Category 4",
-    "P4Dem Category 5",
-    "P4Dem Category 6",
+# Democracy Aspect column names after stripping (the raw CSV has inconsistent spacing)
+ASPECT_COLUMNS = [
+    "Democracy Aspect 1",
+    "Democracy Aspect 2",
+    "Democracy Aspect 3",
+    "Democracy Aspect 4",
+    "Democracy Aspect 5",
+    "Democracy Aspect 6",
 ]
 
 KNOWN_ABBREVIATIONS: dict[str, str] = {
@@ -59,8 +59,8 @@ def determine_type(row: dict) -> Optional[str]:
     independent-opportunity — only an independent opportunity present
     """
     has_threat = not is_empty(row.get("Threat (paraphrased)", ""))
-    has_opportunity = not is_empty(row.get("Independent Opportunity (paraphrased)", ""))
-    has_solution = not is_empty(row.get("Solution (paraphrased)", ""))
+    has_opportunity = not is_empty(row.get("Pro-dem Opportunity (paraphrased)", ""))
+    has_solution = not is_empty(row.get("Pro-dem Mitigation (paraphrased)", ""))
 
     if has_threat and has_solution:
         return "threat-solution"
@@ -121,7 +121,7 @@ def extract_aspects(row: dict) -> list[str]:
     """
     seen: dict[str, int] = {}
 
-    for col in P4DEM_COLUMNS:
+    for col in ASPECT_COLUMNS:
         value = row.get(col, "")
         if is_empty(value):
             continue
@@ -276,9 +276,9 @@ def transform_row(row: dict) -> Optional[dict]:
         description_verbatim = clean_value(row.get("Threat (verbatim)", ""))
     else:
         # independent-opportunity
-        description = clean_value(row.get("Independent Opportunity (paraphrased)", ""))
+        description = clean_value(row.get("Pro-dem Opportunity (paraphrased)", ""))
         description_verbatim = clean_value(
-            row.get("Independent Opportunity (verbatim)", "")
+            row.get("Pro-dem Opportunity (verbatim)", "")
         )
 
     source = row.get("Source", "").strip()
@@ -289,8 +289,8 @@ def transform_row(row: dict) -> Optional[dict]:
         "type": item_type,
         "description": description or "",
         "descriptionVerbatim": description_verbatim or "",
-        "solution": clean_value(row.get("Solution (paraphrased)", "")),
-        "solutionVerbatim": clean_value(row.get("Solution (verbatim)", "")),
+        "solution": clean_value(row.get("Pro-dem Mitigation (paraphrased)", "")),
+        "solutionVerbatim": clean_value(row.get("Pro-dem Mitigation (verbatim)", "")),
         "source": source,
         "sourceShort": derive_source_short(source),
         "sourceUrl": extract_source_url(source),

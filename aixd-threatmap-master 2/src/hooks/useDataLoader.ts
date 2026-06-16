@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import type { Item, AspectMap } from "@/lib/types";
 
-const DATA_URL = import.meta.env.PUBLIC_DATA_URL ?? "/data/data.json";
-const ASPECTS_URL = import.meta.env.PUBLIC_ASPECTS_URL ?? "/data/aspects.json";
+const BASE = import.meta.env.BASE_URL;
+const DATA_URL = import.meta.env.PUBLIC_DATA_URL ?? `${BASE}data/data.json`;
+const ASPECTS_URL = import.meta.env.PUBLIC_ASPECTS_URL ?? `${BASE}data/aspects.json`;
 
 type DataLoaderState = {
   items: Item[];
