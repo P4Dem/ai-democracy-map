@@ -30,6 +30,11 @@ export const ThreatMap = () => {
     return url.searchParams.get("embed") === "true";
   }, []);
 
+  const isInIframe = useMemo(() => {
+    if (typeof window === "undefined") return false;
+    try { return window.self !== window.top; } catch { return true; }
+  }, []);
+
   const columnFilters = useMemo<ColumnFiltersState>(() => {
     const cf: ColumnFiltersState = [];
     if (filters.type.length > 0) cf.push({ id: "type", value: filters.type });
@@ -55,7 +60,8 @@ export const ThreatMap = () => {
   const [showBackLabel, setShowBackLabel] = useState(false);
   const backLabelShown = useRef(false);
 
-  const sentinelReady = !isLoading && !error && !isEmbedded;
+  // Sentinel observer only runs on the standalone site (not in iframes or ?embed=true)
+  const sentinelReady = !isLoading && !error && !isEmbedded && !isInIframe;
 
   useEffect(() => {
     if (!sentinelReady) return;
@@ -72,7 +78,7 @@ export const ThreatMap = () => {
     return () => observer.disconnect();
   }, [sentinelReady]);
 
-  // Sticky for embedded mode: use scroll position since there's no sentinel
+  // Sticky for ?embed=true: no IntroSection, so a small scroll threshold is enough
   useEffect(() => {
     if (!isEmbedded) return;
     const onScroll = () => setIsSticky(window.scrollY > 60);
@@ -80,6 +86,22 @@ export const ThreatMap = () => {
     onScroll();
     return () => window.removeEventListener("scroll", onScroll);
   }, [isEmbedded]);
+
+  // Sticky for iframe: parent page relays its scroll position via postMessage.
+  // Parent sends { type: 'parentScroll', iframeTop: iframe.getBoundingClientRect().top }.
+  // Sticky when the filterbar wrapper has scrolled past the parent viewport top.
+  useEffect(() => {
+    if (!isInIframe || isEmbedded || isLoading) return;
+    const onMessage = (e: MessageEvent) => {
+      if (e.data?.type !== "parentScroll") return;
+      const iframeTop: number = e.data.iframeTop ?? 0;
+      const el = wrapperRef.current;
+      if (!el) return;
+      setIsSticky(iframeTop + el.offsetTop <= 0);
+    };
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, [isInIframe, isEmbedded, isLoading]);
 
   // Show "Back to top" label the first time the button appears, then collapse to icon only
   useEffect(() => {
@@ -220,12 +242,16 @@ export const ThreatMap = () => {
             </AnimatePresence>
             <button
               onClick={() => {
-  const el = wrapperRef.current;
-  if (el) {
-    const top = el.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top, behavior: "smooth" });
-  }
-}}
+                if (isInIframe && !isEmbedded) {
+                  window.parent.postMessage({ type: "scrollToTop" }, "*");
+                } else {
+                  const el = wrapperRef.current;
+                  if (el) {
+                    const top = el.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({ top, behavior: "smooth" });
+                  }
+                }
+              }}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
               aria-label="Back to top"
             >
