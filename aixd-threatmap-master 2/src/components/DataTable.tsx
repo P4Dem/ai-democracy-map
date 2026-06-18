@@ -91,6 +91,7 @@ const BATCH_SIZE = 20;
 // Fixed-width columns for chip-heavy cells; Description and Solution take the rest equally.
 // Adjust here to tune layout without touching JSX.
 export const COL_WIDTHS = {
+  rowNum:  "44px",
   type:    "160px",
   aspects: "300px",
   source:  "140px",
@@ -204,6 +205,17 @@ export const DataTable = ({
 
   const columns = useMemo<ColumnDef<Item>[]>(
     () => [
+      {
+        id: "rowNum",
+        header: () => null,
+        cell: ({ row }) => (
+          <span className="text-xs tabular-nums text-muted-foreground/30 hidden sm:inline">
+            {row.index + 1}
+          </span>
+        ),
+        enableSorting: false,
+        enableGlobalFilter: false,
+      },
       {
         accessorKey: "type",
         header: () => <ColumnHeader columnId="type" />,
@@ -401,6 +413,7 @@ export const DataTable = ({
       <div className="overflow-x-auto [overflow-y:clip]">
         <Table className="table-fixed min-w-[900px]">
           <colgroup>
+            <col style={{ width: COL_WIDTHS.rowNum }} />
             <col style={{ width: COL_WIDTHS.type }} />
             <col />
             <col />
@@ -482,9 +495,15 @@ export const DataTable = ({
                           row.getIsExpanded() ? "expanded" : undefined
                         }
                       >
-                        {row.getVisibleCells().map((cell, cellIndex) => (
-                          <TableCell key={cell.id}>
-                            {cellIndex === 0 ? (
+                          {row.getVisibleCells().map((cell, cellIndex) => (
+                          <TableCell key={cell.id} className={cell.column.id === "rowNum" ? "hidden sm:table-cell" : ""}>
+                            {cell.column.id === "rowNum" ? (
+                              <div className="flex h-19 items-center justify-end pl-6 pr-3">
+                                <span className="text-xs tabular-nums text-muted-foreground/30 hidden sm:inline">
+                                  {rowIndex + 1}
+                                </span>
+                              </div>
+                            ) : cellIndex === 1 ? (
                               // Type + chevron: fixed height, chevron rotates on expand
                               <div className="flex h-19 items-center gap-1.5">
                                 <ChevronRight

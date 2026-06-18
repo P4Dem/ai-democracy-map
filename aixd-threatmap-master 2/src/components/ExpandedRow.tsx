@@ -153,6 +153,15 @@ export const ExpandedRow = ({ item, aspects }: ExpandedRowProps) => {
             />
           </div>
         </div>
+
+        <div className="shrink-0">
+          <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Entry
+          </span>
+          <div className="mt-1 text-sm tabular-nums text-muted-foreground/50">
+            #{item.id}
+          </div>
+        </div>
       </div>
     </div>
   );

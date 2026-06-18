@@ -49,32 +49,27 @@ const useCountUp = (target: number, duration = 650, delay = 0): number => {
 type StatDef = {
   label: string;
   getValue: (items: Item[]) => number;
-  color: string;
 };
 
 const STAT_DEFS: StatDef[] = [
   {
     label: "Entries",
     getValue: (items) => items.length,
-    color: "text-foreground",
   },
   {
     label: "Threats",
     getValue: (items) =>
       items.filter((i) => i.type === "threat" || i.type === "threat-solution")
         .length,
-    color: "text-p4d-brick",
   },
   {
     label: "Mitigations mapped",
     getValue: (items) =>
       items.filter((i) => i.type === "threat-solution").length,
-    color: "text-p4d-grassroot",
   },
   {
     label: "Sources",
     getValue: (items) => new Set(items.map((i) => i.sourceShort)).size,
-    color: "text-foreground",
   },
 ];
 
@@ -83,44 +78,39 @@ const STAT_DEFS: StatDef[] = [
 const StatCell = ({
   label,
   value,
-  color,
   index,
 }: {
   label: string;
   value: number;
-  color: string;
   index: number;
 }) => {
   const count = useCountUp(value, 650, index * 80);
   return (
-    <div className="flex flex-col py-4">
+    <div className="flex flex-col py-2">
       <div
-        className={`text-5xl font-bold leading-none tabular-nums ${color} animate-fade-in-up`}
+        className="text-6xl font-bold leading-none tabular-nums text-foreground/20 animate-fade-in-up"
         style={{ animationDelay: `${index * 70}ms` }}
       >
         {count}
       </div>
-      <div className="mt-2 text-xs font-semibold uppercase tracking-wide text-foreground/60">
+      <div className="mt-1 text-[11px] font-medium uppercase tracking-wider text-foreground/40">
         {label}
       </div>
     </div>
   );
 };
 
-// 2×2 quadrant with hairline dividers — reads like a data matrix, not a dashboard.
-// Right column shrinks to its natural content width via grid-cols-[1fr_auto].
 const StatQuadrant = ({
   stats,
 }: {
-  stats: { label: string; value: number; color: string; index: number }[];
+  stats: { label: string; value: number; index: number }[];
 }) => (
-  <div className="mt-6 grid grid-cols-2 lg:grid-cols-4">
+  <div className="mt-10 grid grid-cols-2 gap-y-2">
     {stats.map((s) => (
       <StatCell
         key={s.label}
         label={s.label}
         value={s.value}
-        color={s.color}
         index={s.index}
       />
     ))}
@@ -236,7 +226,7 @@ type IntroSectionProps = {
 
 export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
   const stats = STAT_DEFS.map((def, i) => ({
-    ...def,
+    label: def.label,
     value: def.getValue(items),
     index: i,
   }));
@@ -255,7 +245,7 @@ export const IntroSection = ({ items, aspects }: IntroSectionProps) => {
   return (
     <div className="mb-8">
       <h1 className="mb-6 pt-8 text-2xl font-bold leading-tight text-foreground lg:pt-12 lg:text-3xl">
-        AI–Democracy Map
+        The AI–Democracy Landscape: A Map of Threats, Mitigations, and Opportunities
       </h1>
 
       {/* ── TEXT 1: intro paragraphs stacked, stats below ── */}
