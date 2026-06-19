@@ -60,8 +60,8 @@ export const ThreatMap = () => {
   const [showBackLabel, setShowBackLabel] = useState(false);
   const backLabelShown = useRef(false);
 
-  // Sentinel observer only runs on the standalone site (not in iframes or ?embed=true)
-  const sentinelReady = !isLoading && !error && !isEmbedded && !isInIframe;
+  // Sentinel observer runs on standalone + iframe (but not ?embed=true, which has no IntroSection)
+  const sentinelReady = !isLoading && !error && !isEmbedded;
 
   useEffect(() => {
     if (!sentinelReady) return;
@@ -78,30 +78,41 @@ export const ThreatMap = () => {
     return () => observer.disconnect();
   }, [sentinelReady]);
 
-  // Sticky for ?embed=true: no IntroSection, so a small scroll threshold is enough
+  // Sticky for ?embed=true: no IntroSection — always sticky (filterbar is at top of embed viewport)
   useEffect(() => {
     if (!isEmbedded) return;
-    const onScroll = () => setIsSticky(window.scrollY > 60);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
-    return () => window.removeEventListener("scroll", onScroll);
+    setIsSticky(true);
   }, [isEmbedded]);
 
-  // Sticky for iframe: parent page relays its scroll position via postMessage.
-  // Parent sends { type: 'parentScroll', iframeTop: iframe.getBoundingClientRect().top }.
-  // Sticky when the filterbar wrapper has scrolled past the parent viewport top.
+  // Sticky for iframe: filterbar is at the top of the iframe viewport, so it's
+  // always sticky. Also listens for parentScroll messages for backward compat.
   useEffect(() => {
     if (!isInIframe || isEmbedded || isLoading) return;
+    setIsSticky(true);
     const onMessage = (e: MessageEvent) => {
       if (e.data?.type !== "parentScroll") return;
-      const iframeTop: number = e.data.iframeTop ?? 0;
       const el = wrapperRef.current;
       if (!el) return;
-      setIsSticky(iframeTop + el.offsetTop <= 0);
+      setIsSticky(e.data.iframeTop + el.offsetTop <= 0);
     };
     window.addEventListener("message", onMessage);
     return () => window.removeEventListener("message", onMessage);
   }, [isInIframe, isEmbedded, isLoading]);
+
+  // Post content height to parent so it can resize the iframe to fit all content (Option B resize).
+  // Fires on mount and whenever the body resizes (data load, filter changes, row expansions).
+  useEffect(() => {
+    if (!isInIframe) return;
+    const send = () =>
+      window.parent.postMessage(
+        { type: "iframeResize", height: document.documentElement.scrollHeight },
+        "*"
+      );
+    send();
+    const ro = new ResizeObserver(send);
+    ro.observe(document.body);
+    return () => ro.disconnect();
+  }, [isInIframe]);
 
   // Show "Back to top" label the first time the button appears, then collapse to icon only
   useEffect(() => {
@@ -242,14 +253,9 @@ export const ThreatMap = () => {
             </AnimatePresence>
             <button
               onClick={() => {
-                if (isInIframe && !isEmbedded) {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+                if (isInIframe) {
                   window.parent.postMessage({ type: "scrollToTop" }, "*");
-                } else {
-                  const el = wrapperRef.current;
-                  if (el) {
-                    const top = el.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({ top, behavior: "smooth" });
-                  }
                 }
               }}
               className="flex h-10 w-10 items-center justify-center rounded-full bg-foreground text-background shadow-md hover:bg-foreground/80"
