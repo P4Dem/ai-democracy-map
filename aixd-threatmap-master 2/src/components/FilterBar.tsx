@@ -184,21 +184,29 @@ export const FilterBar = ({
         </div>
       )}
 
-      <div className="-mx-4 mt-2.5 border-t border-border/30 px-4 pt-2">
+      {/* -mx-4 (no matching px-4) breaks this row out of FilterBar's own
+          px-4 so its width/position matches DataTable's CardContent, which
+          is px-0 — otherwise the column labels below sit 16px right of and
+          narrower than the actual table columns. */}
+      <div className="-mx-4 mt-2.5 border-t border-border/30 pt-2">
         <div className="hidden min-[900px]:flex items-center text-[11px] uppercase tracking-wider font-semibold text-muted-foreground">
-          <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.type }}>
+          {/* Reserves the row-number gutter (visible at this breakpoint via
+              `sm:table-cell` in DataTable) so the labels below line up with
+              their columns instead of starting 44px too far left. */}
+          <div className="shrink-0" style={{ width: COL_WIDTHS.rowNum }} />
+          <div className="shrink-0 px-3" style={{ width: COL_WIDTHS.type }}>
             Impact type
           </div>
-          <div className="min-w-0 flex-1 px-2">
-            Description
+          <div className="min-w-0 flex-1 px-3">
+            Threat Description
           </div>
-          <div className="min-w-0 flex-1 px-2">
-            Mitigation Strategy
+          <div className="min-w-0 flex-1 px-3">
+            Mitigation Strategy Description
           </div>
-          <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.aspects }}>
+          <div className="shrink-0 px-3" style={{ width: COL_WIDTHS.aspects }}>
             Democracy Aspects
           </div>
-          <div className="shrink-0 px-2" style={{ width: COL_WIDTHS.source }}>
+          <div className="shrink-0 px-3" style={{ width: COL_WIDTHS.source }}>
             Source
           </div>
         </div>

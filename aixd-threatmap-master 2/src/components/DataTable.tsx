@@ -42,12 +42,12 @@ const COLUMN_INFO: Record<string, { title: string; description: string }> = {
       "Categorises each entry as a threat, a threat paired with a mitigation strategy, or an independent opportunity for AI to improve democracy.",
   },
   description: {
-    title: "Description",
+    title: "Threat Description",
     description:
       "Summarises the core finding, paraphrased from the source material.",
   },
   solution: {
-    title: "Mitigation Strategy",
+    title: "Mitigation Strategy Description",
     description:
       "Proposed measures to address or reduce the identified threat.",
   },
