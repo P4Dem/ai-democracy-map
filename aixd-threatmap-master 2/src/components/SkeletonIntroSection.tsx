@@ -1,34 +1,25 @@
 // Shimmer skeleton for IntroSection — mirrors the exact layout/spacing of the real component.
 // Uses .animate-shimmer from globals.css instead of animate-pulse.
 
-// ─── Stat quadrant skeleton ──────────────────────────────────────────────────
+// ─── Data overview box skeleton ───────────────────────────────────────────────
 
-const SkeletonStatCell = ({
-  isLeft,
-  isTop,
-}: {
-  isLeft: boolean;
-  isTop: boolean;
-}) => (
+const SkeletonStatTile = ({ className = "" }: { className?: string }) => (
   <div
-    className={[
-      "flex flex-col",
-      isLeft ? "pr-8 border-r border-border/25" : "pl-8",
-      isTop  ? "pb-6 border-b border-border/25" : "pt-6",
-    ].join(" ")}
+    className={`flex flex-col justify-center gap-2 rounded-md bg-foreground/5 p-4 ${className}`}
   >
-    {/* number placeholder — matches text-5xl font-bold leading-none */}
-    <div className="h-12 w-16 animate-shimmer rounded" />
-    {/* label placeholder — matches text-xs uppercase tracking-wide */}
-    <div className="mt-2 h-3 w-20 animate-shimmer rounded" />
+    {/* number placeholder */}
+    <div className="h-9 w-14 animate-shimmer rounded" />
+    {/* label placeholder */}
+    <div className="h-2.5 w-16 animate-shimmer rounded" />
   </div>
 );
 
-const SkeletonStatQuadrant = () => (
-  <div className="grid grid-cols-2">
-    {[0, 1, 2, 3].map((i) => (
-      <SkeletonStatCell key={i} isLeft={i % 2 === 0} isTop={i < 2} />
-    ))}
+const SkeletonDataOverview = () => (
+  <div className="grid shrink-0 grid-cols-[1fr_1fr_0.85fr] grid-rows-2 gap-1.5 sm:w-85">
+    <SkeletonStatTile className="col-start-1 row-span-2 row-start-1" />
+    <SkeletonStatTile className="col-start-2 row-span-2 row-start-1" />
+    <SkeletonStatTile className="col-start-3 row-start-1" />
+    <SkeletonStatTile className="col-start-3 row-start-2" />
   </div>
 );
 
@@ -57,29 +48,35 @@ const SkeletonPillarColumn = () => (
 
 export const SkeletonIntroSection = () => (
   <div className="mb-8">
-    {/* ── Top: text columns (left) + stat quadrant (right) ── */}
-    <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
-      {/* Left — two shimmer text columns */}
-      <div className="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
-        {[0, 1].map((col) => (
-          <div key={col} className="space-y-2">
-            <div className="h-4 w-full animate-shimmer rounded" />
-            <div className="h-4 w-full animate-shimmer rounded" />
-            <div className="h-4 w-3/4  animate-shimmer rounded" />
-            <div className="h-4 w-full animate-shimmer rounded" />
-            <div className="h-4 w-5/6  animate-shimmer rounded" />
-            <div className="h-4 w-full animate-shimmer rounded" />
-            <div className="h-4 w-2/3  animate-shimmer rounded" />
-          </div>
-        ))}
-      </div>
-
-      {/* Right — stat quadrant */}
-      <SkeletonStatQuadrant />
+    {/* ── Title placeholder ── */}
+    <div className="mb-6 pt-8 space-y-2 lg:pt-12">
+      <div className="h-7 w-3/4 animate-shimmer rounded lg:h-8" />
+      <div className="h-7 w-1/2 animate-shimmer rounded lg:h-8" />
     </div>
 
-    {/* ── Below: Democracy Framework pillar grid ── */}
-    <div className="mt-10 border-t border-border/30 pt-6">
+    {/* ── Data overview box: stat tiles (left) + intro copy (right) ── */}
+    <div className="flex flex-col gap-6 rounded-lg border border-border bg-card p-6 sm:flex-row sm:items-center sm:gap-10 sm:p-8">
+      <SkeletonDataOverview />
+      <div className="flex flex-1 flex-col gap-4">
+        <div className="space-y-2">
+          <div className="h-4 w-full animate-shimmer rounded" />
+          <div className="h-4 w-full animate-shimmer rounded" />
+          <div className="h-4 w-3/4 animate-shimmer rounded" />
+          <div className="h-4 w-5/6 animate-shimmer rounded" />
+        </div>
+        <div className="space-y-2">
+          <div className="h-4 w-full animate-shimmer rounded" />
+          <div className="h-4 w-full animate-shimmer rounded" />
+          <div className="h-4 w-2/3 animate-shimmer rounded" />
+        </div>
+      </div>
+    </div>
+
+    {/* ── TEXT 2 ── */}
+    <div className="mt-8 h-4 w-2/3 animate-shimmer rounded" />
+
+    {/* ── Democracy Framework box ── */}
+    <div className="mt-6 rounded-lg border border-border bg-card p-6 sm:p-8">
       {/* section label */}
       <div className="mb-5 h-3 w-36 animate-shimmer rounded" />
       <div className="grid grid-cols-2 gap-x-8 gap-y-8 lg:grid-cols-4 lg:gap-x-10">
