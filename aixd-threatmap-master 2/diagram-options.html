@@ -1,0 +1,974 @@
+<meta charset="UTF-8">
+<title>Diagram Options</title>
+<style>
+  :root{
+    --ecru:#F4F4EA; --paper:#FFFFFF; --ink:#1a1a17; --muted:#5C5C52; --border:#D6D6CA;
+    --brick:#963735; --grassroot:#00B140; --blue:#3d6fb8; --lime:#8a9c1f; --orange:#c85a1f; --rose:#c04e83;
+    --card:#FFFFFF; --accentbg:#EFEFE3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ecru:#17170f; --paper:#201f17; --ink:#f0efe6; --muted:#a8a698; --border:#3a382c;
+      --card:#201f17; --accentbg:#26251b;
+      --blue:#7ea6e8; --lime:#c7dd4f; --orange:#ff9550; --rose:#ff9dc8;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ecru:#17170f; --paper:#201f17; --ink:#f0efe6; --muted:#a8a698; --border:#3a382c;
+    --card:#201f17; --accentbg:#26251b;
+    --blue:#7ea6e8; --lime:#c7dd4f; --orange:#ff9550; --rose:#ff9dc8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0; background:var(--ecru); color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif;
+    line-height:1.5;
+  }
+  .wrap{max-width:1680px;margin:0 auto;padding:48px 28px 100px;}
+  .lede{max-width:900px;}
+  .kicker{
+    text-transform:uppercase;letter-spacing:.08em;font-size:12px;font-weight:700;
+    color:var(--brick);margin:0 0 10px;
+  }
+  h1{font-size:30px;line-height:1.2;margin:0 0 8px;font-weight:800;text-wrap:balance;}
+  .lede{color:var(--muted);font-size:15.5px;max-width:640px;margin:0 0 44px;}
+  .qnum{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:999px;background:var(--brick);color:#fff;
+    font-size:12.5px;font-weight:700;flex-shrink:0;
+  }
+  .qhead{display:flex;align-items:baseline;gap:12px;margin:0 0 4px;}
+  .qhead h2{font-size:21px;margin:0;font-weight:800;text-wrap:balance;}
+  .qmeta{color:var(--muted);font-size:13px;margin:0 0 20px 38px;max-width:620px;}
+  section.question{margin-bottom:64px;}
+  .pair{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .pair.triple{grid-template-columns:1fr 1fr 1fr;}
+  .pair.single{grid-template-columns:1fr;}
+  @media (max-width:1080px){.pair.triple{grid-template-columns:1fr 1fr;}}
+  @media (max-width:820px){.pair{grid-template-columns:1fr;}}
+  .card.full-width .chart-box{padding:20px;}
+  .origin-tag{
+    display:inline-block;font-size:9.5px;font-weight:700;text-transform:uppercase;
+    letter-spacing:.05em;color:var(--brick);background:var(--accentbg);
+    border:1px solid var(--border);border-radius:5px;padding:2px 6px;margin-left:6px;
+  }
+  .card{
+    background:var(--card);border:1px solid var(--border);border-radius:14px;
+    padding:20px 20px 22px;display:flex;flex-direction:column;
+    min-width:0;
+  }
+  .card-label{
+    display:flex;align-items:center;gap:8px;margin-bottom:2px;
+  }
+  .letter{
+    width:20px;height:20px;border-radius:6px;background:var(--accentbg);color:var(--brick);
+    font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;
+    border:1px solid var(--border);
+  }
+  .card-title{font-weight:700;font-size:14.5px;}
+  .card-sub{color:var(--muted);font-size:12px;margin:2px 0 14px 28px;}
+  .chart-box{
+    background:var(--paper);border:1px solid var(--border);border-radius:10px;
+    padding:12px; overflow-x:auto; position:relative;
+  }
+  svg{display:block;font-family:inherit;}
+  .detail-panel{
+    position:absolute; top:20px; right:20px; z-index:5; pointer-events:none;
+    background:var(--card); border:1px solid var(--border); border-radius:9px;
+    padding:10px 12px; font-size:12px; color:var(--ink); line-height:1.45;
+    box-shadow:0 6px 18px rgba(0,0,0,0.12); max-width:230px;
+    opacity:0; transform:translateY(-4px); transition:opacity 120ms ease, transform 120ms ease;
+  }
+  .detail-panel.show{opacity:1; transform:translateY(0);}
+  .detail-panel .tt-legend{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:5px;}
+  .detail-panel .tt-sw{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+  .detail-panel .tt-title{font-weight:700;font-size:12.5px;margin-bottom:2px;}
+  .detail-panel .tt-body{color:var(--muted);}
+  .tnum{font-variant-numeric:tabular-nums;}
+  .interactivity{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--border);}
+  .interactivity-label{
+    font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--muted);margin:0 0 8px;
+  }
+  .interactivity ul{margin:0;padding:0 0 0 16px;font-size:13px;color:var(--ink);}
+  .interactivity li{margin-bottom:5px;}
+  .interactivity li::marker{color:var(--brick);}
+  .tradeoff{
+    margin-top:10px;font-size:12px;color:var(--muted);font-style:italic;
+    background:var(--accentbg);border-radius:8px;padding:8px 10px;
+  }
+  .bar-row{display:flex;align-items:center;gap:8px;font-size:11px;}
+  .bar-name{width:150px;flex-shrink:0;text-align:right;color:var(--ink);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .legend{display:flex;flex-wrap:wrap;gap:8px 16px;margin-top:12px;font-size:11px;color:var(--muted);}
+  .legend > span{display:inline-flex;align-items:center;}
+  .legend span.sw{width:8px;height:8px;border-radius:2px;display:inline-block;margin-right:5px;}
+  footer{margin-top:20px;color:var(--muted);font-size:12.5px;text-align:center;}
+  #viz-tooltip{
+    position:fixed; z-index:1000; pointer-events:none;
+    background:var(--card); border:1px solid var(--border); border-radius:9px;
+    padding:9px 11px; font-size:12px; color:var(--ink); line-height:1.45;
+    box-shadow:0 6px 18px rgba(0,0,0,0.16); max-width:230px;
+    opacity:0; transform:translateY(3px); transition:opacity 100ms ease, transform 100ms ease;
+  }
+  #viz-tooltip.show{opacity:1; transform:translateY(0);}
+  #viz-tooltip .tt-legend{display:flex;align-items:center;gap:6px;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin-bottom:5px;}
+  #viz-tooltip .tt-legend .tt-sw{width:9px;height:9px;border-radius:3px;flex-shrink:0;}
+  #viz-tooltip .tt-title{font-weight:700;font-size:12.5px;margin-bottom:2px;}
+  #viz-tooltip .tt-body{color:var(--muted);}
+  #viz-tooltip .tt-num, .detail-panel .tt-num{font-weight:700;color:var(--ink);font-variant-numeric:tabular-nums;}
+  .universal{
+    background:var(--card);border:1px solid var(--border);border-left:4px solid var(--brick);
+    border-radius:10px;padding:16px 20px;margin-bottom:44px;font-size:13.5px;line-height:1.6;
+  }
+  .universal b{color:var(--brick);}
+  .vs-original{
+    margin-top:12px;padding-top:12px;border-top:1px solid var(--border);
+    font-size:12.5px;color:var(--ink);
+  }
+  .vs-original .vs-label{
+    font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
+    color:var(--brick);margin:0 0 5px;
+  }
+  .vs-original ul{margin:0;padding:0 0 0 16px;}
+  .vs-original li{margin-bottom:5px;}
+  .vs-original li::marker{color:var(--brick);}
+</style>
+
+<div class="wrap">
+  <p class="kicker">Diagram options — for selection</p>
+  <h1>The AI–Democracy Map diagrams</h1>
+  <p class="lede">Real numbers pulled from the 206-entry research dataset — not mockup data. All three questions now show only the client's original diagram style (bubble-pack / node-link / force-cluster) — the directions already settled on — at roughly production size, with real interactivity added on top.</p>
+
+  <!-- ============================================================ -->
+  <!-- QUESTION 1 -->
+  <!-- ============================================================ -->
+  <section class="question">
+    <div class="qhead"><span class="qnum">1</span><h2>Which democracy aspects are more frequent across threats?</h2></div>
+    <p class="qmeta">14 aspects across 4 pillars. Each entry's aspects are tagged PRIMARY or SECONDARY in the source data — the exact count of each is available on hover. Shown at roughly the width it would actually render on the site, not squeezed into a comparison column.</p>
+    <div class="pair single">
+      <div class="card full-width">
+        <div class="card-label"><span class="letter">C</span><span class="card-title">Bubble-pack</span></div>
+        <div class="card-sub">Circle area = total mentions, colored by pillar.</div>
+        <div class="chart-box">
+          <svg id="q1c" width="1040" height="820" viewBox="0 0 1040 820" style="width:100%;height:auto;"></svg>
+          <div class="detail-panel" id="q1c-detail"></div>
+          <div class="legend" id="q1c-legend"></div>
+          <p class="card-sub" id="q1c-hint" style="margin:8px 0 0;">Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.</p>
+        </div>
+        <div class="interactivity">
+          <p class="interactivity-label">Interactivity</p>
+          <ul>
+            <li>Hover a bubble → exact count, primary/secondary split, and definition — no ambiguity about "roughly how big" two close-in-size bubbles are.</li>
+            <li>Click a bubble → entries list filters to that aspect, and every other bubble fades so it's the only one you're looking at (click again, or the background, to reset).</li>
+            <li>Drag a bubble to pull a crowded cluster apart.</li>
+          </ul>
+        </div>
+        <div class="vs-original">
+          <p class="vs-label">Compared to your original</p>
+          <ul>
+            <li>Same visual form — circle size, color, and layout are unchanged.</li>
+            <li>Hover now shows the exact count and primary/secondary split, instead of judging circle size by eye.</li>
+            <li>Click now isolates a bubble (fades every other one); the original did nothing on click.</li>
+            <li>Bubbles can be dragged apart to work a crowded cluster.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- QUESTION 2 -->
+  <!-- ============================================================ -->
+  <section class="question">
+    <div class="qhead"><span class="qnum">2</span><h2>Which mechanism is more frequently involved in harming democracy?</h2></div>
+    <p class="qmeta">8 tiers, context (T0) through societal downstream (T7). Source data confirms entries can carry up to 7 mechanism codes each, often jumping non-adjacent tiers — so a literal "straight line" flow per entry doesn't exist in the data. Shown at roughly the width it would actually render on the site, not squeezed into a comparison column.</p>
+    <div class="pair single">
+      <div class="card full-width">
+        <div class="card-label"><span class="letter">C</span><span class="card-title">Tiered node-link</span></div>
+        <div class="card-sub">Line color and number both scale with real co-occurrence strength — darker/redder + higher number = these two mechanisms appear together more often.</div>
+        <div class="chart-box">
+          <svg id="q2c" width="1040" height="620" viewBox="0 0 1040 620" style="width:100%;height:auto;"></svg>
+          <p class="card-sub" id="q2c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
+        </div>
+        <div class="interactivity">
+          <p class="interactivity-label">Interactivity</p>
+          <ul>
+            <li>Hover a connecting line → that one line bolds, every other line fades, and a tooltip gives the exact count + both mechanism names — no ambiguity about which number belongs to which line in a crowded area.</li>
+            <li>Click a node → entries list filters to that mechanism, and all of its connections bold at once (hover isolates just one).</li>
+            <li>Drag a node to pull a crowded cluster apart.</li>
+          </ul>
+        </div>
+        <div class="vs-original">
+          <p class="vs-label">Compared to your original</p>
+          <ul>
+            <li>Same 8-tier relationship view — same columns, same connecting lines.</li>
+            <li>Connection strength is now readable directly, three ways: line color, line thickness, and a number printed on the line.</li>
+            <li>Hover isolates one connection at a time (bolds it, fades the rest); the original left every line visible with only thickness to judge by eye.</li>
+            <li>Click a node to isolate all of its connections at once; drag a node to pull a crowded cluster apart.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================ -->
+  <!-- QUESTION 3 -->
+  <!-- ============================================================ -->
+  <section class="question">
+    <div class="qhead"><span class="qnum">3</span><h2>Which activities are more frequently recommended as beneficial to democracy?</h2></div>
+    <p class="qmeta">10 top-level clusters, several split into sub-activities (e.g. Legal &amp; accountability → prescriptive rules / prohibitions / liability / market-shaping). Shown at roughly the width it would actually render on the site (the client's original diagrams default to ~1040px), not squeezed into a comparison column.</p>
+    <div class="pair single">
+      <div class="card full-width">
+        <div class="card-label"><span class="letter">C</span><span class="card-title">Force-cluster</span></div>
+        <div class="card-sub">Line color and number both scale with real co-occurrence strength — darker/redder + higher number = these two activities appear together more often.</div>
+        <div class="chart-box">
+          <svg id="q3c" width="1040" height="600" viewBox="0 0 1040 600" style="width:100%;height:auto;"></svg>
+          <div class="legend" id="q3c-legend"></div>
+          <p class="card-sub" id="q3c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
+        </div>
+        <div class="interactivity">
+          <p class="interactivity-label">Interactivity</p>
+          <ul>
+            <li>Hover a connecting line → that one line bolds, every other line fades, and a tooltip gives the exact count + both activity names — no ambiguity about which number belongs to which line in a crowded area.</li>
+            <li>Click a node → entries list filters to that activity, and all of its connections bold at once (hover isolates just one).</li>
+            <li>Drag to separate a crowded cluster.</li>
+          </ul>
+        </div>
+        <div class="vs-original">
+          <p class="vs-label">Compared to your original</p>
+          <ul>
+            <li>Same clustered relationship view — same node clusters, same connecting lines.</li>
+            <li>Connection strength is now readable directly, three ways at once: line color, line thickness, and a number printed on the line. The original only had thickness to judge by eye.</li>
+            <li>Hover isolates one connection at a time; click a node to isolate all of its connections at once.</li>
+            <li>Nodes can be dragged apart to work a crowded cluster.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>Numbers computed directly from the 206-entry research dataset (P4Dem codebook). Not final visual design — built to compare structure and interaction, not polish.</footer>
+</div>
+
+<div id="viz-tooltip"></div>
+
+<script>
+// ============================================================
+// Real data, computed from the codebook (Overview data V 10.2)
+// ============================================================
+const ASPECTS = [
+  {code:"3.2", name:"Opinion Formation & Political Participation", p:60, s:50, pillar:"3"},
+  {code:"2.3", name:"Effective & Accountable Government", p:48, s:52, pillar:"2"},
+  {code:"2.1", name:"Free & Fair Elections", p:24, s:20, pillar:"2"},
+  {code:"1.3", name:"Civil & Political Rights", p:12, s:26, pillar:"1"},
+  {code:"2.8", name:"Illegitimate Influence over Policy-Making", p:13, s:24, pillar:"2"},
+  {code:"1.1", name:"Nationhood & Citizenship", p:10, s:25, pillar:"1"},
+  {code:"1.2", name:"Rule of Law & Access to Justice", p:11, s:17, pillar:"1"},
+  {code:"3.1", name:"Independent & Fact-Based Journalistic Media", p:7, s:21, pillar:"3"},
+  {code:"1.4", name:"Economic & Social Rights", p:8, s:18, pillar:"1"},
+  {code:"4.1", name:"External Influences on Democracy", p:7, s:16, pillar:"4"},
+  {code:"2.4", name:"Democratic Effectiveness of the Legislature", p:0, s:18, pillar:"2"},
+  {code:"2.7", name:"Civilian Control of the Military & Police", p:0, s:9, pillar:"2"},
+  {code:"4.2", name:"Country's Democratic Impact Abroad", p:0, s:7, pillar:"4"},
+  {code:"2.2", name:"Democratic Role of Political Parties", p:1, s:5, pillar:"2"},
+  {code:"2.5", name:"Democratic Role of the Judiciary", p:0, s:2, pillar:"2"},
+  {code:"2.6", name:"National-Subnational Power Relations", p:0, s:1, pillar:"2"},
+];
+const PILLAR_COLOR = {"1":"var(--brick)","2":"var(--grassroot)","3":"var(--blue)","4":"var(--lime)"};
+const PILLAR_NAME = {"1":"Citizenship, Law and Rights","2":"Representative and Accountable Government","3":"Civil Society and Popular Participation","4":"Transnational Dynamics"};
+
+const TIERS = [
+  {id:"T0", label:"Context", top:[["Legislation shaping deployment",10],["Legislation shaping development",7],["Legislation shaping consequences",7],["Disclosure & release choices",3]]},
+  {id:"T1", label:"AI capabilities", top:[["Operational scalability",14],["Optimisation-objective design",10],["Imitating human behaviour",8],["Pattern recognition",8]]},
+  {id:"T2", label:"Model-inherent", top:[["Bias amplification",14],["Output reliability failures",9],["Normative authority transfer",9],["Persuasive force",8]]},
+  {id:"T3", label:"Use decisions", top:[["Infrastructural lock-in",7],["Under/overuse calibration",5],["Single point of failure",2]]},
+  {id:"T4", label:"Capability uses", top:[["Generating artefacts",28],["Directing at targets",10],["Observing & extracting",7],["Acting on technical systems",7]]},
+  {id:"T5", label:"Targeted use", top:[["AI augmenting a process",18],["AI automating a process",12],["Disinfo about processes",10],["Repression & censorship",9]]},
+  {id:"T6", label:"Individual downstream", top:[["Belief reinforcement",6],["Automation bias",3],["Trust erosion",1]]},
+  {id:"T7", label:"Societal downstream", top:[["Erosion of citizen leverage",22],["Concentration of power",16],["Channel flooding",13],["Verification outpaced",9]]},
+];
+const TIER_TOTAL = {T0:31,T1:69,T2:49,T3:14,T4:52,T5:78,T6:10,T7:91};
+const TIER_COLOR = ["#963735","#4A5FA6","#7BA8D9","#2E9CA8","#1E93A8","#F97C2B","#C6402F","#4E5A63"];
+
+const BENEFITS = [
+  {cluster:"B06", name:"Legal & accountability frameworks", total:47, subs:[["Prescriptive rules",23],["Liability & enforcement",11],["Prohibitions",10],["Market-shaping",3]]},
+  {cluster:"B11", name:"Establishing knowledge & evidence infrastructure", total:37, subs:[["Deployment/impact monitoring",22],["Capability evaluation",8],["Frameworks & synthesis",7]]},
+  {cluster:"B10", name:"Responsible AI development practices", total:33, subs:[["Value-aligned training",22],["Safety engineering",10],["Unspecified",1]]},
+  {cluster:"B07", name:"Adjusting government behaviour in the face of AI towards democratic resilience", total:24, subs:[["Tech guardrails",12],["Institutional staffing",6],["Non-AI resilience",5],["AI-enabled resilience",1]]},
+  {cluster:"B04", name:"Infrastructure for citizen participation", total:23, subs:[["Summarisation & structuring",11],["Participatory format",10],["Discourse moderation",2]]},
+  {cluster:"B09", name:"Democratic oversight of AI", total:20, subs:[["Democratic oversight of AI",20]]},
+  {cluster:"B03", name:"Citizen-led efforts to counter manipulation & promote content integrity", total:19, subs:[["Detection & authentication",12],["Verified info provision",7]]},
+  {cluster:"B05", name:"Defensive cybersecurity resilience", total:14, subs:[["Defensive cybersecurity",14]]},
+  {cluster:"B02", name:"Levelling the playing field", total:9, subs:[["Levelling the playing field",9]]},
+  {cluster:"B01", name:"Civic & AI literacy building", total:6, subs:[["Civic & AI literacy",6]]},
+];
+const BENEFIT_COLOR = {B01:"#D9EC44",B02:"#FFB9DC",B03:"#99C2FF",B04:"#00B140",B05:"#4E5A63",B06:"#963735",B07:"#FF7F32",B09:"#1E93A8",B10:"#4A5FA6",B11:"#7B4B8A"};
+
+const NS = "http://www.w3.org/2000/svg";
+function el(tag, attrs){ const e=document.createElementNS(NS,tag); for(const k in attrs) e.setAttribute(k, attrs[k]); return e; }
+function text(x,y,str,attrs={}){ const t=el("text",{x,y,...attrs}); t.textContent=str; return t; }
+
+// ---- hex color ramp helper (weak connection -> strong connection) ----
+function hexToRgb(hex){ const n=parseInt(hex.replace("#",""),16); return [(n>>16)&255,(n>>8)&255,n&255]; }
+function rgbToHex([r,g,b]){ return "#"+[r,g,b].map(v=>Math.max(0,Math.min(255,Math.round(v))).toString(16).padStart(2,"0")).join(""); }
+function mixHex(a,b,t){ const A=hexToRgb(a),B=hexToRgb(b); return rgbToHex(A.map((v,i)=>v+(B[i]-v)*t)); }
+function connectionColor(w,maxW,minW=1){
+  const t = maxW>minW ? Math.pow((w-minW)/(maxW-minW),0.75) : 1;
+  return mixHex("#CBBEB2","#963735",t); // weak: warm neutral -> strong: brick
+}
+
+// Where to put an edge's count label so it never lands on top of either node.
+// Finds the midpoint of the line's actually-visible segment (between where it
+// exits node A's circle and enters node B's), not the geometric midpoint of
+// the two centers — which frequently falls inside a node once nodes are big
+// or close together. Falls back to a perpendicular offset when the nodes are
+// close enough that no visible segment exists at all (near-touching circles).
+function edgeLabelPos(A,B,allNodes,gap=6){
+  // "Openness" = distance to the nearest node's edge, checked against EVERY
+  // node on the canvas — not just A and B. A straight line between two
+  // well-separated nodes can still pass close to a third node sitting
+  // between them in a dense cluster, so that third node has to be avoided too.
+  const openness=(p)=> Math.min(...allNodes.map(n=>Math.hypot(n.x-p.x,n.y-p.y)-n.r));
+  const dx=B.x-A.x, dy=B.y-A.y;
+  const d=Math.sqrt(dx*dx+dy*dy)||0.01;
+  const ux=dx/d, uy=dy/d;
+  const aEdge=A.r+gap, bEdge=B.r+gap;
+
+  // Primary strategy: stay ON the line. Sample points along the visible
+  // segment (between where it exits A and enters B) and keep whichever is
+  // clearest of every node — so the label reads as belonging to its line,
+  // not floating in whatever empty space happens to be nearby.
+  let best=null, bestScore=-Infinity;
+  if(d > aEdge+bEdge+4){
+    const steps=20;
+    for(let i=0;i<=steps;i++){
+      const t=aEdge + (d-aEdge-bEdge)*(i/steps);
+      const p={x:A.x+ux*t, y:A.y+uy*t};
+      const s=openness(p);
+      if(s>bestScore){ bestScore=s; best=p; }
+    }
+  }
+  if(best && bestScore > -1) return best; // a genuinely clear spot on the line itself
+
+  // Fallback only for lines with no clear point along their own length (very
+  // short/near-touching nodes, or a third node sitting right across the
+  // whole segment): nudge just off the line, close to whichever point on it
+  // scored best, rather than jumping out to open canvas space.
+  const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+  const anchor=best || {x:mx,y:my};
+  const px=-uy, py=ux;
+  for(const side of [1,-1]){
+    for(const off of [10,16,24,34]){
+      const p={x:anchor.x+px*off*side, y:anchor.y+py*off*side};
+      const s=openness(p);
+      if(s>bestScore){ bestScore=s; best=p; }
+    }
+  }
+  return best;
+}
+
+// ---- shared hover tooltip (legend swatch + detail), used by every node/edge diagram ----
+const ttEl = document.getElementById("viz-tooltip");
+function ttShow(clientX, clientY, {swatch, legend, title, body}){
+  ttEl.innerHTML =
+    (swatch ? `<div class="tt-legend"><span class="tt-sw" style="background:${swatch}"></span>${legend}</div>` : "") +
+    `<div class="tt-title">${title}</div>` +
+    (body ? `<div class="tt-body">${body}</div>` : "");
+  ttEl.classList.add("show");
+  ttMove(clientX, clientY);
+}
+function ttMove(clientX, clientY){
+  const pad=14, vw=window.innerWidth, vh=window.innerHeight;
+  const w=ttEl.offsetWidth||220, h=ttEl.offsetHeight||60;
+  let x=clientX+pad, y=clientY+pad;
+  if(x+w>vw-8) x=clientX-w-pad;
+  if(y+h>vh-8) y=clientY-h-pad;
+  ttEl.style.left=Math.max(6,x)+"px";
+  ttEl.style.top=Math.max(6,y)+"px";
+}
+function ttHide(){ ttEl.classList.remove("show"); }
+/* wire hover on an SVG element to the shared tooltip; contentFn(evt) -> tooltip config object */
+function ttBind(elm, contentFn){
+  elm.style.cursor = elm.style.cursor || "pointer";
+  elm.addEventListener("mouseenter", (e)=> ttShow(e.clientX, e.clientY, contentFn()));
+  elm.addEventListener("mousemove", (e)=> ttMove(e.clientX, e.clientY));
+  elm.addEventListener("mouseleave", ttHide);
+}
+
+/* Real node dragging, shared by every node-link diagram. `node` is the layout
+   object (has .x/.y/.r, mutated in place — anything else referencing this
+   same object, like an edge's endpoint, sees the move automatically).
+   onDragMove(node) fires on every pointer move so the caller can reposition
+   whatever depends on this node (its own circle/label, connected edges, their
+   labels). onDragEnd(moved) fires once on release; `moved` is false for a
+   plain click (no drag), so callers can tell the two apart. */
+function makeDraggable(svg, node, handleEl, onDragMove, onDragEnd){
+  let dragging=false, offX=0, offY=0, moved=false;
+  function toSvg(clientX, clientY){
+    const rect=svg.getBoundingClientRect();
+    const vb=svg.viewBox ? svg.viewBox.baseVal : null;
+    const vw=vb&&vb.width ? vb.width : rect.width, vh=vb&&vb.height ? vb.height : rect.height;
+    return { x:(clientX-rect.x)*(vw/rect.width), y:(clientY-rect.y)*(vh/rect.height) };
+  }
+  handleEl.style.cursor="grab";
+  handleEl.addEventListener("mousedown",(e)=>{
+    e.preventDefault(); e.stopPropagation();
+    dragging=true; moved=false;
+    handleEl.style.cursor="grabbing";
+    const p=toSvg(e.clientX,e.clientY);
+    offX=p.x-node.x; offY=p.y-node.y;
+  });
+  window.addEventListener("mousemove",(e)=>{
+    if(!dragging) return;
+    const p=toSvg(e.clientX,e.clientY);
+    const nx=p.x-offX, ny=p.y-offY;
+    if(Math.hypot(nx-node.x,ny-node.y)>1.5) moved=true;
+    node.x=nx; node.y=ny;
+    onDragMove(node);
+  });
+  window.addEventListener("mouseup",()=>{
+    if(!dragging) return;
+    dragging=false;
+    handleEl.style.cursor="grab";
+    onDragEnd(moved);
+  });
+}
+
+// ============================================================
+// Option C data — client's original diagram style, real edges
+// ============================================================
+
+// ---- shared: simple spiral circle-packer (no external lib) ----
+function packCircles(items, cx, cy){
+  const placed=[];
+  items.forEach((it,idx)=>{
+    if(idx===0){ it.x=cx; it.y=cy; placed.push(it); return; }
+    let best=null;
+    outer:
+    for(let ring=1; ring<500; ring++){
+      const rad = ring*2.4;
+      const steps = Math.max(10, Math.floor(rad/2.5));
+      for(let s=0;s<steps;s++){
+        const theta = (s/steps)*Math.PI*2 + ring*0.31;
+        const x = cx + rad*Math.cos(theta);
+        const y = cy + rad*Math.sin(theta*0.86);
+        let ok=true;
+        for(const p of placed){
+          const dx=x-p.x, dy=y-p.y;
+          if(Math.sqrt(dx*dx+dy*dy) < it.r+p.r+14){ ok=false; break; }
+        }
+        if(ok){ best={x,y}; break outer; }
+      }
+    }
+    if(best){ it.x=best.x; it.y=best.y; } else { it.x=cx; it.y=cy; }
+    placed.push(it);
+  });
+  return items;
+}
+
+// ---- Q1C: bubble-pack, real aspect totals, colored by pillar ----
+(function(){
+  const svg=document.getElementById("q1c");
+  const W=1040,H=820,cx=W/2,cy=H/2;
+  const items = ASPECTS.map(a=>({code:a.code,name:a.name,val:a.p+a.s,p:a.p,s:a.s,pillar:a.pillar}))
+    .sort((a,b)=>b.val-a.val);
+  const maxV = items[0].val;
+  const kk = 100/Math.sqrt(maxV);
+  items.forEach(it=> it.r = Math.max(20, kk*Math.sqrt(it.val)) );
+  packCircles(items, cx, cy);
+  // safety clamp: packCircles spirals outward from center with no awareness of
+  // canvas bounds, so a data set with a wide value range (here 1 to 110) can
+  // still push an outer circle past the edge — guarantee every circle stays
+  // fully on-canvas regardless of how the values happen to fall
+  items.forEach(it=>{
+    it.x=Math.max(it.r+4,Math.min(W-it.r-4,it.x));
+    it.y=Math.max(it.r+4,Math.min(H-it.r-4,it.y));
+  });
+
+  // background click-catcher, so clicking empty space resets a selection
+  const bg=el("rect",{x:0,y:0,width:W,height:H,fill:"transparent"});
+  svg.appendChild(bg);
+
+  const hint=document.getElementById("q1c-hint");
+  const DEFAULT_HINT="Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.";
+  const legendEl=document.getElementById("q1c-legend");
+  ["1","2","3","4"].forEach(p=>{
+    const item=document.createElement("span");
+    item.innerHTML=`<span class="sw" style="background:${PILLAR_COLOR[p]};border-radius:50%"></span>${PILLAR_NAME[p]}`;
+    legendEl.appendChild(item);
+  });
+
+  const records=[]; // {code,circleEl,labelEls}
+  let selected=null, suppressClick=false;
+  items.forEach(it=>{
+    const circ=el("circle",{cx:it.x,cy:it.y,r:it.r,fill:PILLAR_COLOR[it.pillar],stroke:"var(--paper)","stroke-width":1.5,style:"cursor:pointer"});
+    svg.appendChild(circ);
+    ttBind(circ, ()=>({
+      swatch: PILLAR_COLOR[it.pillar], legend: PILLAR_NAME[it.pillar],
+      title: `${it.code} ${it.name}`,
+      body: `<span class="tt-num">${it.val}</span> mentions — <span class="tt-num">${it.p}</span> primary, <span class="tt-num">${it.s}</span> secondary`
+    }));
+    const labelEls=[];
+    if(it.r>26){
+      labelEls.push(text(it.x,it.y-2,it.code,{"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff",style:"pointer-events:none"}));
+      labelEls.push(text(it.x,it.y+14,String(it.val),{"text-anchor":"middle","font-size":11,fill:"#fff",opacity:0.9,class:"tnum",style:"pointer-events:none"}));
+    } else {
+      labelEls.push(text(it.x,it.y+4,it.code,{"text-anchor":"middle","font-size":10,"font-weight":700,fill:"#fff",style:"pointer-events:none"}));
+    }
+    labelEls.forEach(l=>svg.appendChild(l));
+    records.push({code:it.code, name:it.name, val:it.val, p:it.p, s:it.s, pillar:it.pillar, circleEl:circ, labelEls, opacity:0.88});
+
+    // real dragging: move this bubble (no edges here, just itself + its label(s))
+    makeDraggable(svg, it, circ,
+      (node)=>{
+        node.x=Math.max(node.r+6,Math.min(W-node.r-6,node.x));
+        node.y=Math.max(node.r+6,Math.min(H-node.r-6,node.y));
+        circ.setAttribute("cx",node.x); circ.setAttribute("cy",node.y);
+        const dys = labelEls.length>1 ? [-2,14] : [4];
+        labelEls.forEach((l,i)=>{ l.setAttribute("x",node.x); l.setAttribute("y",node.y+dys[i]); });
+      },
+      (moved)=>{ if(moved){ suppressClick=true; setTimeout(()=>{ suppressClick=false; },0); } }
+    );
+  });
+
+  // click-to-isolate: no edges here, so "isolate" just means dim every other bubble
+  const detailEl=document.getElementById("q1c-detail");
+  function applySelection(code){
+    selected = (code===selected) ? null : code;
+    if(selected===null){
+      records.forEach(r=>{ r.circleEl.setAttribute("opacity",r.opacity); r.labelEls.forEach(l=>l.setAttribute("opacity",1)); });
+      hint.textContent=DEFAULT_HINT;
+      detailEl.classList.remove("show");
+      return;
+    }
+    records.forEach(r=>{
+      const on=r.code===selected;
+      r.circleEl.setAttribute("opacity", on?0.95:0.12);
+      r.labelEls.forEach(l=>l.setAttribute("opacity", on?1:0.12));
+    });
+    const rec=records.find(r=>r.code===selected);
+    hint.textContent=`${selected} — ${rec.val} mentions. Click it again, or the background, to reset.`;
+    // pin the full detail (name, pillar, primary/secondary split) in the
+    // corner so it stays visible for the selected bubble, not just while
+    // the mouse happens to be hovering it
+    detailEl.innerHTML =
+      `<div class="tt-legend"><span class="tt-sw" style="background:${PILLAR_COLOR[rec.pillar]}"></span>${PILLAR_NAME[rec.pillar]}</div>`+
+      `<div class="tt-title">${rec.code} ${rec.name}</div>`+
+      `<div class="tt-body"><span class="tt-num">${rec.val}</span> mentions — <span class="tt-num">${rec.p}</span> primary, <span class="tt-num">${rec.s}</span> secondary</div>`;
+    detailEl.classList.add("show");
+  }
+  records.forEach(r=> r.circleEl.addEventListener("click",(e)=>{ e.stopPropagation(); if(suppressClick) return; applySelection(r.code); }));
+  bg.addEventListener("click", ()=> applySelection(null));
+})();
+
+// ---- Q2C: tiered node-link, real co-occurrence edges ----
+const HARM_NODES = {
+  T0: [["T0b.2","Legislation shaping deployment",10],["T0b.1","Legislation shaping development",7],["T0b.3","Legislation shaping consequences",7],["T0a.3","Disclosure & release choices",3],["T0a.4","Defensive arms-race pressure",2],["T0a.1","Engagement-driven business model",2]],
+  T1: [["T1b.4","Operational scalability",14],["T1b.3","Optimisation-objective design",10],["T1a.2","Imitating human behaviour and speech",8],["T1a.1","Pattern recognition & classification",8],["T1b.1","Training data composition",6],["T1a.3","Personalisation",5]],
+  T2: [["T2.2","Bias amplification",14],["T2.3","Output reliability failures",9],["T2.4","Normative authority transfer",9],["T2.5","Persuasive force",8],["T2.1","Output homogenisation",6],["T2.7","Validation-biased outputs",3]],
+  T3: [["T3.1","Infrastructural lock-in",7],["T3.2","Under/overuse calibration",5],["T3.3","Single point of failure",2]],
+  T4: [["T4.1","Generating artefacts",28],["T4.4","Directing at targets",10],["T4.2","Observing & extracting",7],["T4.3","Acting on technical systems",7]],
+  T5: [["T5c.1","AI augmenting a legitimate process",18],["T5c.2","AI automating or substituting a legitimate process function",12],["T5a.2","Disinformation about political processes",10],["T5b.2","Repression & censorship",9],["T5a.1","Disinformation & deepfakes about political contents",8],["T5d.1","Attacking technical infrastructure",6]],
+  T6: [["T6.1","Belief reinforcement",6],["T6.2","Automation bias",3],["T6.4","Trust erosion",1]],
+  T7: [["T7b.2","Erosion of citizen leverage",22],["T7b.1","Concentration of power in AI-controlling actors",16],["T7a.2","Channel flooding and epistemic overload",13],["T7a.1","Outpacing of verification by content-production",9],["T7a.5","Shifting normative baselines",8],["T7a.4","Emerging epistemic monocultures",8]],
+};
+const HARM_EDGES = [
+  ["T4.1","T7a.2",9],["T1b.4","T4.1",8],["T7b.1","T7b.2",8],["T5a.1","T5a.2",7],["T3.1","T7b.1",7],
+  ["T2.2","T5c.1",7],["T1b.4","T7a.1",7],["T4.1","T5a.1",6],["T4.1","T5a.2",6],["T4.1","T7a.5",6],
+  ["T4.4","T5b.2",5],["T0b.1","T0b.2",5],["T1a.1","T2.2",5],["T1b.3","T2.1",5],["T0b.1","T0b.3",5],
+  ["T0b.2","T0b.3",5],["T4.1","T7a.1",5],["T0b.2","T2.4",5],["T2.4","T7a.4",5],
+];
+(function(){
+  const svg=document.getElementById("q2c");
+  const W=1040,H=620,left=50,right=30,topPad=44,botPad=24;
+  const tierIds=Object.keys(HARM_NODES);
+  const colW=(W-left-right)/tierIds.length;
+  const maxAll=28;
+  const nodes={};
+  tierIds.forEach((t,ti)=>{
+    const list=HARM_NODES[t];
+    const n=list.length;
+    const usableH=H-topPad-botPad;
+    list.forEach(([code,name,val],i)=>{
+      const x=left+ti*colW+colW/2;
+      const y=topPad+(i+0.5)*(usableH/n);
+      const r=Math.max(15,9+19*Math.sqrt(val/maxAll));
+      nodes[code]={code,name,val,x,y,r,tier:t};
+    });
+  });
+  const allNodes=Object.values(nodes);
+
+  const wVals=HARM_EDGES.map(e=>e[2]);
+  const maxW=Math.max(...wVals), minW=Math.min(...wVals);
+
+  // background click-catcher, so clicking empty space resets a selection
+  const bg=el("rect",{x:0,y:0,width:W,height:H,fill:"transparent"});
+  svg.appendChild(bg);
+
+  const edgeRecords=[]; // {a,b,w,color,A,B,lineEl,hit,labelEl,baseOpacity,baseWidth}
+  HARM_EDGES.forEach(([a,b,w])=>{
+    if(!nodes[a]||!nodes[b]) return;
+    const A=nodes[a],B=nodes[b];
+    const color=connectionColor(w,maxW,minW);
+    const baseOpacity=0.4+0.45*((w-minW)/(maxW-minW||1));
+    const baseWidth=Math.max(1,0.9+w*0.55);
+    const midx=(A.x+B.x)/2, midy=(A.y+B.y)/2;
+    const d=`M${A.x},${A.y} Q${midx},${midy} ${B.x},${B.y}`;
+    const lineEl=el("path",{d, fill:"none", stroke:color, "stroke-width":baseWidth, opacity:baseOpacity});
+    svg.appendChild(lineEl);
+    // wider invisible path on top, purely to make the thin line easy to hover
+    const hit=el("path",{d, fill:"none", stroke:"transparent", "stroke-width":10, style:"cursor:pointer"});
+    svg.appendChild(hit);
+    edgeRecords.push({a,b,w,color,A,B,lineEl,hit,baseOpacity,baseWidth});
+  });
+
+  tierIds.forEach((t,ti)=>{
+    const x=left+ti*colW+colW/2;
+    svg.appendChild(text(x,20,t,{"text-anchor":"middle","font-size":11,"font-weight":700,fill:TIER_COLOR[ti]}));
+    svg.appendChild(text(x,34,TIERS[ti].label,{"text-anchor":"middle","font-size":8.5,fill:"var(--muted)"}));
+  });
+
+  const nodeRecords=[]; // {code,circleEl,labelEl}
+  let suppressClick=false;
+  Object.values(nodes).forEach(n=>{
+    const ti=tierIds.indexOf(n.tier);
+    const circ=el("circle",{cx:n.x,cy:n.y,r:n.r,fill:TIER_COLOR[ti],stroke:"var(--paper)","stroke-width":1.3,style:"cursor:pointer"});
+    svg.appendChild(circ);
+    ttBind(circ, ()=>({
+      swatch: TIER_COLOR[ti], legend: `${n.tier} — ${TIERS[ti].label}`,
+      title: `${n.code} ${n.name}`,
+      body: `<span class="tt-num">${n.val}</span> entries coded with this mechanism`
+    }));
+    const fs = n.r>19 ? 10.5 : 9;
+    const labelEl=text(n.x,n.y+3.5,n.code,{"text-anchor":"middle","font-size":fs,"font-weight":700,fill:"#fff",style:"pointer-events:none"});
+    svg.appendChild(labelEl);
+    nodeRecords.push({code:n.code,circleEl:circ,labelEl});
+
+    // real dragging: move this node (and everything anchored to it) with the pointer
+    makeDraggable(svg, n, circ,
+      (node)=>{
+        node.x=Math.max(node.r+4,Math.min(W-node.r-4,node.x));
+        node.y=Math.max(node.r+4,Math.min(H-node.r-4,node.y));
+        circ.setAttribute("cx",node.x); circ.setAttribute("cy",node.y);
+        labelEl.setAttribute("x",node.x); labelEl.setAttribute("y",node.y+3.5);
+        edgeRecords.forEach(r=>{
+          if(r.a===node.code || r.b===node.code){
+            const mx=(r.A.x+r.B.x)/2, my=(r.A.y+r.B.y)/2;
+            const d=`M${r.A.x},${r.A.y} Q${mx},${my} ${r.B.x},${r.B.y}`;
+            r.lineEl.setAttribute("d",d); r.hit.setAttribute("d",d);
+          }
+        });
+        // any edge's label may need to move out of the way of this node's new
+        // position, not just the edges directly attached to it
+        edgeRecords.forEach(r=>{
+          const pos=edgeLabelPos(r.A, r.B, allNodes, 7);
+          r.labelEl.setAttribute("x",pos.x); r.labelEl.setAttribute("y",pos.y);
+        });
+      },
+      (moved)=>{
+        if(moved){ suppressClick=true; setTimeout(()=>{ suppressClick=false; },0); }
+      }
+    );
+  });
+
+  // connection-count labels — anchored to their own line (not floating in
+  // open space) and clear of every node, same approach as Q3
+  edgeRecords.forEach(rec=>{
+    const pos=edgeLabelPos(rec.A, rec.B, allNodes, 7);
+    rec.labelEl=text(pos.x,pos.y,String(rec.w),{
+      "text-anchor":"middle","font-size":9,"font-weight":700,fill:rec.color,
+      stroke:"var(--paper)","stroke-width":3,"paint-order":"stroke",class:"tnum",style:"pointer-events:none"
+    });
+    svg.appendChild(rec.labelEl);
+  });
+
+  const hint=document.getElementById("q2c-hint");
+  const DEFAULT_HINT="Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.";
+  let selected=null;
+
+  // hover-to-isolate a single line: bold it, fade every other line, so a
+  // number in a crowded area is never ambiguous about which line it's on
+  edgeRecords.forEach(rec=>{
+    ttBind(rec.hit, ()=>({
+      swatch:rec.color, legend:"Co-occurrence",
+      title:`${rec.A.code} ↔ ${rec.B.code}`,
+      body:`${rec.A.name} + ${rec.B.name}<br><span class="tt-num">${rec.w}</span> entries code both`
+    }));
+    rec.hit.addEventListener("mouseenter",()=>{
+      if(selected!==null) return;
+      edgeRecords.forEach(r=>{
+        const isThis=r===rec;
+        r.lineEl.setAttribute("opacity", isThis?1:0.05);
+        r.lineEl.setAttribute("stroke-width", isThis?Math.max(2,1.6+r.w*0.8):r.baseWidth);
+        r.labelEl.setAttribute("opacity", isThis?1:0.05);
+      });
+      hint.textContent=`${rec.A.code} ↔ ${rec.B.code} — ${rec.w} entries code both.`;
+    });
+    rec.hit.addEventListener("mouseleave",()=>{
+      if(selected!==null) return;
+      edgeRecords.forEach(r=>{ r.lineEl.setAttribute("opacity",r.baseOpacity); r.lineEl.setAttribute("stroke-width",r.baseWidth); r.labelEl.setAttribute("opacity",1); });
+      hint.textContent=DEFAULT_HINT;
+    });
+  });
+
+  // click-to-isolate a node: bold all of its connections at once, fade
+  // everything not connected to it
+  function applySelection(code){
+    selected = (code===selected) ? null : code;
+    if(selected===null){
+      edgeRecords.forEach(r=>{ r.lineEl.setAttribute("opacity",r.baseOpacity); r.lineEl.setAttribute("stroke-width",r.baseWidth); r.labelEl.setAttribute("opacity",1); });
+      nodeRecords.forEach(n=>{ n.circleEl.setAttribute("opacity",0.9); n.labelEl.setAttribute("opacity",1); });
+      hint.textContent=DEFAULT_HINT;
+      return;
+    }
+    const connectedCodes=new Set([selected]);
+    edgeRecords.forEach(r=>{
+      const touches = r.a===selected || r.b===selected;
+      r.lineEl.setAttribute("opacity", touches?0.95:0.06);
+      r.lineEl.setAttribute("stroke-width", touches?Math.max(1.6,1.4+r.w*0.7):r.baseWidth);
+      r.labelEl.setAttribute("opacity", touches?1:0.08);
+      if(touches){ connectedCodes.add(r.a); connectedCodes.add(r.b); }
+    });
+    nodeRecords.forEach(n=>{
+      const on=connectedCodes.has(n.code);
+      n.circleEl.setAttribute("opacity", on?0.95:0.15);
+      n.labelEl.setAttribute("opacity", on?1:0.15);
+    });
+    const connCount=connectedCodes.size-1;
+    hint.textContent=`${selected} — ${connCount} connection${connCount===1?"":"s"}. Click it again, or the background, to reset.`;
+  }
+  nodeRecords.forEach(n=> n.circleEl.addEventListener("click",(e)=>{ e.stopPropagation(); if(suppressClick) return; applySelection(n.code); }));
+  bg.addEventListener("click", ()=> applySelection(null));
+})();
+
+// ---- Q3C: force-cluster, real co-occurrence edges ----
+const BENEFIT_NODES = [
+  ["B01","Civic & AI literacy",6],["B02","Levelling the playing field",9],
+  ["B03A","Detection & authentication",12],["B03B","Verified info provision",7],
+  ["B04A","Discourse moderation",2],["B04B","Summarisation & structuring",11],["B04C","Participatory format",10],
+  ["B05","Defensive cybersecurity",14],
+  ["B06A","Prescriptive rules",23],["B06B","Prohibitions",10],["B06C","Liability & enforcement",11],["B06D","Market-shaping",3],
+  ["B07A","Institutional staffing",6],["B07B","Tech guardrails",12],["B07C","Non-AI resilience",5],["B07D","AI-enabled resilience",1],
+  ["B09","Democratic oversight of AI",20],
+  ["B10A","Value-aligned training",22],["B10B","Safety engineering",10],
+  ["B11A","Capability evaluation",8],["B11B","Deployment/impact monitoring",22],["B11C","Frameworks & synthesis",7],
+];
+const BENEFIT_EDGES = [
+  ["B06A","B11B",7],["B06A","B06C",6],["B04B","B09",3],["B09","B10A",3],["B06C","B09",3],
+  ["B06C","B11B",3],["B09","B11B",3],["B06D","B07B",3],["B04B","B04C",3],["B06A","B07B",3],
+  ["B07B","B11A",3],["B09","B11A",2],["B06B","B06C",2],["B03A","B11B",2],["B03A","B05",2],
+  ["B01","B05",2],["B03A","B10B",2],["B10B","B11A",2],["B04C","B09",2],["B11A","B11B",2],
+];
+const CLUSTER_OF_NODE = code => code.match(/^(B\d\d)/)[1];
+const CLUSTER_NAME = Object.fromEntries(BENEFITS.map(b=>[b.cluster,b.name]));
+(function(){
+  const svg=document.getElementById("q3c");
+  const W=1040,H=600,cx=W/2,cy=H/2;
+  const clusters=["B01","B02","B03","B04","B05","B06","B07","B09","B10","B11"];
+  const anchorRx=420, anchorRy=210;
+  const maxV=23;
+  const nodes={};
+  const byCluster={};
+  BENEFIT_NODES.forEach(([code,name,val])=>{
+    const c=CLUSTER_OF_NODE(code);
+    (byCluster[c]=byCluster[c]||[]).push({code,name,val});
+  });
+  // give each cluster an angular slice proportional to how many nodes it holds,
+  // so a 4-node cluster (e.g. B06) gets more room than a 1-node cluster (e.g. B09)
+  const weights = clusters.map(c => Math.sqrt((byCluster[c]||[]).length || 1));
+  const totalWeight = weights.reduce((s,w)=>s+w,0);
+  const anchors={};
+  let cum=0;
+  clusters.forEach((c,i)=>{
+    const slice = (weights[i]/totalWeight)*Math.PI*2;
+    const theta = -Math.PI/2 + cum + slice/2;
+    cum += slice;
+    anchors[c]={x:cx+anchorRx*Math.cos(theta), y:cy+anchorRy*Math.sin(theta)};
+  });
+  clusters.forEach(c=>{
+    const list=(byCluster[c]||[]).sort((a,b)=>b.val-a.val);
+    const anchor=anchors[c];
+    list.forEach((it,i)=>{
+      it.r=Math.max(15,9+19*Math.sqrt(it.val/maxV));
+    });
+    packCircles(list, anchor.x, anchor.y);
+    list.forEach(it=> nodes[it.code]=it);
+  });
+  // global relaxation pass: nudge apart ANY two nodes that overlap, even across
+  // cluster boundaries — packCircles only guarantees no overlap within one cluster
+  const allNodes=Object.values(nodes);
+  const minGap=28;
+  for(let pass=0; pass<60; pass++){
+    let moved=false;
+    for(let i=0;i<allNodes.length;i++){
+      for(let j=i+1;j<allNodes.length;j++){
+        const a=allNodes[i], b=allNodes[j];
+        const dx=b.x-a.x, dy=b.y-a.y;
+        let dist=Math.sqrt(dx*dx+dy*dy);
+        const need=a.r+b.r+minGap;
+        if(dist<need){
+          moved=true;
+          if(dist<0.01){ dist=0.01; }
+          const push=(need-dist)/2;
+          const ux=dx/dist, uy=dy/dist;
+          a.x-=ux*push; a.y-=uy*push;
+          b.x+=ux*push; b.y+=uy*push;
+          a.x=Math.max(a.r+8,Math.min(W-a.r-8,a.x));
+          a.y=Math.max(a.r+20,Math.min(H-a.r-20,a.y));
+          b.x=Math.max(b.r+8,Math.min(W-b.r-8,b.x));
+          b.y=Math.max(b.r+20,Math.min(H-b.r-20,b.y));
+        }
+      }
+    }
+    if(!moved) break;
+  }
+  const wVals=BENEFIT_EDGES.map(e=>e[2]);
+  const maxW=Math.max(...wVals), minW=Math.min(...wVals);
+
+  // background click-catcher, drawn first so nodes/edges sit on top and still receive clicks
+  const bg=el("rect",{x:0,y:0,width:W,height:H,fill:"transparent"});
+  svg.appendChild(bg);
+
+  const edgeRecords=[]; // {a,b,w,color,lineEl,labelEl}
+  BENEFIT_EDGES.forEach(([a,b,w])=>{
+    if(!nodes[a]||!nodes[b]) return;
+    const A=nodes[a],B=nodes[b];
+    const color=connectionColor(w,maxW,minW);
+    const baseOpacity=0.4+0.45*((w-minW)/(maxW-minW||1));
+    const baseWidth=Math.max(1,0.9+w*0.55);
+    const lineEl=el("line",{
+      x1:A.x,y1:A.y,x2:B.x,y2:B.y, stroke:color,
+      "stroke-width":baseWidth, opacity:baseOpacity
+    });
+    svg.appendChild(lineEl);
+    // wider invisible line on top, just to make hovering the thin line easier
+    const hit=el("line",{x1:A.x,y1:A.y,x2:B.x,y2:B.y,stroke:"transparent","stroke-width":9,style:"cursor:pointer"});
+    svg.appendChild(hit);
+    edgeRecords.push({a,b,w,color,A,B,lineEl,hit,baseOpacity,baseWidth});
+  });
+
+  const nodeRecords=[]; // {code,circleEl,labelEl}
+  let suppressClick=false;
+  Object.values(nodes).forEach(it=>{
+    const c=CLUSTER_OF_NODE(it.code);
+    const circleEl=el("circle",{cx:it.x,cy:it.y,r:it.r,fill:BENEFIT_COLOR[c],stroke:"var(--paper)","stroke-width":1.3,style:"cursor:pointer"});
+    svg.appendChild(circleEl);
+    ttBind(circleEl, ()=>({
+      swatch: BENEFIT_COLOR[c], legend: `${c} — ${CLUSTER_NAME[c]}`,
+      title: `${it.code} ${it.name}`,
+      body: `<span class="tt-num">${it.val}</span> entries recommend this activity`
+    }));
+    const fs = it.r>19 ? 10.5 : 9;
+    const labelEl=text(it.x,it.y+3.5,it.code,{"text-anchor":"middle","font-size":fs,"font-weight":700,fill:"#fff",style:"pointer-events:none"});
+    svg.appendChild(labelEl);
+    nodeRecords.push({code:it.code,circleEl,labelEl});
+
+    // real dragging: move this node (and everything anchored to it) with the pointer
+    makeDraggable(svg, it, circleEl,
+      (node)=>{
+        node.x=Math.max(node.r+8,Math.min(W-node.r-8,node.x));
+        node.y=Math.max(node.r+20,Math.min(H-node.r-20,node.y));
+        circleEl.setAttribute("cx",node.x); circleEl.setAttribute("cy",node.y);
+        labelEl.setAttribute("x",node.x); labelEl.setAttribute("y",node.y+3.5);
+        edgeRecords.forEach(r=>{
+          if(r.a===node.code || r.b===node.code){
+            r.lineEl.setAttribute("x1",r.A.x); r.lineEl.setAttribute("y1",r.A.y);
+            r.lineEl.setAttribute("x2",r.B.x); r.lineEl.setAttribute("y2",r.B.y);
+            r.hit.setAttribute("x1",r.A.x); r.hit.setAttribute("y1",r.A.y);
+            r.hit.setAttribute("x2",r.B.x); r.hit.setAttribute("y2",r.B.y);
+          }
+        });
+        // any edge's label may need to move out of the way of this node's new
+        // position, not just the edges directly attached to it
+        edgeRecords.forEach(r=>{
+          const pos=edgeLabelPos(r.A, r.B, allNodes, 7);
+          r.labelEl.setAttribute("x",pos.x); r.labelEl.setAttribute("y",pos.y);
+        });
+      },
+      (moved)=>{
+        if(moved){ suppressClick=true; setTimeout(()=>{ suppressClick=false; },0); }
+      }
+    );
+  });
+
+  // edge count labels — drawn last, on top, with a paper-colored halo for legibility.
+  // Positioned on the visible part of the line, not the raw midpoint, so they
+  // don't land inside (or get shadowed by) a node.
+  edgeRecords.forEach(rec=>{
+    const pos=edgeLabelPos(rec.A, rec.B, allNodes, 7);
+    rec.labelEl=text(pos.x,pos.y,String(rec.w),{
+      "text-anchor":"middle","font-size":9,"font-weight":700,fill:rec.color,
+      stroke:"var(--paper)","stroke-width":3,"paint-order":"stroke",class:"tnum",style:"pointer-events:none"
+    });
+    svg.appendChild(rec.labelEl);
+  });
+
+  // legend + hint live as plain HTML below the SVG, not inside its coordinate
+  // space — keeps them safe from ever being covered by a node again, regardless
+  // of how big nodes get or where the layout pushes them
+  const hint=document.getElementById("q3c-hint");
+  const DEFAULT_HINT="Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.";
+  const legendEl=document.getElementById("q3c-legend");
+  clusters.forEach(c=>{
+    const item=document.createElement("span");
+    item.innerHTML=`<span class="sw" style="background:${BENEFIT_COLOR[c]};border-radius:50%"></span>${c}`;
+    legendEl.appendChild(item);
+  });
+
+  // ---- hover-to-isolate a single edge: with many crossing lines, a number
+  // floating near several of them is ambiguous about which line it belongs
+  // to — hovering makes that unambiguous by bolding just that one line (and
+  // its label) and fading every other line out of the way.
+  let selected=null; // node click-selection below still takes priority when active
+  edgeRecords.forEach(rec=>{
+    ttBind(rec.hit, ()=>({
+      swatch:rec.color, legend:"Co-occurrence",
+      title:`${rec.A.code} ↔ ${rec.B.code}`,
+      body:`${rec.A.name} + ${rec.B.name}<br><span class="tt-num">${rec.w}</span> entries code both`
+    }));
+    rec.hit.addEventListener("mouseenter",()=>{
+      if(selected!==null) return;
+      edgeRecords.forEach(r=>{
+        const isThis=r===rec;
+        r.lineEl.setAttribute("opacity", isThis?1:0.05);
+        r.lineEl.setAttribute("stroke-width", isThis?Math.max(2,1.6+r.w*0.8):r.baseWidth);
+        r.labelEl.setAttribute("opacity", isThis?1:0.05);
+      });
+      hint.textContent=`${rec.A.code} ↔ ${rec.B.code} — ${rec.w} entries code both.`;
+    });
+    rec.hit.addEventListener("mouseleave",()=>{
+      if(selected!==null) return;
+      edgeRecords.forEach(r=>{ r.lineEl.setAttribute("opacity",r.baseOpacity); r.lineEl.setAttribute("stroke-width",r.baseWidth); r.labelEl.setAttribute("opacity",1); });
+      hint.textContent=DEFAULT_HINT;
+    });
+  });
+
+  // ---- click-to-isolate: bold the selected node's connections, fade everything else ----
+  function applySelection(code){
+    selected = (code===selected) ? null : code;
+    if(selected===null){
+      edgeRecords.forEach(r=>{ r.lineEl.setAttribute("opacity",r.baseOpacity); r.lineEl.setAttribute("stroke-width",r.baseWidth); r.labelEl.setAttribute("opacity",1); });
+      nodeRecords.forEach(n=>{ n.circleEl.setAttribute("opacity",0.9); if(n.labelEl) n.labelEl.setAttribute("opacity",1); });
+      hint.textContent=DEFAULT_HINT;
+      return;
+    }
+    const connectedCodes=new Set([selected]);
+    edgeRecords.forEach(r=>{
+      const touches = r.a===selected || r.b===selected;
+      r.lineEl.setAttribute("opacity", touches ? 0.95 : 0.06);
+      r.lineEl.setAttribute("stroke-width", touches ? Math.max(1.6,1.4+r.w*0.7) : r.baseWidth);
+      r.labelEl.setAttribute("opacity", touches ? 1 : 0.08);
+      if(touches){ connectedCodes.add(r.a); connectedCodes.add(r.b); }
+    });
+    nodeRecords.forEach(n=>{
+      const on = connectedCodes.has(n.code);
+      n.circleEl.setAttribute("opacity", on ? 0.95 : 0.15);
+      if(n.labelEl) n.labelEl.setAttribute("opacity", on ? 1 : 0.15);
+    });
+    const connCount = connectedCodes.size-1;
+    hint.textContent = `${selected} — ${connCount} connection${connCount===1?"":"s"}. Click it again, or the background, to reset.`;
+  }
+  nodeRecords.forEach(n=> n.circleEl.addEventListener("click",(e)=>{ e.stopPropagation(); if(suppressClick) return; applySelection(n.code); }));
+  bg.addEventListener("click", ()=> applySelection(null));
+})();
+</script>
