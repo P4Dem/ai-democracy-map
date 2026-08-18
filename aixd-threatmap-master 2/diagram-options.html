@@ -147,7 +147,7 @@
 <div class="wrap">
   <p class="kicker">Diagram options — for selection</p>
   <h1>The AI–Democracy Map diagrams</h1>
-  <p class="lede">Real numbers pulled from the 206-entry research dataset — not mockup data. All three questions show the diagram style from the original design (bubble-pack / node-link / force-cluster), with real interactivity added on top: hover, click-to-isolate, and drag.</p>
+  <p class="lede">Real numbers pulled from the 206-entry research dataset — not mockup data.</p>
 
   <!-- ============================================================ -->
   <!-- QUESTION 1 -->
@@ -282,10 +282,10 @@ const ASPECTS = [
   {code:"4.2", name:"Country's Democratic Impact Abroad", p:0, s:7, pillar:"4"},
   {code:"2.2", name:"Democratic Role of Political Parties", p:1, s:5, pillar:"2"},
   {code:"2.5", name:"Democratic Role of the Judiciary", p:0, s:2, pillar:"2"},
-  {code:"2.6", name:"National-Subnational Power Relations", p:0, s:1, pillar:"2"},
+  {code:"2.6", name:"Decentralisation", p:0, s:1, pillar:"2"},
 ];
 const PILLAR_COLOR = {"1":"var(--brick)","2":"var(--grassroot)","3":"var(--blue)","4":"var(--lime)"};
-const PILLAR_NAME = {"1":"Citizenship, Law and Rights","2":"Representative and Accountable Government","3":"Civil Society and Popular Participation","4":"Transnational Dynamics"};
+const PILLAR_NAME = {"1":"Citizenship, Law and Rights","2":"Representative and Accountable Government","3":"Civil Society and Popular Participation","4":"Democracy Beyond the State"};
 
 const TIERS = [
   {id:"T0", label:"Context", top:[["Legislation shaping deployment",10],["Legislation shaping development",7],["Legislation shaping consequences",7],["Disclosure & release choices",3]]},
@@ -573,7 +573,7 @@ function packCircles(items, cx, cy){
 
 // ---- Q2C: tiered node-link, real co-occurrence edges ----
 const HARM_NODES = {
-  T0: [["T0b.2","Legislation shaping deployment",10],["T0b.1","Legislation shaping development",7],["T0b.3","Legislation shaping consequences",7],["T0a.3","Disclosure & release choices",3],["T0a.4","Defensive arms-race pressure",2],["T0a.1","Engagement-driven business model",2]],
+  T0: [["T0b.2","Legislation shaping deployment",10],["T0b.1","Legislation shaping development",7],["T0b.3","Legislation shaping consequences",7],["T0a.3","Disclosure & release choices",3],["T0a.4","Defensive arms-race",2],["T0a.2","Engagement-driven business model",2]],
   T1: [["T1b.4","Operational scalability",14],["T1b.3","Optimisation-objective design",10],["T1a.2","Imitating human behaviour and speech",8],["T1a.1","Pattern recognition & classification",8],["T1b.1","Training data composition",6],["T1a.3","Personalisation",5]],
   T2: [["T2.2","Bias amplification",14],["T2.3","Output reliability failures",9],["T2.4","Normative authority transfer",9],["T2.5","Persuasive force",8],["T2.1","Output homogenisation",6],["T2.7","Validation-biased outputs",3]],
   T3: [["T3.1","Infrastructural lock-in",7],["T3.2","Under/overuse calibration",5],["T3.3","Single point of failure",2]],
