@@ -169,7 +169,7 @@
           <svg id="q1c" width="1040" height="820" viewBox="0 0 1040 820" style="width:100%;height:auto;"></svg>
           <div class="detail-panel" id="q1c-detail"></div>
           <div class="legend" id="q1c-legend"></div>
-          <p class="card-sub" id="q1c-hint" style="margin:8px 0 0;">Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.</p>
+          <p class="card-sub" id="q1c-hint" style="margin:8px 0 0;">Nothing selected — click a bubble to see it here.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to the original design</p>
@@ -203,7 +203,7 @@
         </div>
         <div class="chart-box">
           <svg id="q2c" width="1040" height="620" viewBox="0 0 1040 620" style="width:100%;height:auto;"></svg>
-          <p class="card-sub" id="q2c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
+          <p class="card-sub" id="q2c-hint" style="margin:8px 0 0;">Nothing selected — hover a line or click a node to see it here.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to the original design</p>
@@ -239,7 +239,7 @@
         <div class="chart-box">
           <svg id="q3c" width="1040" height="600" viewBox="0 0 1040 600" style="width:100%;height:auto;"></svg>
           <div class="legend" id="q3c-legend"></div>
-          <p class="card-sub" id="q3c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
+          <p class="card-sub" id="q3c-hint" style="margin:8px 0 0;">Nothing selected — hover a line or click a node to see it here.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to the original design</p>
@@ -496,7 +496,7 @@ function packCircles(items, cx, cy){
   svg.appendChild(bg);
 
   const hint=document.getElementById("q1c-hint");
-  const DEFAULT_HINT="Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.";
+  const DEFAULT_HINT="Nothing selected — click a bubble to see it here.";
   const legendEl=document.getElementById("q1c-legend");
   ["1","2","3","4"].forEach(p=>{
     const item=document.createElement("span");
@@ -689,7 +689,7 @@ const HARM_EDGES = [
   });
 
   const hint=document.getElementById("q2c-hint");
-  const DEFAULT_HINT="Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.";
+  const DEFAULT_HINT="Nothing selected — hover a line or click a node to see it here.";
   let selected=null;
 
   // hover-to-isolate a single line: bold it, fade every other line, so a
@@ -913,7 +913,7 @@ const CLUSTER_NAME = Object.fromEntries(BENEFITS.map(b=>[b.cluster,b.name]));
   // space — keeps them safe from ever being covered by a node again, regardless
   // of how big nodes get or where the layout pushes them
   const hint=document.getElementById("q3c-hint");
-  const DEFAULT_HINT="Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.";
+  const DEFAULT_HINT="Nothing selected — hover a line or click a node to see it here.";
   const legendEl=document.getElementById("q3c-legend");
   clusters.forEach(c=>{
     const item=document.createElement("span");
