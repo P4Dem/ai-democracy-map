@@ -85,7 +85,7 @@
   .detail-panel .tt-title{font-weight:700;font-size:12.5px;margin-bottom:2px;}
   .detail-panel .tt-body{color:var(--muted);}
   .tnum{font-variant-numeric:tabular-nums;}
-  .interactivity{margin:14px 0 0;padding-top:12px;border-top:1px solid var(--border);}
+  .interactivity{margin:10px 0 18px;}
   .interactivity-label{
     font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.06em;
     color:var(--muted);margin:0 0 8px;
@@ -149,12 +149,6 @@
       <div class="card full-width">
         <div class="card-label"><span class="letter">C</span><span class="card-title">Bubble-pack</span></div>
         <div class="card-sub">Circle area = total mentions, colored by pillar.</div>
-        <div class="chart-box">
-          <svg id="q1c" width="1040" height="820" viewBox="0 0 1040 820" style="width:100%;height:auto;"></svg>
-          <div class="detail-panel" id="q1c-detail"></div>
-          <div class="legend" id="q1c-legend"></div>
-          <p class="card-sub" id="q1c-hint" style="margin:8px 0 0;">Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.</p>
-        </div>
         <div class="interactivity">
           <p class="interactivity-label">Interactivity</p>
           <ul>
@@ -162,6 +156,12 @@
             <li>Click a bubble → entries list filters to that aspect, and every other bubble fades so it's the only one you're looking at (click again, or the background, to reset).</li>
             <li>Drag a bubble to pull a crowded cluster apart.</li>
           </ul>
+        </div>
+        <div class="chart-box">
+          <svg id="q1c" width="1040" height="820" viewBox="0 0 1040 820" style="width:100%;height:auto;"></svg>
+          <div class="detail-panel" id="q1c-detail"></div>
+          <div class="legend" id="q1c-legend"></div>
+          <p class="card-sub" id="q1c-hint" style="margin:8px 0 0;">Circle area = total mentions. Click a bubble to isolate it, or hover for the exact primary/secondary split.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to your original</p>
@@ -186,10 +186,6 @@
       <div class="card full-width">
         <div class="card-label"><span class="letter">C</span><span class="card-title">Tiered node-link</span></div>
         <div class="card-sub">Line color and number both scale with real co-occurrence strength — darker/redder + higher number = these two mechanisms appear together more often.</div>
-        <div class="chart-box">
-          <svg id="q2c" width="1040" height="620" viewBox="0 0 1040 620" style="width:100%;height:auto;"></svg>
-          <p class="card-sub" id="q2c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
-        </div>
         <div class="interactivity">
           <p class="interactivity-label">Interactivity</p>
           <ul>
@@ -197,6 +193,10 @@
             <li>Click a node → entries list filters to that mechanism, and all of its connections bold at once (hover isolates just one).</li>
             <li>Drag a node to pull a crowded cluster apart.</li>
           </ul>
+        </div>
+        <div class="chart-box">
+          <svg id="q2c" width="1040" height="620" viewBox="0 0 1040 620" style="width:100%;height:auto;"></svg>
+          <p class="card-sub" id="q2c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to your original</p>
@@ -221,11 +221,6 @@
       <div class="card full-width">
         <div class="card-label"><span class="letter">C</span><span class="card-title">Force-cluster</span></div>
         <div class="card-sub">Line color and number both scale with real co-occurrence strength — darker/redder + higher number = these two activities appear together more often.</div>
-        <div class="chart-box">
-          <svg id="q3c" width="1040" height="600" viewBox="0 0 1040 600" style="width:100%;height:auto;"></svg>
-          <div class="legend" id="q3c-legend"></div>
-          <p class="card-sub" id="q3c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
-        </div>
         <div class="interactivity">
           <p class="interactivity-label">Interactivity</p>
           <ul>
@@ -233,6 +228,11 @@
             <li>Click a node → entries list filters to that activity, and all of its connections bold at once (hover isolates just one).</li>
             <li>Drag to separate a crowded cluster.</li>
           </ul>
+        </div>
+        <div class="chart-box">
+          <svg id="q3c" width="1040" height="600" viewBox="0 0 1040 600" style="width:100%;height:auto;"></svg>
+          <div class="legend" id="q3c-legend"></div>
+          <p class="card-sub" id="q3c-hint" style="margin:8px 0 0;">Line color + number = real co-occurrence count. Hover a line to isolate it, or click a node for all its connections.</p>
         </div>
         <div class="vs-original">
           <p class="vs-label">Compared to your original</p>
