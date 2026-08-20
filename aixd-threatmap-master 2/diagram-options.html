@@ -536,8 +536,10 @@ function packCircles(items, cx, cy){
   });
 
   // reserve a safety margin on every edge — extra wide on the right, where
-  // the click-triggered detail card renders on top of the chart
-  const marginTop=70, marginBottom=50, marginLeft=50, marginRight=270;
+  // the click-triggered detail card renders on top of the chart, and extra
+  // top/bottom room for the pillar-name label above/below each cluster
+  const labelZone=36, labelGap=8;
+  const marginTop=20+labelZone+labelGap, marginBottom=20+labelZone+labelGap, marginLeft=50, marginRight=270;
   const ux0=marginLeft, ux1=W-marginRight, uy0=marginTop, uy1=H-marginBottom;
   const uw=ux1-ux0, uh=uy1-uy0;
 
@@ -565,6 +567,34 @@ function packCircles(items, cx, cy){
     it.y=Math.max(uy0+it.r,Math.min(uy1-it.r,it.y));
   });
 
+  // pillar-name labels, placed on the chart itself rather than only on
+  // hover: above the two top clusters (4, 2), below the two bottom clusters
+  // (1, 3) — mirrored top/bottom so nothing crowds the vertical center
+  function wrapToWidth(str,maxWidth,fontSize,weight){
+    const words=str.split(" "); const lines=[]; let cur="";
+    for(const w of words){
+      const test=cur?cur+" "+w:w;
+      if(!cur || textWidth(test,fontSize,weight)<=maxWidth){ cur=test; } else { lines.push(cur); cur=w; }
+    }
+    if(cur) lines.push(cur);
+    return lines;
+  }
+  ["1","2","3","4"].forEach(p=>{
+    const group=byPillar[p];
+    const minX=Math.min(...group.map(it=>it.x-it.r)), maxX=Math.max(...group.map(it=>it.x+it.r));
+    const minY=Math.min(...group.map(it=>it.y-it.r)), maxY=Math.max(...group.map(it=>it.y+it.r));
+    const cx=(minX+maxX)/2;
+    const isTop = p==="2"||p==="4";
+    const fontSize=13, lineHeight=fontSize*1.2;
+    const lines=wrapToWidth(PILLAR_NAME[p], Math.max(140,maxX-minX+50), fontSize, 700);
+    lines.forEach((ln,i)=>{
+      const y = isTop
+        ? minY - labelGap - (lines.length-1-i)*lineHeight
+        : maxY + labelGap + (i+1)*lineHeight - fontSize*0.25;
+      svg.appendChild(text(cx,y,ln,{"text-anchor":"middle","font-size":fontSize,"font-weight":700,fill:PILLAR_COLOR[p],style:"pointer-events:none"}));
+    });
+  });
+
   // background click-catcher, so clicking empty space resets a selection
   const bg=el("rect",{x:0,y:0,width:W,height:H,fill:"transparent"});
   svg.appendChild(bg);
@@ -584,7 +614,6 @@ function packCircles(items, cx, cy){
     const circ=el("circle",{cx:it.x,cy:it.y,r:it.r,fill:PILLAR_COLOR[it.pillar],stroke:"var(--paper)","stroke-width":1.5,style:"cursor:pointer"});
     svg.appendChild(circ);
     ttBind(circ, ()=>({
-      swatch: PILLAR_COLOR[it.pillar], legend: PILLAR_NAME[it.pillar],
       title: `${it.code} ${it.name}`,
       body: `<span class="tt-num">${it.val}</span> mentions`
     }));
