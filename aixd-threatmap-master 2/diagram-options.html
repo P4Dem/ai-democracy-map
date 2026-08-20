@@ -486,6 +486,33 @@ function wrapToCircle(str, r, {maxFont=16, minFont=7, weight=700, maxLines=4, pa
   return {fontSize:minFont, lineHeight:minFont*1.12, lines:[]}; // give up — hover tooltip still has it
 }
 
+// ---- shared: smallest radius that can fit `str` in full (no truncation) at
+// a legible minimum font size — used to put a text-driven floor under a
+// value-driven radius, so no label is ever forced to abbreviate ----
+function minRadiusForFullText(str, {font=9, weight=700, maxLines=4, pad=6}={}){
+  const words=str.split(" ");
+  function fits(r){
+    const lineHeight=font*1.12, budget=2*r-pad*2;
+    const lines=[]; let cur="";
+    for(const w of words){
+      const test=cur?cur+" "+w:w;
+      if(!cur || textWidth(test,font,weight)<=budget){ cur=test; } else { lines.push(cur); cur=w; }
+    }
+    if(cur) lines.push(cur);
+    if(lines.length>maxLines) return false;
+    if(lines.length*lineHeight > 2*r-pad*2) return false;
+    for(let i=0;i<lines.length;i++){
+      const dy=(i-(lines.length-1)/2)*lineHeight;
+      const halfChord=Math.sqrt(Math.max(0,r*r-dy*dy))-pad;
+      if(textWidth(lines[i],font,weight) > 2*halfChord) return false;
+    }
+    return true;
+  }
+  let r=18;
+  while(r<160 && !fits(r)) r++;
+  return r;
+}
+
 function packCircles(items, cx, cy){
   const placed=[];
   items.forEach((it,idx)=>{
@@ -521,7 +548,14 @@ function packCircles(items, cx, cy){
     .sort((a,b)=>b.val-a.val);
   const maxV = items[0].val;
   const kk = 100/Math.sqrt(maxV);
-  items.forEach(it=> it.r = Math.max(20, kk*Math.sqrt(it.val)) );
+  // value-proportional radius, floored so every bubble is at least big enough
+  // to fit its own full name without truncating — bigger-value bubbles are
+  // already above this floor and keep their proportional size unchanged
+  items.forEach(it=>{
+    const valueR = Math.max(20, kk*Math.sqrt(it.val));
+    const textR = minRadiusForFullText(it.name);
+    it.r = Math.max(valueR, textR);
+  });
 
   // pack each pillar's bubbles tightly around their own local origin first,
   // so same-color bubbles land as one cohesive cluster instead of wherever a
