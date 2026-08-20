@@ -489,9 +489,9 @@ function greedyWrapLines(words, fontSize, weight, budget){
   if(cur) lines.push(cur);
   return lines;
 }
-function wrapToCircle(str, r, {maxFont=16, minFont=7, weight=700, maxLines=4, pad=6}={}){
+function wrapToCircle(str, r, {maxFont=13, minFont=7, weight=700, maxLines=4, pad=6}={}){
   const words = str.split(" ");
-  const start = Math.min(maxFont, Math.max(minFont, Math.round(r*0.3)));
+  const start = Math.min(maxFont, Math.max(minFont, Math.round(r*0.22)));
   for(let fontSize=start; fontSize>=minFont; fontSize--){
     const lineHeight = fontSize*1.12;
     const budget = 2*r - pad*2;
