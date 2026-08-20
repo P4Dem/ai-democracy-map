@@ -445,6 +445,47 @@ function makeDraggable(svg, node, handleEl, onDragMove, onDragEnd){
 // ============================================================
 
 // ---- shared: simple spiral circle-packer (no external lib) ----
+// ---- shared: word-wrap a text label to fit inside a circle of radius r,
+// shrinking the font until every line clears the circle's chord width at
+// its own vertical offset (not just the equatorial width) ----
+const _measureCtx = document.createElement("canvas").getContext("2d");
+function textWidth(str, fontSize, weight){
+  _measureCtx.font = `${weight} ${fontSize}px Beatrice, sans-serif`;
+  return _measureCtx.measureText(str).width;
+}
+function wrapToCircle(str, r, {maxFont=16, minFont=7, weight=700, maxLines=4, pad=6}={}){
+  const words = str.split(" ");
+  const start = Math.min(maxFont, Math.max(minFont, Math.round(r*0.3)));
+  for(let fontSize=start; fontSize>=minFont; fontSize--){
+    const lineHeight = fontSize*1.12;
+    const budget = 2*r - pad*2;
+    const lines=[]; let cur="";
+    for(const w of words){
+      const test = cur ? cur+" "+w : w;
+      if(!cur || textWidth(test,fontSize,weight) <= budget){ cur=test; }
+      else { lines.push(cur); cur=w; }
+    }
+    if(cur) lines.push(cur);
+    if(lines.length > maxLines) continue;
+    if(lines.length*lineHeight > 2*r - pad*2) continue;
+    let ok=true;
+    for(let i=0;i<lines.length;i++){
+      const dy=(i-(lines.length-1)/2)*lineHeight;
+      const halfChord=Math.sqrt(Math.max(0,r*r-dy*dy))-pad;
+      if(textWidth(lines[i],fontSize,weight) > 2*halfChord){ ok=false; break; }
+    }
+    if(ok) return {fontSize, lineHeight, lines};
+  }
+  // nothing wrapped even at the minimum size — fall back to one truncated line
+  const budget=2*r-pad*2;
+  let t=str;
+  while(t.length>1 && textWidth(t+"…",minFont,weight) > budget) t=t.slice(0,-1);
+  if(t.length>0 && textWidth(t,minFont,weight)<=budget){
+    return {fontSize:minFont, lineHeight:minFont*1.12, lines:[t.length<str.length ? t+"…" : t]};
+  }
+  return {fontSize:minFont, lineHeight:minFont*1.12, lines:[]}; // give up — hover tooltip still has it
+}
+
 function packCircles(items, cx, cy){
   const placed=[];
   items.forEach((it,idx)=>{
@@ -547,13 +588,12 @@ function packCircles(items, cx, cy){
       title: `${it.code} ${it.name}`,
       body: `<span class="tt-num">${it.val}</span> mentions — <span class="tt-num">${it.p}</span> primary, <span class="tt-num">${it.s}</span> secondary`
     }));
+    const {fontSize, lineHeight, lines} = wrapToCircle(it.name, it.r, {weight:700});
     const labelEls=[];
-    if(it.r>26){
-      labelEls.push(text(it.x,it.y-2,it.code,{"text-anchor":"middle","font-size":13,"font-weight":700,fill:"#fff",style:"pointer-events:none"}));
-      labelEls.push(text(it.x,it.y+14,String(it.val),{"text-anchor":"middle","font-size":11,fill:"#fff",opacity:0.9,class:"tnum",style:"pointer-events:none"}));
-    } else {
-      labelEls.push(text(it.x,it.y+4,it.code,{"text-anchor":"middle","font-size":10,"font-weight":700,fill:"#fff",style:"pointer-events:none"}));
-    }
+    lines.forEach((ln,i)=>{
+      const dy=(i-(lines.length-1)/2)*lineHeight;
+      labelEls.push(text(it.x,it.y+dy+fontSize*0.33,ln,{"text-anchor":"middle","font-size":fontSize,"font-weight":700,fill:"#fff",style:"pointer-events:none"}));
+    });
     labelEls.forEach(l=>svg.appendChild(l));
     records.push({code:it.code, name:it.name, val:it.val, p:it.p, s:it.s, pillar:it.pillar, circleEl:circ, labelEls, opacity:0.88});
 
@@ -563,8 +603,11 @@ function packCircles(items, cx, cy){
         node.x=Math.max(node.r+6,Math.min(W-node.r-6,node.x));
         node.y=Math.max(node.r+6,Math.min(H-node.r-6,node.y));
         circ.setAttribute("cx",node.x); circ.setAttribute("cy",node.y);
-        const dys = labelEls.length>1 ? [-2,14] : [4];
-        labelEls.forEach((l,i)=>{ l.setAttribute("x",node.x); l.setAttribute("y",node.y+dys[i]); });
+        const n=labelEls.length;
+        labelEls.forEach((l,i)=>{
+          const dy=(i-(n-1)/2)*lineHeight;
+          l.setAttribute("x",node.x); l.setAttribute("y",node.y+dy+fontSize*0.33);
+        });
       },
       (moved)=>{ if(moved){ suppressClick=true; setTimeout(()=>{ suppressClick=false; },0); } }
     );
