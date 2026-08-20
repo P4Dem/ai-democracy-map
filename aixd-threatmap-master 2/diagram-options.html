@@ -472,23 +472,56 @@ function packCircles(items, cx, cy){
   return items;
 }
 
-// ---- Q1C: bubble-pack, real aspect totals, colored by pillar ----
+// ---- Q1C: bubble-pack, real aspect totals, clustered by pillar ----
 (function(){
   const svg=document.getElementById("q1c");
-  const W=1040,H=820,cx=W/2,cy=H/2;
+  const W=1040,H=820;
   const items = ASPECTS.map(a=>({code:a.code,name:a.name,val:a.p+a.s,p:a.p,s:a.s,pillar:a.pillar}))
     .sort((a,b)=>b.val-a.val);
   const maxV = items[0].val;
   const kk = 100/Math.sqrt(maxV);
   items.forEach(it=> it.r = Math.max(20, kk*Math.sqrt(it.val)) );
-  packCircles(items, cx, cy);
-  // safety clamp: packCircles spirals outward from center with no awareness of
-  // canvas bounds, so a data set with a wide value range (here 1 to 110) can
-  // still push an outer circle past the edge — guarantee every circle stays
-  // fully on-canvas regardless of how the values happen to fall
+
+  // pack each pillar's bubbles tightly around their own local origin first,
+  // so same-color bubbles land as one cohesive cluster instead of wherever a
+  // single shared spiral happens to wrap them
+  const byPillar = {"1":[],"2":[],"3":[],"4":[]};
+  items.forEach(it=> byPillar[it.pillar].push(it)); // still sorted by value within each pillar
+  const footprint = {};
+  Object.keys(byPillar).forEach(p=>{
+    const group = byPillar[p];
+    packCircles(group, 0, 0);
+    footprint[p] = Math.max(0, ...group.map(it=>Math.hypot(it.x,it.y)+it.r)) + 10;
+  });
+
+  // reserve a safety margin on every edge — extra wide on the right, where
+  // the click-triggered detail card renders on top of the chart
+  const marginTop=70, marginBottom=50, marginLeft=50, marginRight=270;
+  const ux0=marginLeft, ux1=W-marginRight, uy0=marginTop, uy1=H-marginBottom;
+  const uw=ux1-ux0, uh=uy1-uy0;
+
+  // quadrant anchors — pillar 4 top-left, pillar 2 top-right, pillar 1
+  // bottom-left, pillar 3 bottom-right — sized by each row/column's largest
+  // cluster footprint (not split evenly), so pillar 2's much bigger cluster
+  // gets the room it needs without stretching the small ones to match
+  const colSplit = Math.max(footprint["4"],footprint["1"]) / (Math.max(footprint["4"],footprint["1"]) + Math.max(footprint["2"],footprint["3"]));
+  const rowSplit = Math.max(footprint["4"],footprint["2"]) / (Math.max(footprint["4"],footprint["2"]) + Math.max(footprint["1"],footprint["3"]));
+  const anchors = {
+    "4": {x: ux0+(uw*colSplit)/2,              y: uy0+(uh*rowSplit)/2},
+    "2": {x: ux0+uw*colSplit+(uw*(1-colSplit))/2, y: uy0+(uh*rowSplit)/2},
+    "1": {x: ux0+(uw*colSplit)/2,              y: uy0+uh*rowSplit+(uh*(1-rowSplit))/2},
+    "3": {x: ux0+uw*colSplit+(uw*(1-colSplit))/2, y: uy0+uh*rowSplit+(uh*(1-rowSplit))/2},
+  };
+  Object.keys(byPillar).forEach(p=>{
+    const a=anchors[p];
+    byPillar[p].forEach(it=>{ it.x+=a.x; it.y+=a.y; });
+  });
+
+  // safety clamp: guarantee every circle stays fully inside the reserved
+  // usable area regardless of how a cluster's local pack happened to spiral
   items.forEach(it=>{
-    it.x=Math.max(it.r+4,Math.min(W-it.r-4,it.x));
-    it.y=Math.max(it.r+4,Math.min(H-it.r-4,it.y));
+    it.x=Math.max(ux0+it.r,Math.min(ux1-it.r,it.x));
+    it.y=Math.max(uy0+it.r,Math.min(uy1-it.r,it.y));
   });
 
   // background click-catcher, so clicking empty space resets a selection
