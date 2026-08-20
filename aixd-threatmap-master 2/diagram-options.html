@@ -453,19 +453,49 @@ function textWidth(str, fontSize, weight){
   _measureCtx.font = `${weight} ${fontSize}px Beatrice, sans-serif`;
   return _measureCtx.measureText(str).width;
 }
+// break a single over-long word into hyphenated chunks that each fit budget —
+// so one long unbroken word (e.g. "Decentralisation") doesn't force a much
+// bigger circle than a longer *multi*-word label that can wrap normally
+function breakWord(word, fontSize, weight, budget){
+  const chunks=[]; let i=0;
+  while(i<word.length){
+    let j=word.length;
+    while(j>i+1){
+      const isLast=j===word.length;
+      if(textWidth(word.slice(i,j)+(isLast?"":"-"),fontSize,weight)<=budget) break;
+      j--;
+    }
+    const isLast=j===word.length;
+    chunks.push(word.slice(i,j)+(isLast?"":"-"));
+    i=j;
+  }
+  return chunks;
+}
+// greedy word-wrap into lines no wider than `budget`, hyphenating any single
+// word that wouldn't fit even alone on a line
+function greedyWrapLines(words, fontSize, weight, budget){
+  const lines=[]; let cur="";
+  for(const w of words){
+    if(textWidth(w,fontSize,weight) > budget){
+      if(cur){ lines.push(cur); cur=""; }
+      const chunks=breakWord(w,fontSize,weight,budget);
+      chunks.forEach((c,i)=>{ if(i<chunks.length-1) lines.push(c); else cur=c; });
+      continue;
+    }
+    const test = cur ? cur+" "+w : w;
+    if(!cur || textWidth(test,fontSize,weight) <= budget){ cur=test; }
+    else { lines.push(cur); cur=w; }
+  }
+  if(cur) lines.push(cur);
+  return lines;
+}
 function wrapToCircle(str, r, {maxFont=16, minFont=7, weight=700, maxLines=4, pad=6}={}){
   const words = str.split(" ");
   const start = Math.min(maxFont, Math.max(minFont, Math.round(r*0.3)));
   for(let fontSize=start; fontSize>=minFont; fontSize--){
     const lineHeight = fontSize*1.12;
     const budget = 2*r - pad*2;
-    const lines=[]; let cur="";
-    for(const w of words){
-      const test = cur ? cur+" "+w : w;
-      if(!cur || textWidth(test,fontSize,weight) <= budget){ cur=test; }
-      else { lines.push(cur); cur=w; }
-    }
-    if(cur) lines.push(cur);
+    const lines = greedyWrapLines(words, fontSize, weight, budget);
     if(lines.length > maxLines) continue;
     if(lines.length*lineHeight > 2*r - pad*2) continue;
     let ok=true;
@@ -493,12 +523,7 @@ function minRadiusForFullText(str, {font=9, weight=700, maxLines=4, pad=6}={}){
   const words=str.split(" ");
   function fits(r){
     const lineHeight=font*1.12, budget=2*r-pad*2;
-    const lines=[]; let cur="";
-    for(const w of words){
-      const test=cur?cur+" "+w:w;
-      if(!cur || textWidth(test,font,weight)<=budget){ cur=test; } else { lines.push(cur); cur=w; }
-    }
-    if(cur) lines.push(cur);
+    const lines=greedyWrapLines(words, font, weight, budget);
     if(lines.length>maxLines) return false;
     if(lines.length*lineHeight > 2*r-pad*2) return false;
     for(let i=0;i<lines.length;i++){
@@ -556,6 +581,14 @@ function packCircles(items, cx, cy){
     const textR = minRadiusForFullText(it.name);
     it.r = Math.max(valueR, textR);
   });
+  // rank-preserving correction: how much room a name needs to wrap depends on
+  // its word count and word lengths, not on its mention count — so the text
+  // floor alone can still make a lower-value bubble land bigger than a
+  // higher-value one with harder-to-wrap text. Guarantee radius never
+  // decreases as value increases, so bubble size never misrepresents rank.
+  const byValAsc = [...items].sort((a,b)=>a.val-b.val);
+  let runningMax=0;
+  byValAsc.forEach(it=>{ it.r=Math.max(it.r,runningMax); runningMax=it.r; });
 
   // pack each pillar's bubbles tightly around their own local origin first,
   // so same-color bubbles land as one cohesive cluster instead of wherever a
