@@ -152,7 +152,7 @@
   <!-- ============================================================ -->
   <section class="question">
     <div class="qhead"><span class="qnum">1</span><h2>Which democracy aspects are more frequent across threats?</h2></div>
-    <p class="qmeta">14 aspects across 4 pillars. Each entry's aspects are tagged PRIMARY or SECONDARY in the source data — the exact count of each is available on hover.</p>
+    <p class="qmeta">14 aspects across 4 pillars. Each entry's aspects are tagged PRIMARY or SECONDARY in the source data — the exact count of each is available on click.</p>
     <div class="pair single">
       <div class="card full-width">
         <div class="card-label"><span class="letter">C</span><span class="card-title">Bubble-pack</span></div>
@@ -160,8 +160,8 @@
         <div class="interactivity">
           <p class="interactivity-label">Interactivity</p>
           <ul>
-            <li>Hover a bubble → exact count, primary/secondary split, and definition — no ambiguity about "roughly how big" two close-in-size bubbles are.</li>
-            <li>Click a bubble → entries list filters to that aspect, and every other bubble fades so it's the only one you're looking at (click again, or the background, to reset).</li>
+            <li>Hover a bubble → exact mention count — no ambiguity about "roughly how big" two close-in-size bubbles are.</li>
+            <li>Click a bubble → entries list filters to that aspect, a detail card shows the primary/secondary split, and every other bubble fades so it's the only one you're looking at (click again, or the background, to reset).</li>
             <li>Drag a bubble to pull a crowded cluster apart.</li>
           </ul>
         </div>
@@ -175,7 +175,7 @@
           <p class="vs-label">Compared to the original design</p>
           <ul>
             <li>Same visual form — circle size, color, and layout are unchanged.</li>
-            <li>Hover now shows the exact count and primary/secondary split, instead of judging circle size by eye.</li>
+            <li>Hover now shows the exact mention count, instead of judging circle size by eye; click adds the primary/secondary split.</li>
             <li>Click now isolates a bubble (fades every other one); the original did nothing on click.</li>
           </ul>
         </div>
@@ -586,7 +586,7 @@ function packCircles(items, cx, cy){
     ttBind(circ, ()=>({
       swatch: PILLAR_COLOR[it.pillar], legend: PILLAR_NAME[it.pillar],
       title: `${it.code} ${it.name}`,
-      body: `<span class="tt-num">${it.val}</span> mentions — <span class="tt-num">${it.p}</span> primary, <span class="tt-num">${it.s}</span> secondary`
+      body: `<span class="tt-num">${it.val}</span> mentions`
     }));
     const {fontSize, lineHeight, lines} = wrapToCircle(it.name, it.r, {weight:700});
     const labelEls=[];
