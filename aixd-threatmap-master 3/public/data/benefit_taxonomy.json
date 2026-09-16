@@ -1,0 +1,304 @@
+{
+  "groups": {
+    "B1": {
+      "name": "Civic & AI literacy building",
+      "order": 0,
+      "codeIds": []
+    },
+    "B2": {
+      "name": "Levelling the playing field",
+      "order": 1,
+      "codeIds": []
+    },
+    "B3": {
+      "name": "Citizen-led efforts to  counter manipulation & promote content integrity",
+      "order": 2,
+      "codeIds": [
+        "B3A",
+        "B3B"
+      ]
+    },
+    "B4": {
+      "name": "Infrastructure for citizen participation",
+      "order": 5,
+      "codeIds": [
+        "B4A",
+        "B4B",
+        "B4C"
+      ]
+    },
+    "B5": {
+      "name": "Defensive cybersecurity resilience",
+      "order": 9,
+      "codeIds": []
+    },
+    "B6": {
+      "name": "Legal & accountability frameworks",
+      "order": 10,
+      "codeIds": [
+        "B6A",
+        "B6B",
+        "B6C",
+        "B6D"
+      ]
+    },
+    "B7": {
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "order": 15,
+      "codeIds": [
+        "B7A",
+        "B7B",
+        "B7C",
+        "B7D"
+      ]
+    },
+    "B9": {
+      "name": "Democratic oversight of AI",
+      "order": 20,
+      "codeIds": []
+    },
+    "B10": {
+      "name": "Responsible AI development practices",
+      "order": 21,
+      "codeIds": [
+        "B10A",
+        "B10B"
+      ]
+    },
+    "B11": {
+      "name": "Establishing knowledge & evidence infrastructure",
+      "order": 24,
+      "codeIds": [
+        "B11A",
+        "B11B",
+        "B11C"
+      ]
+    }
+  },
+  "codes": {
+    "B1": {
+      "label": "AI literacy",
+      "description": "Education, training, and awareness programmes that equip citizens and institutions to understand and engage with AI.",
+      "name": "Civic & AI literacy building",
+      "subCluster": "",
+      "parent": null,
+      "order": 0
+    },
+    "B2": {
+      "label": "Levelling the playing field",
+      "description": "AI as a tool to promote inclusion, lowering participation barriers and equalising chances of being heard in democratic processes or institutional settings.",
+      "name": "Levelling the playing field",
+      "subCluster": "",
+      "parent": null,
+      "order": 1
+    },
+    "B3": {
+      "label": "Citizen-led content integrity",
+      "description": "Downstream tools and systems deployed by citizens, civil society, platforms, or public institutions to protect information integrity.",
+      "name": "Citizen-led efforts to  counter manipulation & promote content integrity",
+      "subCluster": "",
+      "parent": null,
+      "order": 2
+    },
+    "B3A": {
+      "label": "Deepfake detection & authentication",
+      "description": "Downstream tools and systems that detect, authenticate, or counter synthetic and manipulative content deployed by citizens, civil society, platforms, or public institutions after content is generated.",
+      "name": "Citizen-led efforts to  counter manipulation & promote content integrity",
+      "subCluster": "Detection & authentication",
+      "parent": "B3",
+      "order": 3
+    },
+    "B3B": {
+      "label": "Verified information",
+      "description": "Systems that proactively provide verified, trustworthy information to citizens to counter misinformation by offering reliable alternatives.",
+      "name": "Citizen-led efforts to  counter manipulation & promote content integrity",
+      "subCluster": "Verified information provision",
+      "parent": "B3",
+      "order": 4
+    },
+    "B4": {
+      "label": "Participation infrastructure",
+      "description": "AI that powers the vehicles through which citizen deliberation and democratic participation take place (moderation, summarisation, new participatory formats, etc.).",
+      "name": "Infrastructure for citizen participation",
+      "subCluster": "",
+      "parent": null,
+      "order": 5
+    },
+    "B4A": {
+      "label": "Discourse moderation",
+      "description": "AI that sorts, orders, and moderates content within deliberative processes without altering or summarising it.",
+      "name": "Infrastructure for citizen participation",
+      "subCluster": "Discourse moderation & ordering",
+      "parent": "B4",
+      "order": 6
+    },
+    "B4B": {
+      "label": "Synthesising public input",
+      "description": "AI that transforms deliberative content, making the substance of a discussion more accessible to both governments and other participants.",
+      "name": "Infrastructure for citizen participation",
+      "subCluster": "Summarisation & structuring of input",
+      "parent": "B4",
+      "order": 7
+    },
+    "B4C": {
+      "label": "Participatory formats",
+      "description": "Developing new deliberative formats and participatory spaces enabled by AI and innovations to the architectures of participation.",
+      "name": "Infrastructure for citizen participation",
+      "subCluster": "Participatory design & formats",
+      "parent": "B4",
+      "order": 8
+    },
+    "B5": {
+      "label": "Cyber defence",
+      "description": "Tools that protect digital and physical infrastructure against AI-powered cyber threats.",
+      "name": "Defensive cybersecurity resilience",
+      "subCluster": "",
+      "parent": null,
+      "order": 9
+    },
+    "B6": {
+      "label": "Legal accountability frameworks",
+      "description": "Hard law that creates enforceable accountability for AI harms (liability rules, regulatory requirements, and oversight mechanisms backed by enforceable sanctions).",
+      "name": "Legal & accountability frameworks",
+      "subCluster": "",
+      "parent": null,
+      "order": 10
+    },
+    "B6A": {
+      "label": "Operational requirements",
+      "description": "Rules that mandate specific actions, standards, or procedures for AI systems (labelling obligations, disclosure formats, human-in-the-loop requirements, decision-record mandates, bias testing protocols, and other prescriptive operating conditions imposed by regulators).",
+      "name": "Legal & accountability frameworks",
+      "subCluster": "Prescriptive operational requirements",
+      "parent": "B6",
+      "order": 11
+    },
+    "B6B": {
+      "label": "Prohibitions & restrictions",
+      "description": "Laws that ban or limit specific uses of AI (prohibitions on deceptive election content, robocall restrictions, data privacy protections, content restrictions, sanctions on entities enabling AI-facilitated harms, …).",
+      "name": "Legal & accountability frameworks",
+      "subCluster": "Prohibitions & restrictions",
+      "parent": "B6",
+      "order": 12
+    },
+    "B6C": {
+      "label": "Liability & enforcement",
+      "description": "Legal rules that create consequences for AI-related harms after they occur (liability frameworks, duty of care requirements, mandatory audits, independent oversight mandates, enforceable remedies, …).",
+      "name": "Legal & accountability frameworks",
+      "subCluster": "Liability & enforcement",
+      "parent": "B6",
+      "order": 13
+    },
+    "B6D": {
+      "label": "Market-shaping rules",
+      "description": "Regulations that reshape the competitive landscape to prevent concentration and lock-in (interoperability mandates, multi-provider requirements, data portability obligations, procurement conditions, …) .",
+      "name": "Legal & accountability frameworks",
+      "subCluster": "Market-shaping & structural rules",
+      "parent": "B6",
+      "order": 14
+    },
+    "B7": {
+      "label": "Government adapting to AI",
+      "description": "Actions taken by state actors (executive, legislative, judicial, administrative, electoral bodies at any level) to keep core governance functions operating effectively under AI-induced pressure.",
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "subCluster": "",
+      "parent": null,
+      "order": 15
+    },
+    "B7A": {
+      "label": "Government AI capacity",
+      "description": "Training, hiring, funding, and organising the people and structures state bodies need to operate in an AI context.",
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "subCluster": "Institutional staffing & operational capacity",
+      "parent": "B7",
+      "order": 16
+    },
+    "B7B": {
+      "label": "Guardrails on government AI",
+      "description": "Technical requirements and infrastructure that state bodies impose on AI systems they themselves deploy.",
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "subCluster": "Technological guardrails on government AI",
+      "parent": "B7",
+      "order": 17
+    },
+    "B7C": {
+      "label": "Resilience without AI",
+      "description": "Changes to core government and institutional processes (not involving AI deployment) that harden democratic functions against AI-enabled pressures.",
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "subCluster": "Non-AI resilience building",
+      "parent": "B7",
+      "order": 18
+    },
+    "B7D": {
+      "label": "Resilience through AI",
+      "description": "Government adoption of AI specifically to strengthen democratic functions under AI-induced pressure.",
+      "name": "Adjusting government behaviour in the face of AI towards democratic resilience",
+      "subCluster": "AI-enabled resilience building",
+      "parent": "B7",
+      "order": 19
+    },
+    "B9": {
+      "label": "Democratic oversight of AI",
+      "description": "Processes through which citizens and civil society organisations shape how AI is designed, deployed, and governed.",
+      "name": "Democratic oversight of AI",
+      "subCluster": "",
+      "parent": null,
+      "order": 20
+    },
+    "B10": {
+      "label": "Responsible AI development",
+      "description": "Design, training, and deployment choices by AI developers that shape democratic outcomes – training models for truthfulness and autonomy, content filtering, hallucination prevention, and safety engineering.",
+      "name": "Responsible AI development practices",
+      "subCluster": "",
+      "parent": null,
+      "order": 21
+    },
+    "B10A": {
+      "label": "Democratic value alignment",
+      "description": "Developer choices about model character at training time, pre- and post-training (training for truthfulness, epistemic health, user autonomy, pro-social behaviour, …).",
+      "name": "Responsible AI development practices",
+      "subCluster": "Value-aligned model training",
+      "parent": "B10",
+      "order": 22
+    },
+    "B10B": {
+      "label": "Safety by design",
+      "description": "Developer-side technical measures that reduce harm after training (red-teaming, content filtering, input/output guardrails, …).",
+      "name": "Responsible AI development practices",
+      "subCluster": "Safety engineering & deployment safeguards",
+      "parent": "B10",
+      "order": 23
+    },
+    "B11": {
+      "label": "Building the evidence base",
+      "description": "Research, metrics, evaluation frameworks, monitoring systems, audits, multi-agent simulations, and scientific evidence bases that inform AI governance decisions that build the epistemic foundations needed to act.",
+      "name": "Establishing knowledge & evidence infrastructure",
+      "subCluster": "",
+      "parent": null,
+      "order": 24
+    },
+    "B11A": {
+      "label": "Model evaluations",
+      "description": "Research and technical evidence base about AI models themselves (capability thresholds, institutional safety levels – ISLs, benchmarks, evaluation methodologies, etc.). Focused on measuring what models can do.",
+      "name": "Establishing knowledge & evidence infrastructure",
+      "subCluster": "AI capability & model evaluation",
+      "parent": "B11",
+      "order": 25
+    },
+    "B11B": {
+      "label": "Deployment monitoring",
+      "description": "Observation, collecting empirical evidence, and forecasting, focusing on tracking the effects of AI and mapping where risks emerge.",
+      "name": "Establishing knowledge & evidence infrastructure",
+      "subCluster": "AI deployment & impact monitoring",
+      "parent": "B11",
+      "order": 26
+    },
+    "B11C": {
+      "label": "Research synthesis & coordination",
+      "description": "Conceptual, methodological, and synthesising work that equips actors to make sense of AI and its governance.",
+      "name": "Establishing knowledge & evidence infrastructure",
+      "subCluster": "Frameworks, synthesis & coordination",
+      "parent": "B11",
+      "order": 27
+    }
+  }
+}

@@ -1,0 +1,31 @@
+Check-in on website P4Dem&Naijeria
+Deadline: 28.09.26
+Note: Any task that will take longer than estimated should be discussed to prioritize more urgent features.
+
+TO DO: 
+
+for democracy aspects RQs 1,2,4 need to have duplicates discounted from the counting (find duplicates based on verbatim)
+RQ1 democracy aspects:
+add labels instead of the numbers
+get rid of mentions in the bubble
+organize the bubbles in group categories like pic shared but close to each other -- pillar names could ne next to each group on the side
+when you hover over it, it highlights the bubble and singles it out
+Hovering over the bubble gives you the: (1) pillar title; (2) title of the subcode (3) n of mentions; (4) description
+name of the pillar on the side of each cluster 
+Hovering over the pillar name gives you (1) title of pillar; (2) short description of pillar; (3) total number of mentions of sub-codes in that pillar
+POTENTIAL tbd: ctrl and select multiple bubbles at once
+
+RQ2 harms mechanism
+for labels, up to Naijeria, need to assess different visuals
+keep the ordering of the codes according to the codebook, and perhaps make a difference between A and B or C sub-codes with a lighter colour 
+remove the drag option
+parameter for connections on number of co-occurrences should go down to 2
+ctrl pick should work on any of the existing connections, any time you click on a connection, you can add any other path connected to it
+if you click again on a path, you isolate it and detach it from the other paths
+GENERAL WEBSITE OUTLOOK (not discussed but need to be implemented – see latest web code I shared in email)
+We added a small title on top of the carousel, it is supposed to look like other pages in our website and introduce the questions by highlighting they speak about threats, mitigations and opportunities mapped from the literature.
+We added a box  for questions near the carousel. How could this work? Could questions be forwarded to our general email address?
+We redesigned the table, and colours of the labels asides, we grouped threat descriptions with harms mechanisms, and mitigation strategies with pro-dem activities. As each of the two codebooks refers to either type of entry, we wanted to highlight this. The dem aspects go at the beginning as they refer to both entries. The general outlook and structuring of the table should stay the same, please feel free to change fonts, colours etc according to the branding.
+
+Further ideas non-priority (based on how much time we have left):
+when you select a bubble, chain etc the table with the data below adjusts accordingly

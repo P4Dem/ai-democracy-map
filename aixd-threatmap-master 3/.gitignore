@@ -1,0 +1,41 @@
+# Dependencies
+node_modules/
+
+# npm lockfile (this project uses Bun — bun.lock is the canonical lockfile)
+package-lock.json
+
+# Build output
+dist/
+.astro/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+preprocessing/.venv/
+
+# Data / local
+data/kv-store/
+
+# Local working files
+*.docx
+*.doc
+BUILD_LOG.md
+email-draft.*
+PLAN.html
+
+# Client reference materials (binary source docs, keep out of git)
+*.xlsx
+*.pdf
+*.pptx
+*.potx
+docs/listen.mjs
