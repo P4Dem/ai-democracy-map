@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "IDEA Democracy Assessment Framework — Aspect Map",
+  "description": "Codebook of democracy aspects used by the AI x Democracy Threat Map. Keyed by aspect code (e.g. '2.1'). Each entry describes one leaf-level aspect within a pillar of the IDEA framework.",
+  "type": "object",
+  "patternProperties": {
+    "^\\d+\\.\\d+$": {
+      "type": "object",
+      "required": ["code", "name", "definition", "description", "pillar", "pillarCode"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "pattern": "^\\d+\\.\\d+$",
+          "description": "Numeric code matching the object key, e.g. '2.1'"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3,
+          "description": "Short name of the aspect, e.g. 'Free and Fair Elections'"
+        },
+        "definition": {
+          "type": "string",
+          "minLength": 10,
+          "description": "One-line definition (1-2 sentences). Starts with 'Effects on...' by convention."
+        },
+        "pillar": {
+          "type": "string",
+          "description": "Full name of the parent pillar, e.g. 'Representative and Accountable Government'"
+        },
+        "pillarCode": {
+          "type": "string",
+          "pattern": "^\\d+$",
+          "description": "Numeric pillar code, e.g. '2'. Must match the integer part of the aspect code."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 30,
+          "description": "Full description (1-3 sentences). More detailed than the definition. Explains the scope and nuance of this aspect."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "minProperties": 1
+}

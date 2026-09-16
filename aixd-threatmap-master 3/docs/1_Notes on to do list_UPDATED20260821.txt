@@ -1,0 +1,44 @@
+Check-in on website P4Dem&Naijeria
+Deadline: 28.09.26
+Note: Any task that will take longer than estimated should be discussed to prioritize more urgent features.
+
+TO DO: 
+
+for democracy aspects RQs 1,2,4 need to have duplicates discounted from the counting (find duplicates based on verbatim)
+In general, keep instructions at the bottom of the map, adjusted based on the visualization
+Try to “de-Claude” the whole webpage
+Replace all labels with IDs, with their full title (see column “Accessible labels” in excel I shared)
+RQ1 democracy aspects:
+Replace question with: “Which aspects of democracy are most frequently mentioned as affected by AI threats?”
+add labels instead of the numbers
+get rid of mentions in the bubble
+organize the bubbles in group categories like pic shared but close to each other -- pillar names could go next to each group on the side
+when you hover over it, it highlights the bubble and singles it out
+Hovering over the bubble gives you the: (1) pillar title; (2) title of the subcode (3) n of mentions; (4) description (please check the new excel I sent you “2_UPDATED_SHORT LABELS_harms and pro-dem mechanisms” under column J)
+Delete the primary vs secondary code in the description
+name of the pillar on the side of each cluster 
+Hovering over the pillar name gives you (1) title of pillar; (2) short description of pillar (please check the new excel I sent you “2_UPDATED_SHORT LABELS_harms and pro-dem mechanisms” under column J); (3) total number of mentions of sub-codes in that pillar
+POTENTIAL tbd: ctrl and select multiple bubbles at once
+
+RQ2 harms mechanism
+Replace RQ with: “Which mechanisms are frequently mentioned as harming democracy and how are they connected?”
+for labels, up to Naijeria, need to assess different visuals
+keep the ordering of the codes according to the codebook, and perhaps make a difference between A and B or C sub-codes with a lighter colour 
+remove the drag option
+parameter for connections on number of co-occurrences should go down to 2
+ctrl pick should work on any of the existing connections, any time you click on a connection, you can add any other path connected to it
+if you click again on a path, you isolate it and detach it from the other paths
+Could you also add that when we click/ or hover on the mechanism, you can see the list of democracy aspects that most often co-occur with that harm (we were thinking of adding a parameter, not sure what would be best to avoid a very long list, but perhaps the co-occurrence could be of at least 2-3 or something).  Not sure where this should go as I know it is already cluttered, we’re open to suggestions, but could be a side bar or the hover box.
+RQ3
+Re-arrange the numbers on the lines from the initial view, as it is too messy. Alternatively, if they can’t help but overlap and look like this, we think it is okay to delete them and have them only when clicking on the connections. 
+Need to adjust the legenda at the bottom
+RQ4
+In the grey box at the bottom of the visual might be nice to have a description of the code as well (we do have short descriptions but I realized that they are not included in the excel document I sent you on Thursday, please check the new excel I sent you “2_UPDATED_SHORT LABELS_harms and pro-dem mechanisms” under column J.
+
+GENERAL WEBSITE OUTLOOK (not discussed but need to be implemented – see latest web code I shared in email)
+We added a small title on top of the carousel, it is supposed to look like other pages in our website and introduce the questions, highlighting that they speak about threats, mitigations and opportunities mapped from the literature.
+We added a box  for questions near the carousel. How could this work? Could questions be forwarded to our general email address?
+We redesigned the table (the original one below the carousel that has the filter options etc., with the actual data) by grouping threat descriptions with harms mechanisms, and mitigation strategies with pro-dem activities. Each of the two codebooks refers to one of these groups, so we wanted to highlight this with the order of the columns and the visual distinction between the groups. The dem aspects go at the beginning as they refer to both entries. The general outlook and structuring of the table should stay the same, please feel free to change fonts, colours etc according to the branding.
+
+Further ideas non-priority (based on how much time we have left):
+when you select a bubble, chain etc. , you could click on a button “select as filter” and then the table with the data below sets the filters accordingly

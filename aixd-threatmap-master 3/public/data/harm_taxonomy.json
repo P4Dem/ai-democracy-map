@@ -1,0 +1,576 @@
+{
+  "tiers": {
+    "tier0": {
+      "label": "Tier 0 – Conditions shaping AI development and use",
+      "codeIds": [
+        "T0a.1",
+        "T0a.3",
+        "T0a.4",
+        "T0b.1",
+        "T0b.2",
+        "T0b.3"
+      ],
+      "order": 0
+    },
+    "tier1": {
+      "label": "Tier 1 – AI capabilities and system properties",
+      "codeIds": [
+        "T1a.1",
+        "T1a.2",
+        "T1a.3",
+        "T1a.4",
+        "T1a.5",
+        "T1a.6",
+        "T1b.1",
+        "T1b.2",
+        "T1b.3",
+        "T1b.4",
+        "T1b.5",
+        "T1b.6",
+        "T1b.7"
+      ],
+      "order": 6
+    },
+    "tier2": {
+      "label": "Tier 2 – Model-inherent mechanisms",
+      "codeIds": [
+        "T2.1",
+        "T2.2",
+        "T2.3",
+        "T2.5",
+        "T2.6",
+        "T2.7"
+      ],
+      "order": 19
+    },
+    "tier3": {
+      "label": "Tier 3 – Mechanisms inherent in AI use decisions",
+      "codeIds": [
+        "T3.1",
+        "T3.2",
+        "T3.3",
+        "T3.4"
+      ],
+      "order": 25
+    },
+    "tier4": {
+      "label": "Tier 4 – Elementary operations",
+      "codeIds": [
+        "T4.1",
+        "T4.2",
+        "T4.3",
+        "T4.4"
+      ],
+      "order": 29
+    },
+    "tier5": {
+      "label": "Tier 5 – Purposive use of elementary operations",
+      "codeIds": [
+        "T5a.1",
+        "T5a.2",
+        "T5a.3",
+        "T5a.4",
+        "T5a.5",
+        "T5b.1",
+        "T5b.2",
+        "T5c.1",
+        "T5c.2",
+        "T5d.1",
+        "T5d.2"
+      ],
+      "order": 33
+    },
+    "tier6": {
+      "label": "Tier 6 – Downstream individual cognitive & behavioural mechanisms",
+      "codeIds": [
+        "T6.1",
+        "T6.2",
+        "T6.3",
+        "T6.4"
+      ],
+      "order": 44
+    },
+    "tier7": {
+      "label": "Tier 7 – Downstream society-level dynamics",
+      "codeIds": [
+        "T7a.1",
+        "T7a.2",
+        "T7a.3",
+        "T7a.4",
+        "T7a.5",
+        "T7b.1",
+        "T7b.2",
+        "T7b.3",
+        "T7c.1",
+        "T7c.2"
+      ],
+      "order": 48
+    }
+  },
+  "codes": {
+    "T0a.1": {
+      "label": "Release timing",
+      "description": "Developer choices and behaviour regarding release pacing.",
+      "cluster": "Context",
+      "subCluster": "Prioritising speed to market",
+      "tier": "tier0",
+      "order": 0
+    },
+    "T0a.3": {
+      "label": "Secrecy around AI models",
+      "description": "Developer choices about what to disclose and how to release AI systems – open vs. closed weights, API tiers, staged disclosure, trade-secrecy practices. Both directions count.",
+      "cluster": "Context",
+      "subCluster": "Disclosure & release choices",
+      "tier": "tier0",
+      "order": 1
+    },
+    "T0a.4": {
+      "label": "AI arms race",
+      "description": "Behaviour of legitimate developers responding to commoditised offensive AI capabilities and adversarial circumvention of their safeguards.",
+      "cluster": "Context",
+      "subCluster": "Defensive arms-race",
+      "tier": "tier0",
+      "order": 2
+    },
+    "T0b.1": {
+      "label": "Rules for building AI",
+      "description": "Statutory and regulatory provisions targeting AI development – what may be built, what data, what disclosures, what thresholds. Captures rules and gaps.",
+      "cluster": "Context",
+      "subCluster": "Legislation shaping development",
+      "tier": "tier0",
+      "order": 3
+    },
+    "T0b.2": {
+      "label": "Rules for releasing AI",
+      "description": "Statutory and regulatory provisions at the development-to-world threshold – pre-market approval, deployment-scope restrictions, monitoring. Captures rules and gaps.",
+      "cluster": "Context",
+      "subCluster": "Legislation shaping deployment & release",
+      "tier": "tier0",
+      "order": 4
+    },
+    "T0b.3": {
+      "label": "Rules for using AI",
+      "description": "Statutory and regulatory provisions for post-use harms – liability, enforcement, jurisdictional reach, redress. Captures rules and gaps.",
+      "cluster": "Context",
+      "subCluster": "Legislation shaping consequences of use",
+      "tier": "tier0",
+      "order": 5
+    },
+    "T1a.1": {
+      "label": "Pattern recognition",
+      "description": "Architectural capacity to recognise, classify, and infer about content, persons, or systems – face recognition, profiling, classification.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Pattern recognition & classification",
+      "tier": "tier1",
+      "order": 6
+    },
+    "T1a.2": {
+      "label": "Passing as human",
+      "description": "Architectural capacity to imitate humans – output that passes as human, or replication of human reactions and behaviour.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Imitating human behaviour & speech",
+      "tier": "tier1",
+      "order": 7
+    },
+    "T1a.3": {
+      "label": "Personalised targeting",
+      "description": "Architectural capacity to adapt outputs to individual users – inferred preferences, user modelling, conversational context. Independent of long-term memory.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Personalisation",
+      "tier": "tier1",
+      "order": 8
+    },
+    "T1a.4": {
+      "label": "Using tools & apps",
+      "description": "Architectural capacity to invoke external tools – code execution, web, APIs, databases. Independently variable from autonomy.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Tool use",
+      "tier": "tier1",
+      "order": 9
+    },
+    "T1a.5": {
+      "label": "Autonomy",
+      "description": "Architectural capacity to act over multi-step tasks without per-step human confirmation. Independently variable from tool use.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Autonomy",
+      "tier": "tier1",
+      "order": 10
+    },
+    "T1a.6": {
+      "label": "Remembering users over time",
+      "description": "Architectural capacity to retain and use cross-session information about users – profiles, history, accumulated preferences. Independent of personalisation.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Long-term memory",
+      "tier": "tier1",
+      "order": 11
+    },
+    "T1b.1": {
+      "label": "Training data",
+      "description": "Conditions of the corpus a model is trained on – what it contains, what it covers, and where the material comes from, including users' own interactions.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Training data composition",
+      "tier": "tier1",
+      "order": 12
+    },
+    "T1b.2": {
+      "label": "Combining text, image & sound",
+      "description": "Architectural capacity to work across modalities – combining or converting between text, image, audio, and video.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Multi-modality",
+      "tier": "tier1",
+      "order": 13
+    },
+    "T1b.3": {
+      "label": "Optimisation objectives",
+      "description": "Mechanisms by which AI models' training objectives shape model behaviour and narrow the effective output distribution.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Optimisation-objective design",
+      "tier": "tier1",
+      "order": 14
+    },
+    "T1b.4": {
+      "label": "Cheap to run at scale",
+      "description": "AI's capacity to perform many instances of a task in parallel at near-zero per-instance cost, without proportional human labour, attention, or skill.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Operational scalability / low marginal cost",
+      "tier": "tier1",
+      "order": 15
+    },
+    "T1b.5": {
+      "label": "Black-box systems",
+      "description": "Models cannot faithfully explain their own reasoning; internal processes are not directly inspectable, even with full model access.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Architectural inexplicability",
+      "tier": "tier1",
+      "order": 16
+    },
+    "T1b.6": {
+      "label": "Undiscovered capabilities",
+      "description": "Gap between what a deployed model can actually do and what is known, disclosed, or evaluated about its capabilities.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Capability overhang",
+      "tier": "tier1",
+      "order": 17
+    },
+    "T1b.7": {
+      "label": "Privacy of interaction with AI",
+      "description": "The degree to which an exchange with an AI system is observable by anyone other than its participants, from wholly private to fully published.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Observability of interaction",
+      "tier": "tier1",
+      "order": 18
+    },
+    "T2.1": {
+      "label": "Content homogenisation",
+      "description": "AI outputs converge on a narrow set of framings, driven by shared model priors and overlapping training data.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Output homogenisation",
+      "tier": "tier2",
+      "order": 19
+    },
+    "T2.2": {
+      "label": "Bias amplification",
+      "description": "AI outputs systematically distort whose voice gets heard – through moderation, under-representation, poor performance on emerging topics, reproduction of historical bias.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Bias amplification in outputs",
+      "tier": "tier2",
+      "order": 20
+    },
+    "T2.3": {
+      "label": "Hallucinations & errors",
+      "description": "AI outputs are unreliable – confidently false (hallucinations), inconsistent, outdated, or failing on their own terms.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Output reliability failures",
+      "tier": "tier2",
+      "order": 21
+    },
+    "T2.5": {
+      "label": "Persuasive AI",
+      "description": "AI outputs persuade recipients or shift views (by rhetorical calibration, authority or fluency cues, emotional tuning, recipient knowledge, or model slant; design intent immaterial, etc.).",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Persuasive force of AI outputs",
+      "tier": "tier2",
+      "order": 22
+    },
+    "T2.6": {
+      "label": "Illusion of neutrality",
+      "description": "AI outputs carry the appearance of neutrality, objectivity, or impartiality by virtue of their machine-produced form.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Perceived neutrality of AI outputs",
+      "tier": "tier2",
+      "order": 23
+    },
+    "T2.7": {
+      "label": "AI sycophancy",
+      "description": "AI outputs conform to the user's stated views, framing, or premises rather than to evidence, accuracy, or task quality.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Validation-biased outputs",
+      "tier": "tier2",
+      "order": 24
+    },
+    "T3.1": {
+      "label": "Vendor lock-in",
+      "description": "Structural dependency of an AI adopter on AI capabilities it does not control – lock-in to a third party's compute, cloud, model, or API.",
+      "cluster": "AI model use",
+      "subCluster": "Infrastructural lock-in / choke-point dependency",
+      "tier": "tier3",
+      "order": 25
+    },
+    "T3.2": {
+      "label": "Overreliance & underuse",
+      "description": "Deployer mis-allocation of AI vs. non-AI options – over-applying where it doesn't fit or under-applying where it would strengthen capacity.",
+      "cluster": "AI model use",
+      "subCluster": "Under/overuse calibration failure",
+      "tier": "tier3",
+      "order": 26
+    },
+    "T3.3": {
+      "label": "No human in the loop",
+      "description": "AI deployments with no human positioned to detect errors, object, or intervene before harm – no redundancy, no escalation channel.",
+      "cluster": "AI model use",
+      "subCluster": "Lack of human backstop",
+      "tier": "tier3",
+      "order": 27
+    },
+    "T3.4": {
+      "label": "Outsourcing value judgements",
+      "description": "Adopting a model means inheriting the norms built into it; adopters no longer deliberate, and cannot alter, the baselines governing whatever the model does.",
+      "cluster": "Properties and capabilities",
+      "subCluster": "Normative authority transfer",
+      "tier": "tier3",
+      "order": 28
+    },
+    "T4.1": {
+      "label": "Synthetic content generation",
+      "description": "Use of AI generative capability to produce content – text, image, audio, video, synthetic identities, code. The output is an artefact in the world.",
+      "cluster": "AI model use",
+      "subCluster": "Generating artefacts",
+      "tier": "tier4",
+      "order": 29
+    },
+    "T4.2": {
+      "label": "Target profiling",
+      "description": "Use of AI capabilities to derive new information about a target that already exists, at any scale.",
+      "cluster": "AI model use",
+      "subCluster": "Deriving information about targets",
+      "tier": "tier4",
+      "order": 30
+    },
+    "T4.3": {
+      "label": "Offensive cyber operations",
+      "description": "Use of AI tool-use and autonomy to execute actions against technical systems.",
+      "cluster": "AI model use",
+      "subCluster": "Acting on technical systems",
+      "tier": "tier4",
+      "order": 31
+    },
+    "T4.4": {
+      "label": "Targeted delivery",
+      "description": "Use of AI pattern recognition and memory capabilities to aim an action at a specific target.",
+      "cluster": "AI model use",
+      "subCluster": "Directing at targets",
+      "tier": "tier4",
+      "order": 32
+    },
+    "T5a.1": {
+      "label": "Disinformation & deepfakes about political content",
+      "description": "AI-generated texts, deepfakes, voice clones, and synthetic media spreading political disinformation or misleading political advertisements.",
+      "cluster": "AI model use",
+      "subCluster": "Disinformation & deepfakes about political content",
+      "tier": "tier5",
+      "order": 33
+    },
+    "T5a.2": {
+      "label": "Disinformation about political processes",
+      "description": "AI-generated false accounts of the procedures through which people take part in political and civic life, electoral and otherwise.",
+      "cluster": "AI model use",
+      "subCluster": "Disinformation about political processes",
+      "tier": "tier5",
+      "order": 34
+    },
+    "T5a.3": {
+      "label": "Impersonation scams",
+      "description": "AI-generated synthetic media used to make a false identity credible – deepfake voice/video, KYC bypass, impersonation of officials or trusted individuals.",
+      "cluster": "AI model use",
+      "subCluster": "Identity fraud & impersonation",
+      "tier": "tier5",
+      "order": 35
+    },
+    "T5a.4": {
+      "label": "Social engineering at scale",
+      "description": "AI making social engineering attacks more convincing, more personalised, and runnable at scale – phishing, voice/video impersonation, pretexting, credential extraction.",
+      "cluster": "AI model use",
+      "subCluster": "Social engineering at scale",
+      "tier": "tier5",
+      "order": 36
+    },
+    "T5a.5": {
+      "label": "Opinion manipulation",
+      "description": "Purposive use of AI to shift a target's opinions or behaviour through personalised persuasion, framing, or nudging.",
+      "cluster": "AI model use",
+      "subCluster": "Manipulating/changing perceptions, opinions & behaviour",
+      "tier": "tier5",
+      "order": 37
+    },
+    "T5b.1": {
+      "label": "Deepfake harassment & blackmail",
+      "description": "Producing, threatening to produce, or distributing fabricated compromising artefacts about an individual as a coercive instrument.",
+      "cluster": "AI model use",
+      "subCluster": "Deepfake-based coercion & harassment",
+      "tier": "tier5",
+      "order": 38
+    },
+    "T5b.2": {
+      "label": "Digital repression & censorship",
+      "description": "Suppressing specific individuals', groups', or viewpoints' political activity or expression by coercion or censorship.",
+      "cluster": "AI model use",
+      "subCluster": "Repression & censorship",
+      "tier": "tier5",
+      "order": 39
+    },
+    "T5c.1": {
+      "label": "Augmenting legitimate processes",
+      "description": "AI assists, advises, models, or informs within a legitimate process while a human retains the decision, with problematic democratic side-effects.",
+      "cluster": "AI model use",
+      "subCluster": "AI augmenting a legitimate process",
+      "tier": "tier5",
+      "order": 40
+    },
+    "T5c.2": {
+      "label": "Automating legitimate processes",
+      "description": "AI executes a legitimate process function, or replaces human judgment, civic agency, role, or labour, with problematic democratic implications.",
+      "cluster": "AI model use",
+      "subCluster": "AI automating or substituting a legitimate process function",
+      "tier": "tier5",
+      "order": 41
+    },
+    "T5d.1": {
+      "label": "Attacks on critical infrastructure",
+      "description": "An actor directs AI against a technical system to compromise it, control it, or stop it functioning.",
+      "cluster": "AI model use",
+      "subCluster": "Attacking technical infrastructures",
+      "tier": "tier5",
+      "order": 42
+    },
+    "T5d.2": {
+      "label": "Jailbreaking",
+      "description": "An actor overcomes a deployed AI system's own safeguards – jailbreak, prompt injection, safeguard-stripping – so capability it was built to withhold becomes available.",
+      "cluster": "AI model use",
+      "subCluster": "Defeating AI safeguards",
+      "tier": "tier5",
+      "order": 43
+    },
+    "T6.1": {
+      "label": "Belief & preference reinforcement",
+      "description": "AI combines personalisation, memory, and satisfaction optimisation to create reinforcement loops that make users' beliefs progressively harder to revise.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Belief & preference reinforcement",
+      "tier": "tier6",
+      "order": 44
+    },
+    "T6.2": {
+      "label": "Cognitive deskilling",
+      "description": "AI use erodes human cognitive and decisional capacity.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Cognitive deskilling",
+      "tier": "tier6",
+      "order": 45
+    },
+    "T6.3": {
+      "label": "Parasocial attachment to AI",
+      "description": "Users form attachment-based reliance on AI through sustained interaction – turning to it for emotional regulation, companionship, validation, or parasocial connection – locking that reliance in.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Increasing emotional/parasocial dependence on AI systems",
+      "tier": "tier6",
+      "order": 46
+    },
+    "T6.4": {
+      "label": "Trust erosion",
+      "description": "The normalisation of AI-supported disinformation dynamics shifts individuals' default stance to distrust of deliberation and political processes, inducing withdrawal.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Trust erosion",
+      "tier": "tier6",
+      "order": 47
+    },
+    "T7a.1": {
+      "label": "Content outpacing verification",
+      "description": "A growing societal imbalance where AI-assisted production of content, attacks, and interventions outpaces democracy's capacity to verify, rebut, moderate, or defend.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Outpacing of verification by content-production",
+      "tier": "tier7",
+      "order": 48
+    },
+    "T7a.2": {
+      "label": "Flooding the zone",
+      "description": "AI-generated content volume overwhelms the receiving channel's processing capacity – discourse, formal participation, administrative intake.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Channel flooding & epistemic overload",
+      "tier": "tier7",
+      "order": 49
+    },
+    "T7a.3": {
+      "label": "Chilling effects",
+      "description": "Society-level withdrawal from public life and participation, however induced by AI – credible threat, surveillance, or participation-suppressing deception. Credible possibility is sufficient.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Chilling effects on participation",
+      "tier": "tier7",
+      "order": 50
+    },
+    "T7a.4": {
+      "label": "Epistemic monoculture",
+      "description": "Shared model dependencies standardise framings and which claims are treated as legitimate across institutions, discourse, and analysis.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Emerging epistemic monocultures",
+      "tier": "tier7",
+      "order": 51
+    },
+    "T7a.5": {
+      "label": "Shifting baselines",
+      "description": "Society-level shifts, due to increased AI use, in what counts as normal, acceptable, authentic, or trustworthy.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Shifting normative baselines",
+      "tier": "tier7",
+      "order": 52
+    },
+    "T7b.1": {
+      "label": "Power concentration around AI",
+      "description": "Aggregate concentration of economic, technical, and political power in actors that control AI development, deployment, and operationalisation.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Concentration of power in AI-controlling actors",
+      "tier": "tier7",
+      "order": 53
+    },
+    "T7b.2": {
+      "label": "Loss of the citizenry's leverage",
+      "description": "Aggregate weakening of the citizenry's leverage points – labour, cognition, economic feedback, political voice, and the state's requirement of broad cooperation.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Erosion of the citizenry's leverage",
+      "tier": "tier7",
+      "order": 54
+    },
+    "T7b.3": {
+      "label": "Hollowing out institutions",
+      "description": "AI takes over the technical core of institutional functions, stripping away the scaffolding (norms, accountability, credentialling, memory) society built around them.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Functional substitution of institutions",
+      "tier": "tier7",
+      "order": 55
+    },
+    "T7c.1": {
+      "label": "Criminal AI market formation",
+      "description": "Aggregate emergence of a criminal market in AI-enabled offensive capabilities – dark models, AI-as-a-service, commoditised attack tooling.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Criminal AI market formation",
+      "tier": "tier7",
+      "order": 56
+    },
+    "T7c.2": {
+      "label": "Deepening civic inequality",
+      "description": "Aggregate increase of within-citizenry imbalance in informational access, economic standing, and political voice, as AI's benefits and burdens distribute unevenly across socio-economic groups.",
+      "cluster": "Downstream social dynamics",
+      "subCluster": "Deepening civic inequality",
+      "tier": "tier7",
+      "order": 57
+    }
+  }
+}
