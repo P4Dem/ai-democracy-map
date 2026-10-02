@@ -5,7 +5,7 @@ Filterable, searchable database of AI threats and opportunities to democracy, ma
 **Staging:** [nashthecoder.github.io/ai-democracy-map-dev](https://nashthecoder.github.io/ai-democracy-map-dev/)  
 **Production:** [p4dem.github.io/ai-democracy-map](https://p4dem.github.io/ai-democracy-map/)
 
-> **All source code lives in [`aixd-threatmap-master 2/`](./aixd-threatmap-master%202/).**  
+> **All source code lives in [`aixd-threatmap-master 2/`](./aixd-threatmap-master%203/).**  
 > Run all commands from inside that directory.
 
 ## Quick start
