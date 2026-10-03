@@ -33,7 +33,7 @@ For the frontend only (no data preprocessing):
 
 ```sh
 # 1. Enter the source directory
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 
 # 2. Install JS dependencies
 bun install
@@ -65,7 +65,7 @@ Alternatively, symlink the repo into a path without a dollar sign:
 
 ```sh
 ln -s "/full/path/to/Billion$Connections/ai-democracy-map" ~/Desktop/ai-democracy-map
-cd ~/Desktop/ai-democracy-map/"aixd-threatmap-master 2"
+cd ~/Desktop/ai-democracy-map/"aixd-threatmap-master 3"
 # Now Python venv works normally
 ```
 
@@ -74,7 +74,7 @@ cd ~/Desktop/ai-democracy-map/"aixd-threatmap-master 2"
 ```sh
 # 1. Node + Bun (from above)
 nvm use 22
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 bun install
 
 # 2. Python venv (with dollar-sign workaround)

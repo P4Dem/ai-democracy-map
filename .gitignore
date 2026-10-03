@@ -2,6 +2,9 @@
 /project_context.md
 /project_context.html
 
+# Client mock/branding docs (not for main repo)
+/docs/
+
 # Dependencies
 node_modules/
 

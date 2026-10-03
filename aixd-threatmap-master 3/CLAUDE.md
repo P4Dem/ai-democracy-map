@@ -119,11 +119,10 @@ Data is fetched at runtime by the React app via the `useDataLoader` hook. No ser
 
 | File | Role |
 |---|---|
-| `ThreatMap.tsx` | Root island — loads data, owns filter state, URL sync, sticky filterbar, "Explore findings…" carousel title, MapCarousel (no footer slot used), connecting paragraph, table context copy, floating feedback widget host |
+| `ThreatMap.tsx` | Root island — loads data, owns filter state, URL sync, sticky filterbar, "Explore findings…" carousel title, MapCarousel (no footer slot used), connecting paragraph, table context copy |
 | `DataTable.tsx` | 7-column TanStack table (type/aspects/description/harm/solution/benefit/source), group tints, infinite scroll, row grouping, skeleton; exports `COL_WIDTHS` |
 | `FilterBar.tsx` | Search, type/aspects/source/harm/benefit filter buttons, 7-col label rail with group tints, filter pills, CSV export, sticky state |
 | `MapCarousel.tsx` | Scroll-snap carousel of the 4 VizPanelCard panels, arrows + active-width dots, no auto-rotate; optional `footer` slot |
-| `FloatingFeedback.tsx` | Vertically-centered right-edge bubble (brick, MessageCircleMore); fades in on scroll, hides after 3s idle, hover tooltip "Do you have feedback? Please let us know!"; opens feedback popover; submit = GitHub PAT → `data/questions.csv` commit, else local queue + optional mailto (`QUESTION_EMAIL`) |
 | `CodeChips.tsx` | Mock-style code chips: translucent brand-tint fill, `§code — name` tooltip, max + `+N` overflow |
 | `IntroSection.tsx` | Title, heading, stat tiles (flat beige tones), two intro purpose/methodology paragraphs |
 | `SkeletonIntroSection.tsx` | Skeleton for IntroSection during load |
@@ -192,7 +191,7 @@ All filters (`search`, `type`, `aspects`, `source`, `mapped`) synced to `?` para
 - Alternating row stripe, staggered entrance animation
 - Sticky filterbar with shadow/corner transition (7-col label rail + group tints)
 - Intro: count-up stat tiles in flat beige tones (no pillar grid)
-- MapCarousel: 4 panels, scroll-snap, arrows + dots, no auto-rotate; FloatingFeedback bubble bottom-right (back-to-top stacks above it)
+- MapCarousel: 4 panels, scroll-snap, arrows + dots, no auto-rotate
 - Sticky table header with info popovers and codebook link
 - Tooltip contrast: code badge uses `bg-background/20 text-background` on dark tooltip bg
 - GitHub issue templates: bug report, feature request, data correction (`.github/ISSUE_TEMPLATE/`)

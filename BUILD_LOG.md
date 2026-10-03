@@ -229,26 +229,26 @@ Remaining work before publishing (labeled by priority):
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 nvm use 22
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 bun run dev
 ```
 
 ### Run all tests
 ```sh
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 bun test                    # TS tests
 source preprocessing/.venv/bin/activate && pytest preprocessing/tests/  # Python tests
 ```
 
 ### Update data from CSV
 ```sh
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 source preprocessing/.venv/bin/activate
 bun run preprocess
 ```
 
 ### Production build
 ```sh
-cd "aixd-threatmap-master 2"
+cd "aixd-threatmap-master 3"
 bun run build && bun run preview  # build + serve dist/
 ```

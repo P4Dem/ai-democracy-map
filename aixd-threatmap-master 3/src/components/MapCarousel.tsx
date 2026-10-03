@@ -104,7 +104,7 @@ export const MapCarousel = ({
           <div
             ref={scrollerRef}
             onScroll={onScroll}
-            className="p4d-hide-scrollbar flex overflow-x-auto"
+            className="p4d-hide-scrollbar flex overflow-x-auto overflow-y-hidden"
             style={{
               scrollSnapType: "x mandatory",
               WebkitOverflowScrolling: "touch",
