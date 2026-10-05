@@ -4,7 +4,6 @@ import { AspectBubbleMap } from "@/components/AspectBubbleMap";
 import { BipartiteMorphMap } from "@/components/BipartiteMorphMap";
 import { HarmMechanismMap } from "@/components/HarmMechanismMap";
 import { MapCarousel } from "@/components/MapCarousel";
-import { FloatingFeedback } from "@/components/FloatingFeedback";
 import { PathwayBandsMap } from "@/components/PathwayBandsMap";
 import { AspectDialog } from "@/components/AspectDialog";
 import { DataTable } from "@/components/DataTable";
@@ -387,8 +386,6 @@ export const ThreatMap = () => {
           </motion.div>
         )}
       </AnimatePresence>
-
-      <FloatingFeedback />
     </TooltipProvider>
   );
 };
